@@ -262,19 +262,21 @@ function addMultipliers() {
 }
 
 function setCustomEffects() {
-    var bargaining = gameData.taskData["Bargaining"]
+    var bargaining = gameData.taskData["Bargaining"];
     bargaining.getEffect = function() {
         var multiplier = 1 - getBaseLog(7, bargaining.level + 1) / 10
         if (multiplier < 0.1) {multiplier = 0.1}
         return multiplier
-    }
+    };
 
-    var intimidation = gameData.taskData["Intimidation"]
+    var intimidation = gameData.taskData["Intimidation"];
     intimidation.getEffect = function() {
         var multiplier = 1 - getBaseLog(7, intimidation.level + 1) / 10
-        if (multiplier < 0.1) {multiplier = 0.1}
-        return multiplier
-    }
+        if (multiplier < 0.1) {
+            multiplier = 0.1;
+        }
+        return multiplier;
+    };
 
     var timeWarping = gameData.taskData["Time warping"]
     timeWarping.getEffect = function() {
@@ -1007,7 +1009,7 @@ function updateUI() {
     updateQuickTaskDisplay("job")
     updateQuickTaskDisplay("skill")
     hideEntities()
-    updateText()  
+    updateText()
 }
 
 function update() {
