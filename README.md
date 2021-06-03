@@ -2,7 +2,44 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary
-6/2/2021
+6/3/2021  
+I want to flesh out the beggar job by adding interesting items and story content. Being a beggar is tough work,
+and the more the player feels the hardship of begging the more they will appreciate the achievement of moving up in society.
+My first step is to add an item. This is simple enough to not be daunting on Day Two of this project, but complex enough to touch most
+major game systems and get me acquainted with the layout and architecture of the game logic. Story-wise, I'm playing around with the idea of 
+item series. To progress as a beggar, one may strive for better clothing, better food, better physical appearance, etc. Perhaps the first few items could be
+basic neccessities, like rag clothing, a source of drinking water, or other crucial things most idle players take for granted!   
+
+Item One: Tattered Clothes
+Where do items present themselves throughout the codebase?  
+Around line 214 we see:
+    <div class="tab" id="shop">
+        <table id="itemTable" class="w3-table w3-bordered">
+        </table>
+    </div>
+so using the HTML templates that live just above the itemTable, it looks like the table is built within main.js and injected 
+into this containing div with id="shop". Kinda reminds me of React, but ihtasham did it himself. Sidenote, porting this to React would probably
+be a good future task. Lots of render calls would be reduced as well. Anyways, back to items...  
+I see where items will end up on the HTML side of things, so now it's time to dive into classes.js and take a look at the class hierarchy.  
+Item is a single-level class. Item objects have three basic methods: getEffect, getEffectDescription, and getExpense. getEffect  
+refers to the item's numerical power level (1, 1.5, 2.221, etc). getEffectDescription builds a string to display the effect data for the UI.  
+Lastly, getExpense calculates the item cost based off of global expense modifiers, as changed by Bargaining and Evil skills. Simple enough.  
+Now let's take a look at how items are used in main.js  
+
+Item base stats are contained in the constant object itemBaseData defined near the top of main.js  
+Items are defined as a key:value pair string:{object} where object holds item properties name, expense, and effect.  
+A little further down we have another constant object itemCategories. This splits all items into two categories, living spaces and actual items (defined as "Properties" and "Misc" respectively. Using "Properties" as a name confused me for a second, and "misc" seems like a subcategory of item rather than a good descriptor of all items. Will need to think of clearer names down the road.). I'm assuming this is used for the different treatment of items further down the file. Wonder why ihtasham didn't split the concepts into their own classes and extend a base class with much of the core functionality. Might be something to look into if I'm hunting for things to refactor. Anyways, back to items...  
+
+Item tooltips are also stored in a const object named tooltips.  
+addMultipliers is used to apply all item and job multipliers.
+function createRow() displays all of Jobs, Skills, and Items by building their row content. This will be important.  
+function updateItemRows()  
+function createItemData() seems to assume if an item contains a "happiness" property, it must be a "Property" like house. This means any item I want to add that'll affect  
+happiness will likely require a rewrite of this function.   
+
+
+
+6/2/2021  
 Cloned repo, configured Git, got a copy of the game running on my local machine. Woo!
 One hour later...
 Doh! For some reason, the sidebar's progress bars are not displaying.

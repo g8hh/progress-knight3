@@ -10,7 +10,9 @@
 <body id="body" class="dark">
     <div class="w3-margin"> 
         <h1>Progress Knight</h1>
-        <div style="width: 1220px; height: 600px"> 
+        <div style="width: 1220px; height: 600px">
+
+            <!--******* Left-hand summary panel *******-->
             <div class="panel w3-padding" style="width: 300px; height: auto; float: left">
                 <span id="deathText">
                     <div style="font-size: large; color: red">Age has caught up to you</div>
@@ -102,15 +104,16 @@
                     <div style="color: gray">Affects game speed</div>
                     <button id="timeWarpingButton" class="w3-button button sidebar-element" style="margin-top: 5px; width:150px" onClick="setTimeWarping()">Enable warp</button>
                 </span>
-            </div>
-
+            </div> <!-- End left-hand summary panel -->
+            
+            <!--******* Nav-bar with tabbed content navigation buttons *******-->
             <div class="panel w3-margin-left" style="width: 900px; height: 40px; float: left">
                 <div class="w3-button w3-bar-item tabButton" id="jobTabButton" onClick="setTab(this, 'jobs')">Jobs</div>
                 <div class="w3-button w3-bar-item tabButton" onClick="setTab(this, 'skills')">Skills</div>
                 <div class="w3-button w3-bar-item tabButton" id="shopTabButton" onClick="setTab(this, 'shop')">Shop</div>
                 <div class="w3-button w3-bar-item tabButton" id="rebirthTabButton" onClick="setTab(this, 'rebirth')">Amulet</div>
                 <div class="w3-button w3-bar-item tabButton" onClick="setTab(this, 'settings')" style="float: right">Settings</div>
-            </div>
+            </div> <!-- End nav-bar -->
 
             <div class="panel w3-margin-left w3-margin-top w3-padding" style="width: 900px; height: auto; float: left">
                 <template class="headerRowTaskTemplate">
