@@ -2,6 +2,22 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary
+6/4/2021  
+Adding an item today.  
+Step one: add the item data to const itemBaseData.   
+Step two: Add Rag Clothing to the Misc itemCategories object.  
+Step three: Add placeholder tooltip text.  
+Step four: add item requirement.  
+Testing time! 
+Holy shit, it worked on the first try. I feel somewhat...competent. (That's gonna bite me in the ass later.)  
+Knew it. Item displays properly, but doesn't update the xp / day.
+Fix: needed to add a line of code to the addMultipliers() function. Seems obvious in retrospect haha. Luckily it took four minutes to fix. Yay!
+Also rearranged the display order of items for Rag Clothing to pop up before Book.  
+
+First item added. First mod complete. Feels good mayne. 
+PS. Also added a dev mode to the code with a single-variable trigger to influence a few skill modifiers and the game speed. 
+Should help test long runs. 
+
 6/3/2021  
 I want to flesh out the beggar job by adding interesting items and story content. Being a beggar is tough work,
 and the more the player feels the hardship of begging the more they will appreciate the achievement of moving up in society.

@@ -28,7 +28,17 @@ const updateSpeed = 20
 
 const baseLifespan = 365 * 70
 
-const baseGameSpeed = 4
+//Turn on devmode: 1
+//Turn off devmode: 0
+var devModeFastProgress = 0;
+// ******* DEV MODE SPEED INCREASES ******* //
+//original: 4
+var baseGameSpeed = 4;
+var baseEffect = 0.01;
+if(devModeFastProgress == 1) {
+    baseGameSpeed = 32;
+    baseEffect = 100;
+}
 
 const permanentUnlocks = ["Scheduling", "Shop", "Automation", "Quick task display"]
 
@@ -58,16 +68,17 @@ const jobBaseData = {
 }
 
 const skillBaseData = {
-    "Concentration": {name: "Concentration", maxXp: 100, effect: 0.01, description: "Skill xp"},
+    //original effect: 0.01
+    "Concentration": {name: "Concentration", maxXp: 100, effect: baseEffect, description: "Skill xp"},
     "Productivity": {name: "Productivity", maxXp: 100, effect: 0.01, description: "Job xp"},
     "Bargaining": {name: "Bargaining", maxXp: 100, effect: -0.01, description: "Expenses"},
-    "Meditation": {name: "Meditation", maxXp: 100, effect: 0.01, description: "Happiness"},
+    "Meditation": {name: "Meditation", maxXp: 100, effect: baseEffect, description: "Happiness"},
 
     "Strength": {name: "Strength", maxXp: 100, effect: 0.01, description: "Military pay"},
     "Battle tactics": {name: "Battle tactics", maxXp: 100, effect: 0.01, description: "Military xp"},
     "Muscle memory": {name: "Muscle memory", maxXp: 100, effect: 0.01, description: "Strength xp"},
-
-    "Mana control": {name: "Mana control", maxXp: 100, effect: 0.01, description: "T.A.A. xp"},
+    //original effect: 0.01
+    "Mana control": {name: "Mana control", maxXp: 100, effect: baseEffect, description: "T.A.A. xp"},
     "Immortality": {name: "Immortality", maxXp: 100, effect: 0.01, description: "Longer lifespan"},
     "Time warping": {name: "Time warping", maxXp: 100, effect: 0.01, description: "Gamespeed"},
     "Super immortality": {name: "Super immortality", maxXp: 100, effect: 0.01, description: "Longer lifespan"},
@@ -91,6 +102,8 @@ const itemBaseData = {
     "Small palace": {name: "Small palace", expense: 300000, effect: 25},
     "Grand palace": {name: "Grand palace", expense: 5000000, effect: 60},
 
+    //Cameron's first addition: rag clothing
+    "Rag Clothing": {name: "Rag Clothing", expense: 3, effect: 1.5, description: "Skill xp"},
     "Book": {name: "Book", expense: 10, effect: 1.5, description: "Skill xp"},
     "Dumbbells": {name: "Dumbbells", expense: 50, effect: 1.5, description: "Strength xp"},
     "Personal squire": {name: "Personal squire", expense: 200, effect: 2, description: "Job xp"},
@@ -116,7 +129,7 @@ const skillCategories = {
 
 const itemCategories = {
     "Properties": ["Homeless", "Tent", "Wooden hut", "Cottage", "House", "Large house", "Small palace", "Grand palace"],
-    "Misc": ["Book", "Dumbbells", "Personal squire", "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library"]
+    "Misc": ["Rag Clothing", "Book", "Dumbbells", "Personal squire", "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library"]
 }
 
 const headerRowColors = {
@@ -185,6 +198,7 @@ const tooltips = {
     "Small palace": "A very rich and meticulously built structure rimmed with fine metals such as silver. Extremely high expenses to maintain for a lavish lifestyle.",
     "Grand palace": "A grand residence completely composed of gold and silver. Provides the utmost luxurious and comfortable living conditions possible for a ludicrous price.",
 
+    "Rag Clothing": "After weeks of freezing on the streets, you're making enough money to buy some cheap clothes. They're not much, but they'll keep you warm enough to focus.",
     "Book": "A place to write down all your thoughts and discoveries, allowing you to learn a lot more quickly.",
     "Dumbbells": "Heavy tools used in strenuous exercise to toughen up and accumulate strength even faster than before. ",
     "Personal squire": "Assists you in completing day to day activities, giving you more time to be productive at work.",
@@ -232,6 +246,8 @@ function addMultipliers() {
             task.xpMultipliers.push(getBindedItemEffect("Personal squire"))    
         } else if (task instanceof Skill) {
             task.xpMultipliers.push(getBindedTaskEffect("Concentration"))
+            //Cameron's rag clothing addition
+            task.xpMultipliers.push(getBindedItemEffect("Rag Clothing"))
             task.xpMultipliers.push(getBindedItemEffect("Book"))
             task.xpMultipliers.push(getBindedItemEffect("Study desk"))
             task.xpMultipliers.push(getBindedItemEffect("Library"))
@@ -1132,6 +1148,8 @@ gameData.requirements = {
 
     //Misc
     "Book": new CoinRequirement([getItemElement("Book")], [{requirement: 0}]),
+    //Cameron's addition: rag clothing
+    "Rag Clothing": new CoinRequirement([getItemElement("Rag Clothing")], [{requirement: 10}]),
     "Dumbbells": new CoinRequirement([getItemElement("Dumbbells")], [{requirement: gameData.itemData["Dumbbells"].getExpense() * 100}]),
     "Personal squire": new CoinRequirement([getItemElement("Personal squire")], [{requirement: gameData.itemData["Personal squire"].getExpense() * 100}]),
     "Steel longsword": new CoinRequirement([getItemElement("Steel longsword")], [{requirement: gameData.itemData["Steel longsword"].getExpense() * 100}]),
