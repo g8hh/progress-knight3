@@ -33,7 +33,7 @@ const baseLifespan = 365 * 70
 var devModeFastProgress = 0;
 // ******* DEV MODE SPEED INCREASES ******* //
 //original: 4
-var baseGameSpeed = 4;
+var baseGameSpeed = 34;
 var baseEffect = 0.01;
 if(devModeFastProgress == 1) {
     baseGameSpeed = 32;
@@ -105,6 +105,7 @@ const itemBaseData = {
     //Cameron's first addition: rag clothing
     "Rag Clothing": {name: "Rag Clothing", expense: 3, effect: 1.5, description: "Skill xp"},
     "Book": {name: "Book", expense: 10, effect: 1.5, description: "Skill xp"},
+    "Basic Hand Tools": {name: "Basic Hand Tools", expense: 10, effect: 1.5, description: "Job xp"},
     "Dumbbells": {name: "Dumbbells", expense: 50, effect: 1.5, description: "Strength xp"},
     "Personal squire": {name: "Personal squire", expense: 200, effect: 2, description: "Job xp"},
     "Steel longsword": {name: "Steel longsword", expense: 1000, effect: 2, description: "Military xp"},
@@ -129,7 +130,7 @@ const skillCategories = {
 
 const itemCategories = {
     "Properties": ["Homeless", "Tent", "Wooden hut", "Cottage", "House", "Large house", "Small palace", "Grand palace"],
-    "Misc": ["Rag Clothing", "Book", "Dumbbells", "Personal squire", "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library"]
+    "Misc": ["Rag Clothing", "Book", "Basic Hand Tools", "Dumbbells", "Personal squire", "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library"]
 }
 
 const headerRowColors = {
@@ -200,6 +201,7 @@ const tooltips = {
 
     "Rag Clothing": "After weeks of freezing on the streets, you're making enough money to buy some cheap clothes. They're not much, but they'll keep you warm enough to focus.",
     "Book": "A place to write down all your thoughts and discoveries, allowing you to learn a lot more quickly.",
+    "Basic Hand Tools": "A set of rusty iron tools to help loosen soil, shape wood, and attach things. Where did you even find this junk?",
     "Dumbbells": "Heavy tools used in strenuous exercise to toughen up and accumulate strength even faster than before. ",
     "Personal squire": "Assists you in completing day to day activities, giving you more time to be productive at work.",
     "Steel longsword": "A fine blade used to slay enemies even quicker in combat and therefore gain more experience.",
@@ -257,6 +259,8 @@ function addMultipliers() {
             task.incomeMultipliers.push(getBindedTaskEffect("Strength"))
             task.xpMultipliers.push(getBindedTaskEffect("Battle tactics"))
             task.xpMultipliers.push(getBindedItemEffect("Steel longsword"))
+        } else if(task.name == "Farmer") { //trying to make hand tools increase farmer income
+            task.incomeMultipliers.push(getBindedItemEffect("Basic Hand Tools"));
         } else if (task.name == "Strength") {
             task.xpMultipliers.push(getBindedTaskEffect("Muscle memory"))
             task.xpMultipliers.push(getBindedItemEffect("Dumbbells"))
@@ -1150,6 +1154,7 @@ gameData.requirements = {
     "Book": new CoinRequirement([getItemElement("Book")], [{requirement: 0}]),
     //Cameron's addition: rag clothing
     "Rag Clothing": new CoinRequirement([getItemElement("Rag Clothing")], [{requirement: 10}]),
+    "Basic Hand Tools": new CoinRequirement([getItemElement("Basic Hand Tools")], [{requirement: 50}]),
     "Dumbbells": new CoinRequirement([getItemElement("Dumbbells")], [{requirement: gameData.itemData["Dumbbells"].getExpense() * 100}]),
     "Personal squire": new CoinRequirement([getItemElement("Personal squire")], [{requirement: gameData.itemData["Personal squire"].getExpense() * 100}]),
     "Steel longsword": new CoinRequirement([getItemElement("Steel longsword")], [{requirement: gameData.itemData["Steel longsword"].getExpense() * 100}]),

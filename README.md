@@ -3,11 +3,14 @@ An incremental game developed by ihtasham42 and extended by Cameron Gott. Link t
 
 # dev-diary
 6/4/2021  
+Entry one:  
+
 Adding an item today.  
 Step one: add the item data to const itemBaseData.   
 Step two: Add Rag Clothing to the Misc itemCategories object.  
 Step three: Add placeholder tooltip text.  
 Step four: add item requirement.  
+Step five: add code to addMultipliers() to apply effect
 Testing time! 
 Holy shit, it worked on the first try. I feel somewhat...competent. (That's gonna bite me in the ass later.)  
 Knew it. Item displays properly, but doesn't update the xp / day.
@@ -17,6 +20,15 @@ Also rearranged the display order of items for Rag Clothing to pop up before Boo
 First item added. First mod complete. Feels good mayne. 
 PS. Also added a dev mode to the code with a single-variable trigger to influence a few skill modifiers and the game speed. 
 Should help test long runs. 
+
+Entry two:
+
+After playing around with the added rag clothing, I feel like there is an impending balance issue. The more items I add, the more expense. But if items don't
+directly affect income, the scaling of income is such that most items will be unaffordable in their current tier (eg beggar items can't all be purchased like a real beggar would
+while they are climbing out of poverty.) There are a few ways to address this. First, there is already a built-in income modifying mechanic with skills. Just as Strength modifies military income, perhaps we could add a skill such as Performance or Acting to modify Beggar income. One potential difficulty of this is narrowing the income modifier to a single role instead of an entire job category, as Strength makes every military job pay more whereas we may want Acting/Performance to solely modify begging. Dunno. Could see it going either way from a lore / story perspective, as a blacksmith or merchant may earn more money from being more entertaining / persuasive. Maybe the skill could be named Persuasion instead to be lore friendly and minimize code restructuring.  
+
+One hour later...  
+Nevermind, I found a workaround to make items directly affect job income. Basic Hand Tools are the template to follow (just apply the effect as a task.incomeMultiplier in addMultipliers()).  
 
 6/3/2021  
 I want to flesh out the beggar job by adding interesting items and story content. Being a beggar is tough work,
