@@ -2,6 +2,10 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary
+6/7/2021
+
+Added Cheap Fishing Rod to the shop. Will likely need further balance testing.   
+
 6/4/2021  
 Entry one:  
 
