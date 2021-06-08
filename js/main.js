@@ -102,12 +102,13 @@ const itemBaseData = {
     "Small palace": {name: "Small palace", expense: 300000, effect: 25},
     "Grand palace": {name: "Grand palace", expense: 5000000, effect: 60},
 
-    //Cameron's first addition: rag clothing
+    //Cameron's first addition: rag clothing. Woohoo!
     "Rag Clothing": {name: "Rag Clothing", expense: 3, effect: 1.5, description: "Skill xp"},
     "Book": {name: "Book", expense: 10, effect: 1.5, description: "Skill xp"},
     "Basic Hand Tools": {name: "Basic Hand Tools", expense: 10, effect: 1.5, description: "Job xp"},
     "Cheap Fishing Rod": {name: "Cheap Fishing Rod", expense: 20, effect: 2.0, description: "Job xp"},
     "Dumbbells": {name: "Dumbbells", expense: 50, effect: 1.5, description: "Strength xp"},
+    "Miner's Lantern": {name: "Miner's Lantern", expense: 35, effect: 1.5, description: "Job xp"},
     "Personal squire": {name: "Personal squire", expense: 200, effect: 2, description: "Job xp"},
     "Steel longsword": {name: "Steel longsword", expense: 1000, effect: 2, description: "Military xp"},
     "Butler": {name: "Butler", expense: 7500, effect: 1.5, description: "Happiness"},
@@ -131,7 +132,7 @@ const skillCategories = {
 
 const itemCategories = {
     "Properties": ["Homeless", "Tent", "Wooden hut", "Cottage", "House", "Large house", "Small palace", "Grand palace"],
-    "Misc": ["Rag Clothing", "Book", "Basic Hand Tools", "Cheap Fishing Rod", "Dumbbells", "Personal squire", 
+    "Misc": ["Rag Clothing", "Book", "Basic Hand Tools", "Cheap Fishing Rod", "Dumbbells", "Miner's Lantern", "Personal squire", 
                 "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library"]
 }
 
@@ -206,6 +207,7 @@ const tooltips = {
     "Basic Hand Tools": "A set of rusty iron tools to help loosen soil, shape wood, and attach things. Where did you even find this junk?",
     "Cheap Fishing Rod": "You found this cracked fishing rod partially buried by the shore. It needs some major TLC, but it'll help you reel in bigger fish.",
     "Dumbbells": "Heavy tools used in strenuous exercise to toughen up and accumulate strength even faster than before. ",
+    "Miner's Lantern": "After weeks of feeling your way through pitch black tunnels, bandaging scraped hands, and getting smacked in the face by your fellow miner's pickaxes, you have the bright idea to purchase a lantern. Hopefully some light will help illuminate additional mineral deposits and geological phenomena.",
     "Personal squire": "Assists you in completing day to day activities, giving you more time to be productive at work.",
     "Steel longsword": "A fine blade used to slay enemies even quicker in combat and therefore gain more experience.",
     "Butler": "Keeps your household clean at all times and also prepares three delicious meals per day, leaving you in a happier, stress-free mood.",
@@ -267,6 +269,9 @@ function addMultipliers() {
         } else if (task.name == "Fisherman") { // Fishing rod boosts both income and fishing xp (bigger fish baby!)
             task.incomeMultipliers.push(getBindedItemEffect("Cheap Fishing Rod"));
             task.xpMultipliers.push(getBindedItemEffect("Cheap Fishing Rod"));
+        } else if (task.name == "Miner") { //lantern boosts income and miner xp by 1.5x
+            task.incomeMultipliers.push(getBindedItemEffect("Miner's Lantern"));
+            task.xpMultipliers.push(getBindedItemEffect("Miner's Lantern"));
         } else if (task.name == "Strength") {
             task.xpMultipliers.push(getBindedTaskEffect("Muscle memory"))
             task.xpMultipliers.push(getBindedItemEffect("Dumbbells"))
@@ -1163,6 +1168,7 @@ gameData.requirements = {
     "Basic Hand Tools": new CoinRequirement([getItemElement("Basic Hand Tools")], [{requirement: 50}]),
     "Cheap Fishing Rod": new CoinRequirement([getItemElement("Cheap Fishing Rod")], [{requirement: gameData.itemData["Cheap Fishing Rod"].getExpense() * 100}]),
     "Dumbbells": new CoinRequirement([getItemElement("Dumbbells")], [{requirement: gameData.itemData["Dumbbells"].getExpense() * 100}]),
+    "Miner's Lantern": new CoinRequirement([getItemElement("Miner's Lantern")], [{requirement: gameData.itemData["Miner's Lantern"].getExpense() * 100}]),
     "Personal squire": new CoinRequirement([getItemElement("Personal squire")], [{requirement: gameData.itemData["Personal squire"].getExpense() * 100}]),
     "Steel longsword": new CoinRequirement([getItemElement("Steel longsword")], [{requirement: gameData.itemData["Steel longsword"].getExpense() * 100}]),
     "Butler": new CoinRequirement([getItemElement("Butler")], [{requirement: gameData.itemData["Butler"].getExpense() * 100}]),

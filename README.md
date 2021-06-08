@@ -2,9 +2,22 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary
+6/8/2021  
+The shop expansion initiative continues with today's new item: Miner's Lantern!  
+Mining in a dark, dank cave is scary, dangerous, and slow. Lanterns provide useful light to guide a miner's search  
+for precious metals, but beware of carrying a flame into any potential gas pockets!  
+
+There is a weird programmatic behavior with item displays. An item only displays if it's description is a certain specific string.  
+E.g. an item with description "Job xp" will display just fine, while a custom description like "Easier mining" for the Miner's Lantern  
+will result in the item row not displaying in the shop. Probably fixable by going into the row display function and changing the logic  
+that relies on the descriptions to decide where to render each row. I could add a separate parameter to designate an item as needing to render  
+into the shop tab. Something to ponder for now.  
+
+Otherwise, the Miner's Lantern is functional. 
 6/7/2021
 
 Added Cheap Fishing Rod to the shop. Will likely need further balance testing.   
+Thought: create a chain of better job specific items linked to job level. Eg. Miner level 100 gets access to some sweet income-boosting gear.
 
 6/4/2021  
 Entry one:  

@@ -1,3 +1,12 @@
+/* 
+
+Task is a base class combining core functionality used in jobs and skills.
+
+A task object stores: name, level, max level ever achieved, 
+current experience (e.g. experience accumulated inside the current task level),
+and an array of experience multipliplying effects from items and skills.
+
+*/
 class Task {
     constructor(baseData) {
         this.baseData = baseData
