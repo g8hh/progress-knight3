@@ -1,7 +1,26 @@
 # progress-knight
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
-# dev-diary
+# dev-diary  
+6/10/2021  
+
+Requirements are important to learn for a few reasons. Requirements help pace the game's unlocks. Requirements help manage UI clutter by hiding
+items, skills, and jobs until they are achievable. 
+
+The Requirement base class has three member variables: elements, requirements, and boolean isCompleted.  
+Requirement has two functions right now: constructor, and isCompleted().
+
+The "elements" member variable is used to hold references to all HTML elements with a certain class. For example, when a requirement for unlocking The Arcane Association is
+declared, the elements member variable contains the result of calling getElementsByClass("The Arcane Association"). These elements are used to update the UI, as the UI will change as requirements are met and thus new elements need to be added to the DOM, classes like "hiddenTask" need to be removed, etc.  
+
+The subclasses of Requirement mainly differ in their use of the requirements member variable. See main.js gameData.requirements declaration for example usage.  
+
+New additions:
+Crappy Anvil (with TaskRequirement instead of CoinRequirement)  
+Cheap Hand Tools now unlock at Farmer level 20  
+Cheap Fishing Rod now unlocks at Fisherman level 20  
+All other job items now unlock at job levels instead of savings level.  
+
 6/8/2021  
 The shop expansion initiative continues with today's new item: Miner's Lantern!  
 Mining in a dark, dank cave is scary, dangerous, and slow. Lanterns provide useful light to guide a miner's search  
