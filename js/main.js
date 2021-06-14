@@ -33,7 +33,7 @@ const baseLifespan = 365 * 70
 var devModeFastProgress = 0;
 // ******* DEV MODE SPEED INCREASES ******* //
 //original: 4
-var baseGameSpeed = 34;
+var baseGameSpeed = 4;
 var baseEffect = 0.01;
 if(devModeFastProgress == 1) {
     baseGameSpeed = 32;
@@ -65,6 +65,15 @@ const jobBaseData = {
     "Wizard": {name: "Wizard", maxXp: 100000000, income: 50000},
     "Master wizard": {name: "Master wizard", maxXp: 10000000000, income: 250000},
     "Chairman": {name: "Chairman", maxXp: 1000000000000, income: 1000000},
+
+    "Junior Caretaker": {name: "Junior Caretaker", maxXp: 10000000000, income: 15},
+    "Lead Caretaker": {name: "Lead Caretaker", maxXp: 50000000000, income: 115}, 
+    "Freshman": {name: "Freshman", maxXp: 100000000000, income: 250}, 
+    "Sophomore": {name: "Sophomore", maxXp: 400000000000, income: 500}, 
+    "Junior": {name: "Junior", maxXp: 1600000000000, income: 1000}, 
+    "Senior": {name: "Senior", maxXp: 6400000000000, income: 2000}, 
+    "Probationary Understudy": {name: "Probationary Understudy", maxXp: 30000000000000, income: 2000},
+
 }
 
 const skillBaseData = {
@@ -110,6 +119,9 @@ const itemBaseData = {
     "Dumbbells": {name: "Dumbbells", expense: 50, effect: 1.5, description: "Strength xp"},
     "Miner's Lantern": {name: "Miner's Lantern", expense: 35, effect: 1.5, description: "Job xp"},
     "Crappy Anvil": {name: "Crappy Anvil", expense: 50, effect: 1.5, description: "Job xp"},
+    "Pack Horse": {name: "Pack Horse", expense: 80, effect: 3.0, description: "Job xp"},
+    "Small Shop": {name: "Small Shop", expense: 600, effect: 1.5, description: "Job xp"},
+    "Weapon Outlet": {name: "Weapon Outlet", expense: 3000, effect: 3.0, description: "Job xp"},
     "Personal squire": {name: "Personal squire", expense: 200, effect: 2, description: "Job xp"},
     "Steel longsword": {name: "Steel longsword", expense: 1000, effect: 2, description: "Military xp"},
     "Butler": {name: "Butler", expense: 7500, effect: 1.5, description: "Happiness"},
@@ -119,21 +131,23 @@ const itemBaseData = {
 }
 
 const jobCategories = {
-    "Common work": ["Beggar", "Farmer", "Fisherman", "Miner", "Blacksmith", "Merchant"],
-    "Military" : ["Squire", "Footman", "Veteran footman", "Knight", "Veteran knight", "Elite knight", "Holy knight", "Legendary knight"],
-    "The Arcane Association" : ["Student", "Apprentice mage", "Mage", "Wizard", "Master wizard", "Chairman"]
+    "Common work"            :    ["Beggar", "Farmer", "Fisherman", "Miner", "Blacksmith", "Merchant"],
+    "Military"               :    ["Squire", "Footman", "Veteran footman", "Knight", "Veteran knight", "Elite knight", "Holy knight", "Legendary knight"],
+    "The Arcane Association" :    ["Student", "Apprentice mage", "Mage", "Wizard", "Master wizard", "Chairman"],
+    "The Order of Discovery" :    ["Junior Caretaker", "Lead Caretaker", "Freshman", "Sophomore", "Junior", "Senior", "Probationary Understudy"]
 }
 
 const skillCategories = {
-    "Fundamentals": ["Concentration", "Productivity", "Bargaining", "Meditation"],
-    "Combat": ["Strength", "Battle tactics", "Muscle memory"],
-    "Magic": ["Mana control", "Immortality", "Time warping", "Super immortality"],
-    "Dark magic": ["Dark influence", "Evil control", "Intimidation", "Demon training", "Blood meditation", "Demon's wealth"]
+    "Fundamentals"           :    ["Concentration", "Productivity", "Bargaining", "Meditation"],
+    "Combat"                 :    ["Strength", "Battle tactics", "Muscle memory"],
+    "Magic"                  :    ["Mana control", "Immortality", "Time warping", "Super immortality"],
+    "Dark magic"             :    ["Dark influence", "Evil control", "Intimidation", "Demon training", "Blood meditation", "Demon's wealth"]
 }
 
 const itemCategories = {
     "Properties": ["Homeless", "Tent", "Wooden hut", "Cottage", "House", "Large house", "Small palace", "Grand palace"],
-    "Misc": ["Rag Clothing", "Book", "Basic Hand Tools", "Cheap Fishing Rod", "Dumbbells", "Miner's Lantern", "Crappy Anvil", "Personal squire", 
+    "Misc": ["Rag Clothing", "Book", "Basic Hand Tools", "Cheap Fishing Rod", "Dumbbells", "Miner's Lantern", "Crappy Anvil", "Pack Horse", "Small Shop",
+    "Weapon Outlet", "Personal squire", 
                 "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library"]
 }
 
@@ -141,6 +155,7 @@ const headerRowColors = {
     "Common work": "#55a630",
     "Military": "#e63946",
     "The Arcane Association": "#C71585",
+    "The Order of Discovery": "#C7dd85",
     "Fundamentals": "#4a4e69",
     "Combat": "#ff704d",
     "Magic": "#875F9A",
@@ -210,6 +225,9 @@ const tooltips = {
     "Dumbbells": "Heavy tools used in strenuous exercise to toughen up and accumulate strength even faster than before. ",
     "Miner's Lantern": "After weeks of feeling your way through pitch black tunnels, bandaging scraped hands, and getting smacked in the face by your fellow miner's pickaxes, you have the bright idea to purchase a lantern. Hopefully some light will help illuminate additional mineral deposits and geological phenomena.",
     "Crappy Anvil": "You're pretty sure this lumpy hunk of iron used to be someone's chamber pot.",
+    "Pack Horse": "This sweet chestnut horse will haul you and your trade goods to distant cities where your novel fabrics and knick knacks will fetch a tidy profit.",
+    "Small Shop": "Your first shop. This cozy storefront lies on the main street of a medium-sized walled town. Commoners, nobles, and military patrols all pass along this street, so at the very least people will know your store exists.",
+    "Weapon Outlet": "A busy military means a busy weapons store. One of the liuetenants who frequents your small shop recently let slip that a long military campaign is imminent. Naturally, a savy merchant such as yourself sees the business opportunity provided by war.",
     "Personal squire": "Assists you in completing day to day activities, giving you more time to be productive at work.",
     "Steel longsword": "A fine blade used to slay enemies even quicker in combat and therefore gain more experience.",
     "Butler": "Keeps your household clean at all times and also prepares three delicious meals per day, leaving you in a happier, stress-free mood.",
@@ -277,6 +295,13 @@ function addMultipliers() {
         } else if (task.name == "Blacksmith") { //crappy anvil boosts income and xp of blacksmith by 1.5x
             task.incomeMultipliers.push(getBindedItemEffect("Crappy Anvil"));
             task.xpMultipliers.push(getBindedItemEffect("Crappy Anvil"));
+        } else if (task.name == "Merchant") {
+            task.incomeMultipliers.push(getBindedItemEffect("Pack Horse"));
+            task.xpMultipliers.push(getBindedItemEffect("Pack Horse"));
+            task.incomeMultipliers.push(getBindedItemEffect("Small Shop"));
+            task.xpMultipliers.push(getBindedItemEffect("Small Shop"));
+            task.incomeMultipliers.push(getBindedItemEffect("Weapon Outlet"));
+            task.xpMultipliers.push(getBindedItemEffect("Weapon Outlet"));
         } else if (task.name == "Strength") {
             task.xpMultipliers.push(getBindedTaskEffect("Muscle memory"))
             task.xpMultipliers.push(getBindedItemEffect("Dumbbells"))
@@ -1131,6 +1156,16 @@ gameData.requirements = {
     "Master wizard": new TaskRequirement([getTaskElement("Master wizard")], [{task: "Mana control", requirement: 1500}, {task: "Wizard", requirement: 10}]),
     "Chairman": new TaskRequirement([getTaskElement("Chairman")], [{task: "Mana control", requirement: 2000}, {task: "Master wizard", requirement: 10}]),
 
+    //The Order of Discovery
+    "Junior Caretaker": new TaskRequirement([getTaskElement("Junior Caretaker")], 
+                                            [{task: "Concentration", requirement: 200}, {task: "Meditation", requirement: 200}, {task: "Productivity", requirement: "500"}]),
+    "Lead Caretaker": new TaskRequirement([getTaskElement("Lead Caretaker")], [{task: "Junior Caretaker", requirement: 10}]),
+    "Freshman": new TaskRequirement([getTaskElement("Freshman")], [{task: "Lead Caretaker", requirement: 10}]),
+    "Sophomore": new TaskRequirement([getTaskElement("Sophomore")], [{task: "Freshman", requirement: 10}]),
+    "Junior": new TaskRequirement([getTaskElement("Junior")], [{task: "Sophomore", requirement: 10}]),
+    "Senior": new TaskRequirement([getTaskElement("Senior")], [{task: "Junior", requirement: 10}]),
+    "Probationary Understudy": new TaskRequirement([getTaskElement("Probationary Understudy")], [{task: "Senior", requirement: 10}]),
+
     //Fundamentals
     "Concentration": new TaskRequirement([getTaskElement("Concentration")], []),
     "Productivity": new TaskRequirement([getTaskElement("Productivity")], [{task: "Concentration", requirement: 5}]),
@@ -1174,7 +1209,10 @@ gameData.requirements = {
     "Cheap Fishing Rod": new TaskRequirement([getItemElement("Cheap Fishing Rod")], [{task: "Fisherman", requirement: 20}]),
     "Dumbbells": new CoinRequirement([getItemElement("Dumbbells")], [{requirement: gameData.itemData["Dumbbells"].getExpense() * 100}]),
     "Miner's Lantern": new TaskRequirement([getItemElement("Miner's Lantern")], [{task: "Miner", requirement: 20}]),
-    "Crappy Anvil": new TaskRequirement([getItemElement("Crappy Anvil")], [{task: "Blacksmith", requirement: 10}]),
+    "Crappy Anvil": new TaskRequirement([getItemElement("Crappy Anvil")], [{task: "Blacksmith", requirement: 20}]),
+    "Pack Horse": new TaskRequirement([getItemElement("Pack Horse")], [{task: "Merchant", requirement: 20}]),
+    "Small Shop": new TaskRequirement([getItemElement("Small Shop")], [{task: "Merchant", requirement: 75}]),
+    "Weapon Outlet": new TaskRequirement([getItemElement("Weapon Outlet")], [{task: "Merchant", requirement: 200}]),
     "Personal squire": new CoinRequirement([getItemElement("Personal squire")], [{requirement: gameData.itemData["Personal squire"].getExpense() * 100}]),
     "Steel longsword": new CoinRequirement([getItemElement("Steel longsword")], [{requirement: gameData.itemData["Steel longsword"].getExpense() * 100}]),
     "Butler": new CoinRequirement([getItemElement("Butler")], [{requirement: gameData.itemData["Butler"].getExpense() * 100}]),

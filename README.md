@@ -2,6 +2,49 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
+6/14/2021  
+******* Change log *******
+-Added The Order of Discovery
+-
+** Adding a new life path **
+
+Today I'll be adding a few new life paths. By life path, I mean a set of related jobs. We have seen Commoner, Military and TAA life paths. 
+
+To add a life path, I'll first be creating the game data for the job categories. This data lives in a couple of different places
+within main.js, so we'll need to keep track of all the changes we need to make. 
+
+Step one: add new job data into const jobCategories object
+Step two: add individual job data to the const jobBaseData object
+Step three: add the unlock requirement, if any, to gameData.requirements.
+Step four: add a header row color to const headerRowColors.
+
+At the end of step one, we have a shiny new path named "The Order of Discovery". This will initially be a plain ole job path like we've seen, but it will grow into  
+a core method of unlocking further items, skills, and esoteric knowledge to boost all aspects of life. 
+
+All code added. Test time.
+
+Test one results:
+Upon page refresh inside of current game, successful render. Successful requirement behavior.
+I forgot tooltips... :D
+Other than tooltips and general balancing, everything is working well. Will probably focus balancing efforts on the related skills tree.
+
+
+6/11/2021  
+
+I'm satisfied with my mastery of adding items. While I do enjoy thinking up new tooltips and new story directions to explain new items, it's getting a bit tedious.  
+A new feature is badly needed, and the empty navbar space is calling my name. Right now, there are two main features I'm fairly certain I want to add.
+
+Society is the first feature. I've always imagined rebirths in this game preserving the forward flow of time. And while it's fun to fantasize about the personal growth of 
+my individual character over the centuries and millenia, I've always wondered what's going on outside. How does society grow or decay with my actions? I always imagine the second 
+rebirth as embracing evil in the form of destroying my entire nation. Upon rebirth, I'm starting in a refugee camp made up of scattered tents and ragged survivors of my previous destruction. So I want a feature that reflects the growth and decay of society, a feature that lets the player use their newfound power, skills, and ridiculous wealth to shape the world around them.  
+
+War. Hard to read the military career tooltips without imagining massive battles and endless carnage. Another new tab will be devoted to fleshing out this mechanic. It'll provide an area to see your hard-earned Battle Tactics at work.  
+
+******* Change log *******  
+-Added Small Shop to Merchant item unlock sequence
+-Rewrote Pack Horse tooltip to add detail and improve sentence flow  
+-Added Weapon Outlet to Merchant item unlock sequence  
+-
 6/10/2021  
 
 Requirements are important to learn for a few reasons. Requirements help pace the game's unlocks. Requirements help manage UI clutter by hiding
@@ -20,6 +63,8 @@ Crappy Anvil (with TaskRequirement instead of CoinRequirement)
 Cheap Hand Tools now unlock at Farmer level 20  
 Cheap Fishing Rod now unlocks at Fisherman level 20  
 All other job items now unlock at job levels instead of savings level.  
+Added Pack Horse to Merchant item sequence.  
+
 
 6/8/2021  
 The shop expansion initiative continues with today's new item: Miner's Lantern!  
