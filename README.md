@@ -5,7 +5,8 @@ An incremental game developed by ihtasham42 and extended by Cameron Gott. Link t
 6/14/2021  
 ******* Change log *******
 -Added The Order of Discovery
--
+-Added Nobility  
+
 ** Adding a new life path **
 
 Today I'll be adding a few new life paths. By life path, I mean a set of related jobs. We have seen Commoner, Military and TAA life paths. 
@@ -26,7 +27,18 @@ All code added. Test time.
 Test one results:
 Upon page refresh inside of current game, successful render. Successful requirement behavior.
 I forgot tooltips... :D
-Other than tooltips and general balancing, everything is working well. Will probably focus balancing efforts on the related skills tree.
+Other than tooltips and general balancing, everything is working well. Will probably focus balancing efforts on the related skills tree.  
+
+Added nobility, tested changes, and now there are UI rendering errors. So what specifically is broken?  
+Every item, skill, and job is unlocked. Every entity is displaying. I'm guessing the requirements got messed up when adding requirements for nobility, so let's take a look.  
+Commented out nobility requirements, rerendered page, did not fix UI issue. 
+Found a typo in jobBaseData for emperor of mankind. Fixed typo, saved file, refreshed game page. Numbers in UI elements are rendering correctly, but every entity is still displaying in defiance of requirements. Quick display element values are not displaying properly. Try hard reset. Did not fix. Game will not move forward, increment time, etc.  
+
+New strategy: comment out all changes due to nobility. Re-enable changes incrementally to track down issue. 
+All nobility code removed. Game function restored. 
+Found another typo in requirements. Fixed typo. Uncommented nobility code. Refreshed game page.  
+All function restored.  
+F-ing typos, man. 
 
 
 6/11/2021  

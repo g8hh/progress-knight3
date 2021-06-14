@@ -33,7 +33,7 @@ const baseLifespan = 365 * 70
 var devModeFastProgress = 0;
 // ******* DEV MODE SPEED INCREASES ******* //
 //original: 4
-var baseGameSpeed = 4;
+var baseGameSpeed = 34;
 var baseEffect = 0.01;
 if(devModeFastProgress == 1) {
     baseGameSpeed = 32;
@@ -73,6 +73,19 @@ const jobBaseData = {
     "Junior": {name: "Junior", maxXp: 1600000000000, income: 1000}, 
     "Senior": {name: "Senior", maxXp: 6400000000000, income: 2000}, 
     "Probationary Understudy": {name: "Probationary Understudy", maxXp: 30000000000000, income: 2000},
+
+    "Baronet": {name: "Baronet", maxXp: 7500000, income: 3500},
+    "Baron": {name: "Baron", maxXp: 40000000, income: 4500},
+    "Vice Count": {name: "Vice Count", maxXp: 160000000, income: 6000},
+    "Count": {name: "Count", maxXp: 640000000, income: 8000},
+    "Duke": {name: "Duke", maxXp: 2400000000, income: 25000},
+    "Grand Duke": {name: "Grand Duke", maxXp: 9600000000, income: 40000},
+    "Arch Duke": {name: "Arch Duke", maxXp: 40000000000, income: 55000},
+    "Lord": {name: "Lord", maxXp: 160000000000, income: 150000},
+    "High Lord": {name: "High Lord", maxXp: 160000000000000, income: 300000},
+    "King": {name: "King", maxXp: 160000000000000, income: 300000},
+    "High King": {name: "High King", maxXp: 160000000000000, income: 1200000},
+    "Emperor of Mankind": {name: "Emperor of Mankind", maxXp: 160000000000000, income: 2500000},
 
 }
 
@@ -134,7 +147,8 @@ const jobCategories = {
     "Common work"            :    ["Beggar", "Farmer", "Fisherman", "Miner", "Blacksmith", "Merchant"],
     "Military"               :    ["Squire", "Footman", "Veteran footman", "Knight", "Veteran knight", "Elite knight", "Holy knight", "Legendary knight"],
     "The Arcane Association" :    ["Student", "Apprentice mage", "Mage", "Wizard", "Master wizard", "Chairman"],
-    "The Order of Discovery" :    ["Junior Caretaker", "Lead Caretaker", "Freshman", "Sophomore", "Junior", "Senior", "Probationary Understudy"]
+    "The Order of Discovery" :    ["Junior Caretaker", "Lead Caretaker", "Freshman", "Sophomore", "Junior", "Senior", "Probationary Understudy"],
+    "Nobility"               :    ["Baronet", "Baron", "Vice Count", "Count", "Duke", "Grand Duke", "Arch Duke", "Lord", "High Lord", "King", "High King", "Emperor of Mankind"]
 }
 
 const skillCategories = {
@@ -156,6 +170,7 @@ const headerRowColors = {
     "Military": "#e63946",
     "The Arcane Association": "#C71585",
     "The Order of Discovery": "#C7dd85",
+    "Nobility": "#D1B000",
     "Fundamentals": "#4a4e69",
     "Combat": "#ff704d",
     "Magic": "#875F9A",
@@ -1119,6 +1134,7 @@ gameData.currentMisc = []
 gameData.requirements = {
     //Other
     "The Arcane Association": new TaskRequirement(getElementsByClass("The Arcane Association"), [{task: "Concentration", requirement: 200}, {task: "Meditation", requirement: 200}]),
+    "Nobility": new TaskRequirement(getElementsByClass("Nobility"), [{task: "Elite knight", requirement: 10}]),
     "Dark magic": new EvilRequirement(getElementsByClass("Dark magic"), [{requirement: 1}]),
     "Shop": new CoinRequirement([document.getElementById("shopTabButton")], [{requirement: gameData.itemData["Tent"].getExpense() * 50}]),
     "Rebirth tab": new AgeRequirement([document.getElementById("rebirthTabButton")], [{requirement: 25}]),
@@ -1165,6 +1181,20 @@ gameData.requirements = {
     "Junior": new TaskRequirement([getTaskElement("Junior")], [{task: "Sophomore", requirement: 10}]),
     "Senior": new TaskRequirement([getTaskElement("Senior")], [{task: "Junior", requirement: 10}]),
     "Probationary Understudy": new TaskRequirement([getTaskElement("Probationary Understudy")], [{task: "Senior", requirement: 10}]),
+
+    //Nobility
+    "Baronet": new TaskRequirement([getTaskElement("Baronet")], [{task: "Elite knight", requirement: 10}]),
+    "Baron": new TaskRequirement([getTaskElement("Baron")], [{task: "Baronet", requirement: 10}]),
+    "Vice Count": new TaskRequirement([getTaskElement("Vice Count")], [{task: "Baron", requirement: 10}]),
+    "Count": new TaskRequirement([getTaskElement("Count")], [{task: "Vice Count", requirement: 10}]),
+    "Duke": new TaskRequirement([getTaskElement("Duke")], [{task: "Count", requirement: 10}]),
+    "Grand Duke": new TaskRequirement([getTaskElement("Grand Duke")], [{task: "Duke", requirement: 10}]),
+    "Arch Duke": new TaskRequirement([getTaskElement("Arch Duke")], [{task: "Grand Duke", requirement: 10}]),
+    "Lord": new TaskRequirement([getTaskElement("Lord")], [{task: "Arch Duke", requirement: 10}]),
+    "High Lord": new TaskRequirement([getTaskElement("High Lord")], [{task: "Lord", requirement: 10}]),
+    "King": new TaskRequirement([getTaskElement("King")], [{task: "High Lord", requirement: 10}]),
+    "High King": new TaskRequirement([getTaskElement("High King")], [{task: "King", requirement: 10}]),
+    "Emperor of Mankind": new TaskRequirement([getTaskElement("Emperor of Mankind")], [{task: "High King", requirement: 10}]),
 
     //Fundamentals
     "Concentration": new TaskRequirement([getTaskElement("Concentration")], []),
