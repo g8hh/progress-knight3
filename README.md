@@ -2,8 +2,27 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
+6/16/2021  
+Initial github.io release.  
+
+*** Changelog ***  
+-added two new skills to aid Order progression and magic progression  
+-added Trade Psychology skill  
+-significantly reduced XP requirements for Order jobs  
+-added sassy placeholder tooltips  
+-introduced a lot of CSS bugs  
+
+Adding new skills (come on, I shouldn't need to make myself notes by now, right?):  
+Add base data and category (if needed)  
+Add multipliers  
+Add tooltips   
+Add requirements (if needed)  
+Add header row color  
+Fix a million bugs I forgot to document in the midst of release hype  
+
+
 6/14/2021  
-******* Change log *******
+******* Change log *******  
 -Added The Order of Discovery
 -Added Nobility  
 

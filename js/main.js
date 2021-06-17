@@ -30,9 +30,9 @@ const baseLifespan = 365 * 70
 
 //Turn on devmode: 1
 //Turn off devmode: 0
-var devModeFastProgress = 0;
+var devModeFastProgress = 1;
 // ******* DEV MODE SPEED INCREASES ******* //
-//original: 4
+//original base game speed: 4
 var baseGameSpeed = 4;
 var baseEffect = 0.01;
 if(devModeFastProgress == 1) {
@@ -66,13 +66,13 @@ const jobBaseData = {
     "Master wizard": {name: "Master wizard", maxXp: 10000000000, income: 250000},
     "Chairman": {name: "Chairman", maxXp: 1000000000000, income: 1000000},
 
-    "Junior Caretaker": {name: "Junior Caretaker", maxXp: 10000000000, income: 15},
-    "Lead Caretaker": {name: "Lead Caretaker", maxXp: 50000000000, income: 115}, 
-    "Freshman": {name: "Freshman", maxXp: 100000000000, income: 250}, 
-    "Sophomore": {name: "Sophomore", maxXp: 400000000000, income: 500}, 
-    "Junior": {name: "Junior", maxXp: 1600000000000, income: 1000}, 
-    "Senior": {name: "Senior", maxXp: 6400000000000, income: 2000}, 
-    "Probationary Understudy": {name: "Probationary Understudy", maxXp: 30000000000000, income: 2000},
+    "Junior Caretaker": {name: "Junior Caretaker", maxXp: 100000, income: 15},
+    "Lead Caretaker": {name: "Lead Caretaker", maxXp: 1000000, income: 115}, 
+    "Freshman": {name: "Freshman", maxXp: 2000000, income: 250}, 
+    "Sophomore": {name: "Sophomore", maxXp: 4000000, income: 500}, 
+    "Junior": {name: "Junior", maxXp: 16000000, income: 1000}, 
+    "Senior": {name: "Senior", maxXp: 64000000, income: 2000}, 
+    "Probation": {name: "Probation", maxXp: 300000000, income: 12000},
 
     "Baronet": {name: "Baronet", maxXp: 7500000, income: 3500},
     "Baron": {name: "Baron", maxXp: 40000000, income: 4500},
@@ -99,11 +99,16 @@ const skillBaseData = {
     "Strength": {name: "Strength", maxXp: 100, effect: 0.01, description: "Military pay"},
     "Battle tactics": {name: "Battle tactics", maxXp: 100, effect: 0.01, description: "Military xp"},
     "Muscle memory": {name: "Muscle memory", maxXp: 100, effect: 0.01, description: "Strength xp"},
-    //original effect: 0.01
+    
     "Mana control": {name: "Mana control", maxXp: 100, effect: baseEffect, description: "T.A.A. xp"},
     "Immortality": {name: "Immortality", maxXp: 100, effect: 0.01, description: "Longer lifespan"},
     "Time warping": {name: "Time warping", maxXp: 100, effect: 0.01, description: "Gamespeed"},
     "Super immortality": {name: "Super immortality", maxXp: 100, effect: 0.01, description: "Longer lifespan"},
+
+    //University-related skills
+    "Novel Knowledge": {name: "Novel Knowledge", maxXp: 100, effect: 0.01, description: "Discovery xp"},
+    "Unusual Insight": {name: "Unusual Insight", maxXp: 100, effect: 0.005, description: "Magical xp"},
+    "Trade Psychology": {name: "Trade Psychology", maxXp: 100, effect: 0.80, description: "Merchant pay"},
 
     "Dark influence": {name: "Dark influence", maxXp: 100, effect: 0.01, description: "All xp"},
     "Evil control": {name: "Evil control", maxXp: 100, effect: 0.01, description: "Evil gain"},
@@ -111,6 +116,7 @@ const skillBaseData = {
     "Demon training": {name: "Demon training", maxXp: 100, effect: 0.01, description: "All xp"},
     "Blood meditation": {name: "Blood meditation", maxXp: 100, effect: 0.01, description: "Evil gain"},
     "Demon's wealth": {name: "Demon's wealth", maxXp: 100, effect: 0.002, description: "Job pay"},
+
     
 }
 
@@ -147,7 +153,7 @@ const jobCategories = {
     "Common work"            :    ["Beggar", "Farmer", "Fisherman", "Miner", "Blacksmith", "Merchant"],
     "Military"               :    ["Squire", "Footman", "Veteran footman", "Knight", "Veteran knight", "Elite knight", "Holy knight", "Legendary knight"],
     "The Arcane Association" :    ["Student", "Apprentice mage", "Mage", "Wizard", "Master wizard", "Chairman"],
-    "The Order of Discovery" :    ["Junior Caretaker", "Lead Caretaker", "Freshman", "Sophomore", "Junior", "Senior", "Probationary Understudy"],
+    "The Order of Discovery" :    ["Junior Caretaker", "Lead Caretaker", "Freshman", "Sophomore", "Junior", "Senior", "Probation"],
     "Nobility"               :    ["Baronet", "Baron", "Vice Count", "Count", "Duke", "Grand Duke", "Arch Duke", "Lord", "High Lord", "King", "High King", "Emperor of Mankind"]
 }
 
@@ -155,7 +161,9 @@ const skillCategories = {
     "Fundamentals"           :    ["Concentration", "Productivity", "Bargaining", "Meditation"],
     "Combat"                 :    ["Strength", "Battle tactics", "Muscle memory"],
     "Magic"                  :    ["Mana control", "Immortality", "Time warping", "Super immortality"],
-    "Dark magic"             :    ["Dark influence", "Evil control", "Intimidation", "Demon training", "Blood meditation", "Demon's wealth"]
+    "Mind"                   :    ["Novel Knowledge", "Unusual Insight", "Trade Psychology"],
+    "Dark magic"             :    ["Dark influence", "Evil control", "Intimidation", "Demon training", "Blood meditation", "Demon's wealth"],
+    
 }
 
 const itemCategories = {
@@ -174,6 +182,7 @@ const headerRowColors = {
     "Fundamentals": "#4a4e69",
     "Combat": "#ff704d",
     "Magic": "#875F9A",
+    "Mind": "#87009A",
     "Dark magic": "#73000f",
     "Properties": "#219ebc",
     "Misc": "#b56576",
@@ -203,6 +212,29 @@ const tooltips = {
     "Master wizard": "Blessed with unparalleled talent, perform unbelievable feats with magic at will. It is said that a master wizard has enough destructive power to wipe an empire off the map.",
     "Chairman": "Spend your days administrating The Arcane Association and investigate the concepts of true immortality. The chairman receives ludicrous amounts of pay daily.",
 
+    //The Order of Discovery
+    "Junior Caretaker": "A low-level administrator of the ancient Order of Discovery has offered you a job. Cleaning shit-stained chamber pots and mopping kitchen floors isn't glamorous work, but it gives you the rare chance to peruse the Order's world-class library of exotic books. Who cares if touching the books is an offense worthy of expulsion?",
+    "Lead Caretaker": "Witty placeholder, my name is.",
+    "Freshman": "I tip the tools, and inform the fools.",
+    "Sophomore": "Rhyming is crime-ing, and feature delay is not the way.",
+    "Junior": "Try as I do, these temporary tooltips are poo.",
+    "Senior": "Forget me not, for this author shall not.",
+    "Probation": "A tooltip a day, keeps the passionate fan at bay.",
+
+    //Nobility
+    "Baronet": "A tooltip, a thought. Helpful, I am not.",
+    "Baron": "The finest $3 pizza modern food science can conceive",
+    "Vice Count": "Because Viscount sounds gross.",
+    "Count": "Are these placeholder tooltips infuriating?",
+    "Duke": "Good.",
+    "Grand Duke": "The nobility cares not for your tooltip desires. ",
+    "Arch Duke": "Even grander than the most grand Grand Duke your granddad could....Grand.",
+    "Lord": "Oh lord, please let Gottmilk write the real tooltips already. These are too painful to endure.",
+    "High Lord": "Is it April 20th?",
+    "King": "Now to find yourself a nice Queen. Or two. Or three.",
+    "High King": "Even higher. Even nobler.",
+    "Emperor of Mankind": "Go outside.",
+
     "Concentration": "Improve your learning speed through practising intense concentration activities.",
     "Productivity": "Learn to procrastinate less at work and receive more job experience per day.",
     "Bargaining": "Study the tricks of the trade and persuasive skills to lower any type of expense.",
@@ -216,6 +248,10 @@ const tooltips = {
     "Immortality": "Lengthen your lifespan through the means of magic. However, is this truly the immortality you have tried seeking for...?",
     "Time warping": "Bend space and time through forbidden techniques, resulting in a faster gamespeed.",
     "Super immortality": "Through harnessing ancient, forbidden techniques, lengthen your lifespan drastically beyond comprehension.",
+
+    "Novel Knowledge": "A mind needs training. Your time spent absorbing new ideas and worldviews has increased your ability to assimilate new ideas and make connections between seemingly unrelated concepts.",
+    "Unusual Insight": "Your training in the more mundane affairs of the non-magical world have developed your critical analysis skills. As you gain knowledge, magical concepts which seemed inscrutable and mysterious are becoming more relatable to the physical world around you.",
+    "Trade Psychology": "Writers pour their souls into the written word. Your extensive reading combined with your countless years spent interacting with people have lent you unparalleled insight into the way mankind views the positive and the negative events of this world. An ethical scholar would refrain from abusing this knowledge for financial gain.",
 
     "Dark influence": "Encompass yourself with formidable power bestowed upon you by evil, allowing you to pick up and absorb any job or skill with ease.",
     "Evil control": "Tame the raging and growing evil within you, improving evil gain in-between rebirths.",
@@ -288,7 +324,6 @@ function addMultipliers() {
             task.xpMultipliers.push(getBindedItemEffect("Personal squire"))    
         } else if (task instanceof Skill) {
             task.xpMultipliers.push(getBindedTaskEffect("Concentration"))
-            //Cameron's rag clothing addition
             task.xpMultipliers.push(getBindedItemEffect("Rag Clothing"))
             task.xpMultipliers.push(getBindedItemEffect("Book"))
             task.xpMultipliers.push(getBindedItemEffect("Study desk"))
@@ -299,6 +334,9 @@ function addMultipliers() {
             task.incomeMultipliers.push(getBindedTaskEffect("Strength"))
             task.xpMultipliers.push(getBindedTaskEffect("Battle tactics"))
             task.xpMultipliers.push(getBindedItemEffect("Steel longsword"))
+        } else if (jobCategories["The Order of Discovery"].includes(task.name)) {
+            task.xpMultipliers.push(getBindedTaskEffect("Novel Knowledge"));
+            task.xpMultipliers.push(getBindedTaskEffect("Unusual Insight"));
         } else if(task.name == "Farmer") { //trying to make hand tools increase farmer income
             task.incomeMultipliers.push(getBindedItemEffect("Basic Hand Tools"));
         } else if (task.name == "Fisherman") { // Fishing rod boosts both income and fishing xp (bigger fish baby!)
@@ -312,6 +350,7 @@ function addMultipliers() {
             task.xpMultipliers.push(getBindedItemEffect("Crappy Anvil"));
         } else if (task.name == "Merchant") {
             task.incomeMultipliers.push(getBindedItemEffect("Pack Horse"));
+            task.incomeMultipliers.push(getBindedTaskEffect("Trade Psychology"));
             task.xpMultipliers.push(getBindedItemEffect("Pack Horse"));
             task.incomeMultipliers.push(getBindedItemEffect("Small Shop"));
             task.xpMultipliers.push(getBindedItemEffect("Small Shop"));
@@ -321,9 +360,13 @@ function addMultipliers() {
             task.xpMultipliers.push(getBindedTaskEffect("Muscle memory"))
             task.xpMultipliers.push(getBindedItemEffect("Dumbbells"))
         } else if (skillCategories["Magic"].includes(task.name)) {
-            task.xpMultipliers.push(getBindedItemEffect("Sapphire charm"))
+            task.xpMultipliers.push(getBindedItemEffect("Sapphire charm"));
+            task.xpMultipliers.push(getBindedTaskEffect("Novel Knowledge"));
+            task.xpMultipliers.push(getBindedTaskEffect("Unusual Insight"));
         } else if (jobCategories["The Arcane Association"].includes(task.name)) {
-            task.xpMultipliers.push(getBindedTaskEffect("Mana control"))
+            task.xpMultipliers.push(getBindedTaskEffect("Mana control"));
+            task.xpMultipliers.push(getBindedTaskEffect("Novel Knowledge"));
+            task.xpMultipliers.push(getBindedTaskEffect("Unusual Insight"));
         } else if (skillCategories["Dark magic"].includes(task.name)) {
             task.xpMultipliers.push(getEvil)
         }
@@ -1134,6 +1177,7 @@ gameData.currentMisc = []
 gameData.requirements = {
     //Other
     "The Arcane Association": new TaskRequirement(getElementsByClass("The Arcane Association"), [{task: "Concentration", requirement: 200}, {task: "Meditation", requirement: 200}]),
+    //"Mind": new TaskRequirement(getElementsByClass("Mind"), [{task: "Concentration", requirement: 700}, {task: "Meditation", requirement: 700}]),
     "Nobility": new TaskRequirement(getElementsByClass("Nobility"), [{task: "Elite knight", requirement: 10}]),
     "Dark magic": new EvilRequirement(getElementsByClass("Dark magic"), [{requirement: 1}]),
     "Shop": new CoinRequirement([document.getElementById("shopTabButton")], [{requirement: gameData.itemData["Tent"].getExpense() * 50}]),
@@ -1180,7 +1224,7 @@ gameData.requirements = {
     "Sophomore": new TaskRequirement([getTaskElement("Sophomore")], [{task: "Freshman", requirement: 10}]),
     "Junior": new TaskRequirement([getTaskElement("Junior")], [{task: "Sophomore", requirement: 10}]),
     "Senior": new TaskRequirement([getTaskElement("Senior")], [{task: "Junior", requirement: 10}]),
-    "Probationary Understudy": new TaskRequirement([getTaskElement("Probationary Understudy")], [{task: "Senior", requirement: 10}]),
+    "Probation": new TaskRequirement([getTaskElement("Probation")], [{task: "Senior", requirement: 10}]),
 
     //Nobility
     "Baronet": new TaskRequirement([getTaskElement("Baronet")], [{task: "Elite knight", requirement: 10}]),
@@ -1213,6 +1257,11 @@ gameData.requirements = {
     "Time warping": new TaskRequirement([getTaskElement("Time warping")], [{task: "Mage", requirement: 10}]),
     "Super immortality": new TaskRequirement([getTaskElement("Super immortality")], [{task: "Chairman", requirement: 1000}]),
 
+    //Mind
+    //"Novel Knowledge": new TaskRequirement([getTaskElement("Novel Knowledge")], [{task: "Concentration", requirement: 700}, {task: "Meditation", requirement: 700}]),
+    "Unusual Insight": new TaskRequirement([getTaskElement("Unusual Insight")], [{task: "Concentration", requirement: 900}, {task: "Meditation", requirement: 900}, {task: "Novel Knowledge", requirement: 900}]),
+    "Trade Psychology": new TaskRequirement([getTaskElement("Trade Psychology")], [{task: "Unusual Insight", requirement: 900}, {task: "Probation", requirement: 40}]),
+
     //Dark magic
     "Dark influence": new EvilRequirement([getTaskElement("Dark influence")], [{requirement: 1}]),
     "Evil control": new EvilRequirement([getTaskElement("Evil control")], [{requirement: 1}]),
@@ -1220,6 +1269,7 @@ gameData.requirements = {
     "Demon training": new EvilRequirement([getTaskElement("Demon training")], [{requirement: 25}]),
     "Blood meditation": new EvilRequirement([getTaskElement("Blood meditation")], [{requirement: 75}]),
     "Demon's wealth": new EvilRequirement([getTaskElement("Demon's wealth")], [{requirement: 500}]),
+
 
     //Properties
     "Homeless": new CoinRequirement([getItemElement("Homeless")], [{requirement: 0}]),
@@ -1233,7 +1283,6 @@ gameData.requirements = {
 
     //Misc
     "Book": new CoinRequirement([getItemElement("Book")], [{requirement: 0}]),
-    //Cameron's addition: rag clothing
     "Rag Clothing": new CoinRequirement([getItemElement("Rag Clothing")], [{requirement: 10}]),
     "Basic Hand Tools": new TaskRequirement([getItemElement("Basic Hand Tools")], [{task: "Farmer", requirement: 20}]),
     "Cheap Fishing Rod": new TaskRequirement([getItemElement("Cheap Fishing Rod")], [{task: "Fisherman", requirement: 20}]),
