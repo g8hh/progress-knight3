@@ -30,7 +30,7 @@ const baseLifespan = 365 * 70
 
 //Turn on devmode: 1
 //Turn off devmode: 0
-var devModeFastProgress = 1;
+var devModeFastProgress = 0;
 // ******* DEV MODE SPEED INCREASES ******* //
 //original base game speed: 4
 var baseGameSpeed = 4;
@@ -91,24 +91,29 @@ const jobBaseData = {
 
 const skillBaseData = {
     //original effect: 0.01
+    //Fundamentals
     "Concentration": {name: "Concentration", maxXp: 100, effect: baseEffect, description: "Skill xp"},
     "Productivity": {name: "Productivity", maxXp: 100, effect: 0.01, description: "Job xp"},
     "Bargaining": {name: "Bargaining", maxXp: 100, effect: -0.01, description: "Expenses"},
     "Meditation": {name: "Meditation", maxXp: 100, effect: baseEffect, description: "Happiness"},
 
+    //Combat
     "Strength": {name: "Strength", maxXp: 100, effect: 0.01, description: "Military pay"},
     "Battle tactics": {name: "Battle tactics", maxXp: 100, effect: 0.01, description: "Military xp"},
     "Muscle memory": {name: "Muscle memory", maxXp: 100, effect: 0.01, description: "Strength xp"},
     
+    //Magic
     "Mana control": {name: "Mana control", maxXp: 100, effect: baseEffect, description: "T.A.A. xp"},
     "Immortality": {name: "Immortality", maxXp: 100, effect: 0.01, description: "Longer lifespan"},
     "Time warping": {name: "Time warping", maxXp: 100, effect: 0.01, description: "Gamespeed"},
     "Super immortality": {name: "Super immortality", maxXp: 100, effect: 0.01, description: "Longer lifespan"},
 
-    //University-related skills
+    //Mind
     "Novel Knowledge": {name: "Novel Knowledge", maxXp: 100, effect: 0.01, description: "Discovery xp"},
     "Unusual Insight": {name: "Unusual Insight", maxXp: 100, effect: 0.005, description: "Magical xp"},
     "Trade Psychology": {name: "Trade Psychology", maxXp: 100, effect: 0.80, description: "Merchant pay"},
+    "Flow": {name: "Flow", maxXp: 800, effect: 0.001, description: "Gamespeed"},
+
 
     "Dark influence": {name: "Dark influence", maxXp: 100, effect: 0.01, description: "All xp"},
     "Evil control": {name: "Evil control", maxXp: 100, effect: 0.01, description: "Evil gain"},
@@ -161,7 +166,7 @@ const skillCategories = {
     "Fundamentals"           :    ["Concentration", "Productivity", "Bargaining", "Meditation"],
     "Combat"                 :    ["Strength", "Battle tactics", "Muscle memory"],
     "Magic"                  :    ["Mana control", "Immortality", "Time warping", "Super immortality"],
-    "Mind"                   :    ["Novel Knowledge", "Unusual Insight", "Trade Psychology"],
+    "Mind"                   :    ["Novel Knowledge", "Unusual Insight", "Trade Psychology", "Flow"],
     "Dark magic"             :    ["Dark influence", "Evil control", "Intimidation", "Demon training", "Blood meditation", "Demon's wealth"],
     
 }
@@ -244,15 +249,19 @@ const tooltips = {
     "Battle tactics": "Create and revise battle strategies, improving experience gained in the military.",
     "Muscle memory": "Strengthen your neurons through habit and repetition, improving strength gains throughout the body.",
 
+    // Magic
     "Mana control": "Strengthen your mana channels throughout your body, aiding you in becoming a more powerful magical user.",
     "Immortality": "Lengthen your lifespan through the means of magic. However, is this truly the immortality you have tried seeking for...?",
     "Time warping": "Bend space and time through forbidden techniques, resulting in a faster gamespeed.",
     "Super immortality": "Through harnessing ancient, forbidden techniques, lengthen your lifespan drastically beyond comprehension.",
 
+    // Mind
     "Novel Knowledge": "A mind needs training. Your time spent absorbing new ideas and worldviews has increased your ability to assimilate new ideas and make connections between seemingly unrelated concepts.",
     "Unusual Insight": "Your training in the more mundane affairs of the non-magical world have developed your critical analysis skills. As you gain knowledge, magical concepts which seemed inscrutable and mysterious are becoming more relatable to the physical world around you.",
     "Trade Psychology": "Writers pour their souls into the written word. Your extensive reading combined with your countless years spent interacting with people have lent you unparalleled insight into the way mankind views the positive and the negative events of this world. An ethical scholar would refrain from abusing this knowledge for financial gain.",
+    "Flow": "Intense bouts of concentration warp your perception of time",
 
+    // Dark Magic
     "Dark influence": "Encompass yourself with formidable power bestowed upon you by evil, allowing you to pick up and absorb any job or skill with ease.",
     "Evil control": "Tame the raging and growing evil within you, improving evil gain in-between rebirths.",
     "Intimidation": "Learn to emit a devilish aura which strikes extreme fear into other merchants, forcing them to give you heavy discounts.",
@@ -397,10 +406,14 @@ function setCustomEffects() {
         return multiplier;
     };
 
-    var timeWarping = gameData.taskData["Time warping"]
+    // All gamespeed modifying effects are currently combined into this single Time warping multiplier
+    // for simplicity's sake. As of this writing, the two relevant skills are Time warping and Flow.
+    var timeWarping = gameData.taskData["Time warping"];
+    var flow = gameData.taskData["Flow"];
+    // This re-defined getEffect() function is called in the getGameSpeed() function.
     timeWarping.getEffect = function() {
-        var multiplier = 1 + getBaseLog(13, timeWarping.level + 1) 
-        return multiplier
+        var multiplier = 1 + getBaseLog(13, timeWarping.level + 1) + flow.getEffect();
+        return multiplier;
     }
 
     var immortality = gameData.taskData["Immortality"]
@@ -1261,6 +1274,7 @@ gameData.requirements = {
     //"Novel Knowledge": new TaskRequirement([getTaskElement("Novel Knowledge")], [{task: "Concentration", requirement: 700}, {task: "Meditation", requirement: 700}]),
     "Unusual Insight": new TaskRequirement([getTaskElement("Unusual Insight")], [{task: "Concentration", requirement: 900}, {task: "Meditation", requirement: 900}, {task: "Novel Knowledge", requirement: 900}]),
     "Trade Psychology": new TaskRequirement([getTaskElement("Trade Psychology")], [{task: "Unusual Insight", requirement: 900}, {task: "Probation", requirement: 40}]),
+    "Flow": new TaskRequirement([getTaskElement("Flow")], [{task: "Unusual Insight", requirement: 1500}, {task: "Probation", requirement: 40}]),
 
     //Dark magic
     "Dark influence": new EvilRequirement([getTaskElement("Dark influence")], [{requirement: 1}]),

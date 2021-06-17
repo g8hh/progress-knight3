@@ -2,6 +2,9 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
+6/17/2021  
+-add Flow skill to Mind  
+
 6/16/2021  
 Initial github.io release.  
 
