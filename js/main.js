@@ -33,7 +33,7 @@ const baseLifespan = 365 * 70
 var devModeFastProgress = 0;
 // ******* DEV MODE SPEED INCREASES ******* //
 //original: 4
-var baseGameSpeed = 34;
+var baseGameSpeed = 4;
 var baseEffect = 0.01;
 if(devModeFastProgress == 1) {
     baseGameSpeed = 32;
