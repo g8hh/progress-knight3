@@ -138,20 +138,21 @@ const itemBaseData = {
     //Cameron's first addition: rag clothing. Woohoo!
     "Rag Clothing": {name: "Rag Clothing", expense: 3, effect: 1.5, description: "Skill xp"},
     "Book": {name: "Book", expense: 10, effect: 1.5, description: "Skill xp"},
-    "Basic Hand Tools": {name: "Basic Hand Tools", expense: 10, effect: 1.5, description: "Job xp"},
-    "Cheap Fishing Rod": {name: "Cheap Fishing Rod", expense: 20, effect: 2.0, description: "Job xp"},
+    "Basic Farm Tools": {name: "Basic Farm Tools", expense: 10, effect: 1.5, description: "Farm upgrade"},
     "Dumbbells": {name: "Dumbbells", expense: 50, effect: 1.5, description: "Strength xp"},
-    "Miner's Lantern": {name: "Miner's Lantern", expense: 35, effect: 1.5, description: "Job xp"},
-    "Crappy Anvil": {name: "Crappy Anvil", expense: 50, effect: 1.5, description: "Job xp"},
-    "Pack Horse": {name: "Pack Horse", expense: 80, effect: 3.0, description: "Job xp"},
-    "Small Shop": {name: "Small Shop", expense: 600, effect: 1.5, description: "Job xp"},
-    "Weapon Outlet": {name: "Weapon Outlet", expense: 3000, effect: 3.0, description: "Job xp"},
     "Personal squire": {name: "Personal squire", expense: 200, effect: 2, description: "Job xp"},
     "Steel longsword": {name: "Steel longsword", expense: 1000, effect: 2, description: "Military xp"},
     "Butler": {name: "Butler", expense: 7500, effect: 1.5, description: "Happiness"},
     "Sapphire charm": {name: "Sapphire charm", expense: 50000, effect: 3, description: "Magic xp"},
     "Study desk": {name: "Study desk", expense: 1000000, effect: 2, description: "Skill xp"},
     "Library": {name: "Library", expense: 10000000, effect: 1.5, description: "Skill xp"},
+    "Small Field": {name: "Small Field", expense: 130, effect: 5.0, description: "Farm upgrade"},
+    "Cheap Fishing Rod": {name: "Cheap Fishing Rod", expense: 20, effect: 2.0, description: "Fishing upgrade"},
+    "Miner's Lantern": {name: "Miner's Lantern", expense: 35, effect: 1.5, description: "Mining upgrade"},
+    "Crappy Anvil": {name: "Crappy Anvil", expense: 50, effect: 1.5, description: "Blacksmith upgrade"},
+    "Pack Horse": {name: "Pack Horse", expense: 80, effect: 3.0, description: "Merchant upgrade"},
+    "Small Shop": {name: "Small Shop", expense: 600, effect: 1.5, description: "Merchant upgrade"},
+    "Weapon Outlet": {name: "Weapon Outlet", expense: 3000, effect: 3.0, description: "Merchant upgrade"},
 }
 
 const jobCategories = {
@@ -173,9 +174,9 @@ const skillCategories = {
 
 const itemCategories = {
     "Properties": ["Homeless", "Tent", "Wooden hut", "Cottage", "House", "Large house", "Small palace", "Grand palace"],
-    "Misc": ["Rag Clothing", "Book", "Basic Hand Tools", "Cheap Fishing Rod", "Dumbbells", "Miner's Lantern", "Crappy Anvil", "Pack Horse", "Small Shop",
+    "Misc": ["Rag Clothing", "Book", "Basic Farm Tools", "Cheap Fishing Rod", "Dumbbells", "Miner's Lantern", "Crappy Anvil", "Pack Horse", "Small Shop",
     "Weapon Outlet", "Personal squire", 
-                "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library"]
+                "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library", "Small Field"]
 }
 
 const headerRowColors = {
@@ -269,6 +270,7 @@ const tooltips = {
     "Blood meditation": "Grow and culture the evil within you through the sacrifise of other living beings, drastically increasing evil gain.",
     "Demon's wealth": "Through the means of dark magic, multiply the raw matter of the coins you receive from your job.",
 
+    //Housing Tooltips
     "Homeless": "Sleep on the uncomfortable, filthy streets while almost freezing to death every night. It cannot get any worse than this.",
     "Tent": "A thin sheet of tattered cloth held up by a couple of feeble, wooden sticks. Horrible living conditions but at least you have a roof over your head.",
     "Wooden hut": "Shabby logs and dirty hay glued together with horse manure. Much more sturdy than a tent, however, the stench isn't very pleasant.",
@@ -278,9 +280,10 @@ const tooltips = {
     "Small palace": "A very rich and meticulously built structure rimmed with fine metals such as silver. Extremely high expenses to maintain for a lavish lifestyle.",
     "Grand palace": "A grand residence completely composed of gold and silver. Provides the utmost luxurious and comfortable living conditions possible for a ludicrous price.",
 
+    //Item Tooltips
     "Rag Clothing": "After weeks of freezing on the streets, you're making enough money to buy some cheap clothes. They're not much, but they'll keep you warm enough to focus.",
     "Book": "A place to write down all your thoughts and discoveries, allowing you to learn a lot more quickly.",
-    "Basic Hand Tools": "A set of rusty iron tools to help loosen soil, shape wood, and attach things. Where did you even find this junk?",
+    "Basic Farm Tools": "A set of rusty iron tools to help loosen soil, shape wood, and attach things. Where did you even find this junk?",
     "Cheap Fishing Rod": "You found this cracked fishing rod partially buried by the shore. It needs some major TLC, but it'll help you reel in bigger fish.",
     "Dumbbells": "Heavy tools used in strenuous exercise to toughen up and accumulate strength even faster than before. ",
     "Miner's Lantern": "After weeks of feeling your way through pitch black tunnels, bandaging scraped hands, and getting smacked in the face by your fellow miner's pickaxes, you have the bright idea to purchase a lantern. Hopefully some light will help illuminate additional mineral deposits and geological phenomena.",
@@ -294,6 +297,7 @@ const tooltips = {
     "Sapphire charm": "Embedded with a rare sapphire, this charm activates more mana channels within your body, providing a much easier time learning magic.",
     "Study desk": "A dedicated area which provides many fine stationary and equipment designed for furthering your progress in research.",
     "Library": "Stores a collection of books, each containing vast amounts of information from basic life skills to complex magic spells.",
+    "Small Field": "After a pitched battle between bickering barons, your fellow farmer lost his leg and two eldest sons. With a wife and small children to take care of, he says he'll entrust his land to you in exchange for using the proceeds to take care of his family.",
 }
 
 const units = ["", "k", "M", "B", "T", "q", "Q", "Sx", "Sp", "Oc"];
@@ -347,7 +351,9 @@ function addMultipliers() {
             task.xpMultipliers.push(getBindedTaskEffect("Novel Knowledge"));
             task.xpMultipliers.push(getBindedTaskEffect("Unusual Insight"));
         } else if(task.name == "Farmer") { //trying to make hand tools increase farmer income
-            task.incomeMultipliers.push(getBindedItemEffect("Basic Hand Tools"));
+            task.incomeMultipliers.push(getBindedItemEffect("Basic Farm Tools"));
+            task.xpMultipliers.push(getBindedItemEffect("Small Field"));
+            task.incomeMultipliers.push(getBindedItemEffect("Small Field"));
         } else if (task.name == "Fisherman") { // Fishing rod boosts both income and fishing xp (bigger fish baby!)
             task.incomeMultipliers.push(getBindedItemEffect("Cheap Fishing Rod"));
             task.xpMultipliers.push(getBindedItemEffect("Cheap Fishing Rod"));
@@ -614,6 +620,10 @@ function updateQuickTaskDisplay(taskType) {
     progressBar.getElementsByClassName("progressFill")[0].style.width = currentTask.xp / currentTask.getMaxXp() * 100 + "%"
 }
 
+/*
+*   ******* REFACTOR SORELY NEEDED *******
+*   ******* DOCUMENTATION SORELY NEEDED *******
+*/
 function updateRequiredRows(data, categoryType) {
     var requiredRows = document.getElementsByClassName("requiredRow")
     for (requiredRow of requiredRows) {
@@ -673,9 +683,11 @@ function updateRequiredRows(data, categoryType) {
                     finalText = finalText.substring(0, finalText.length - 1)
                     levelElement.textContent = finalText
                 }
+                //Item requirement row display logic
             } else if (data == gameData.itemData) {
-                coinElement.classList.remove("hiddenTask")
-                formatCoins(requirements[0].requirement, coinElement)
+                coinElement.classList.remove("hiddenTask");
+                levelElement.classList.remove("hiddenTask");
+                formatCoins(requirements[0].requirement, coinElement);
             }
         }   
     }
@@ -1272,7 +1284,7 @@ gameData.requirements = {
 
     //Mind
     //"Novel Knowledge": new TaskRequirement([getTaskElement("Novel Knowledge")], [{task: "Concentration", requirement: 700}, {task: "Meditation", requirement: 700}]),
-    "Unusual Insight": new TaskRequirement([getTaskElement("Unusual Insight")], [{task: "Concentration", requirement: 900}, {task: "Meditation", requirement: 900}, {task: "Novel Knowledge", requirement: 900}]),
+    "Unusual Insight": new TaskRequirement([getTaskElement("Unusual Insight")], [{task: "Meditation", requirement: 900}, {task: "Novel Knowledge", requirement: 900}]),
     "Trade Psychology": new TaskRequirement([getTaskElement("Trade Psychology")], [{task: "Unusual Insight", requirement: 900}, {task: "Probation", requirement: 40}]),
     "Flow": new TaskRequirement([getTaskElement("Flow")], [{task: "Unusual Insight", requirement: 1500}, {task: "Probation", requirement: 40}]),
 
@@ -1298,20 +1310,21 @@ gameData.requirements = {
     //Misc
     "Book": new CoinRequirement([getItemElement("Book")], [{requirement: 0}]),
     "Rag Clothing": new CoinRequirement([getItemElement("Rag Clothing")], [{requirement: 10}]),
-    "Basic Hand Tools": new TaskRequirement([getItemElement("Basic Hand Tools")], [{task: "Farmer", requirement: 20}]),
-    "Cheap Fishing Rod": new TaskRequirement([getItemElement("Cheap Fishing Rod")], [{task: "Fisherman", requirement: 20}]),
     "Dumbbells": new CoinRequirement([getItemElement("Dumbbells")], [{requirement: gameData.itemData["Dumbbells"].getExpense() * 100}]),
-    "Miner's Lantern": new TaskRequirement([getItemElement("Miner's Lantern")], [{task: "Miner", requirement: 20}]),
-    "Crappy Anvil": new TaskRequirement([getItemElement("Crappy Anvil")], [{task: "Blacksmith", requirement: 20}]),
-    "Pack Horse": new TaskRequirement([getItemElement("Pack Horse")], [{task: "Merchant", requirement: 20}]),
-    "Small Shop": new TaskRequirement([getItemElement("Small Shop")], [{task: "Merchant", requirement: 75}]),
-    "Weapon Outlet": new TaskRequirement([getItemElement("Weapon Outlet")], [{task: "Merchant", requirement: 200}]),
     "Personal squire": new CoinRequirement([getItemElement("Personal squire")], [{requirement: gameData.itemData["Personal squire"].getExpense() * 100}]),
     "Steel longsword": new CoinRequirement([getItemElement("Steel longsword")], [{requirement: gameData.itemData["Steel longsword"].getExpense() * 100}]),
     "Butler": new CoinRequirement([getItemElement("Butler")], [{requirement: gameData.itemData["Butler"].getExpense() * 100}]),
     "Sapphire charm": new CoinRequirement([getItemElement("Sapphire charm")], [{requirement: gameData.itemData["Sapphire charm"].getExpense() * 100}]),
     "Study desk": new CoinRequirement([getItemElement("Study desk")], [{requirement: gameData.itemData["Study desk"].getExpense() * 100}]),
     "Library": new CoinRequirement([getItemElement("Library")], [{requirement: gameData.itemData["Library"].getExpense() * 100}]), 
+    "Small Field": new TaskRequirement([getItemElement("Small Field")], [{task: "Farmer", requirement: 25}]),
+    "Basic Farm Tools": new TaskRequirement([getItemElement("Basic Farm Tools")], [{task: "Farmer", requirement: 10}]),
+    "Cheap Fishing Rod": new TaskRequirement([getItemElement("Cheap Fishing Rod")], [{task: "Fisherman", requirement: 10}]),
+    "Miner's Lantern": new TaskRequirement([getItemElement("Miner's Lantern")], [{task: "Miner", requirement: 10}]),
+    "Crappy Anvil": new TaskRequirement([getItemElement("Crappy Anvil")], [{task: "Blacksmith", requirement: 10}]),
+    "Pack Horse": new TaskRequirement([getItemElement("Pack Horse")], [{task: "Merchant", requirement: 10}]),
+    "Small Shop": new TaskRequirement([getItemElement("Small Shop")], [{task: "Merchant", requirement: 75}]),
+    "Weapon Outlet": new TaskRequirement([getItemElement("Weapon Outlet")], [{task: "Merchant", requirement: 200}]),
 }
 
 tempData["requirements"] = {}

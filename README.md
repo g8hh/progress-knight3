@@ -2,6 +2,17 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
+6/20/2021  
+
+Shop requirements are, in their current state, a little confusing. Today I'll begin the process of cleaning up and clarifying which item is being displayed in the required row, what  
+all the requirements are, and clarifying item tooltips to describe specific effects. 
+
+Changelog:  
+-renamed Basic Hand Tools to become Basic Farm Tools
+-reduced first-level job item requirements from job level 20 to job level 10, so that they now unlock at the same time as the higher-tier job and present a choice for the player  
+    of whether to promote or continue investing in the current career  
+-added Farmer job items
+-removed Concentration requirement for Unusual Insight to fix the header row height issue
 6/17/2021  
 -add Flow skill to Mind  
 
