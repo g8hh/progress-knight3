@@ -872,8 +872,28 @@ function setSkillWithLowestMaxXp() {
     for (skillName in gameData.taskData) {
         var skill = gameData.taskData[skillName]
         var requirement = gameData.requirements[skillName]
-        if (skill instanceof Skill && requirement.isCompleted() && !checkSkillSkipped(skill)) {
-            xpDict[skill.name] = skill.level //skill.getMaxXp() / skill.getXpGain()
+        /*
+        Getting an autolearn error, and the dev console says there is an uncaught
+        TypeError at this line of code below during the requirement.isCompleted() call. 
+        I think the error is saying that when calling requirement.isCompleted, requirement is undefined.
+        This would make sense if I have a skill that doesn't have any unlock requirements, which I think
+        is true of Novel Knowledge for table rendering reasons. So the game logic assumes each skill has a requirement
+        without actually checking if requirement is non-null. 
+        */
+        if (skill instanceof Skill) {
+            //This check on the requirement variable is here to handle the case of a skill
+            //having no requirements. By setting requirement equal to Concentration's requirements, 
+            //we prevent unchecked TypeErrors that have been breaking the auto learn feature. 
+            
+            // NOTE : FRAGILE FIX
+            // This fix will break if the Concentration skill is either removed from the game, renamed, or the requirement is no
+            // longer immediately satisfied upon starting a new game. 
+            if(requirement == null) {
+                requirement = gameData.requirements["Concentration"];
+            }
+            if (requirement.isCompleted() && !checkSkillSkipped(skill)) {
+                xpDict[skill.name] = skill.level //skill.getMaxXp() / skill.getXpGain()
+            }
         }
     }
 

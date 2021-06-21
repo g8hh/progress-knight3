@@ -2,17 +2,46 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
+6/21/2021  
+
+Bug squashing was today's game. The bug in question was making a little bug nest inside the Auto Learn feature, rendering it completely useless and non-functional.  
+I'll talk a little bit about my thought process as I hunted down this bug, what I ultimately did to fix it and the tradeoffs considered and lessons learned.  
+
+My initial thought was to look for low-hanging fruit. I skimmed the relevant code by using simple search and tracing the execution paths of all function calls  
+that deal with auto learn. This is a little bit tedious and inefficient, but it has an added benefit of building code confidence as this is still a relatively  
+new project to me. Specifically, I was looking for simple things like hard-coded loop end indices, hard-coded data structure sizes, anything that would break upon  
+the addition of new content. Shoutout to ihtasham42 / badassic, because I didn't find a single obvious poo-poo error. It was time to break out....  
+
+The Debugger!  
+As soon as I crack open Chrome's devtools, I see a nice handy 1408 error messages. My first reaction was that I should've maybe started by opening devtools at the outset.  
+Ah well, live and learn. So all 1408 error messages were a TypeError inside of one of the functions I had looked at above. The game logic has a section of code that decides which  
+skill is next in line for auto learn. Inside of this function is a little snippet that checks whether the skill's requirements have been completed, because obviously we don't want  
+our players auto-learning skills they have not unlocked yet.  
+
+Here's the rub. Built into this logic is the core assumption that every skill will have a requirement. When ihtasham was coding this solo project, that was not an unreasonable assumption. But when I came in, forked the project and mashed together my incomplete understanding of ihtasham's architecture and my own ideas of what is reasonable to assume,  
+bugs inevitably began to creep in.  
+
+Luckily, once I leveraged my years CS education in finding my own dumb assumptions and killing them, the fix was a simple, yet ugly, two lines of code.  
+What I have done today is add a simple logic check to the requirement property. Before requirement completion is checked, we simply check if the variable is null (which it is in the case of skills that have no unlock requirement). If it is null, simply set it to the lowest level requirement in the game, Concentration.  
+
+Now you might be saying, but Cameron! You just inserted your own set of assumptions into the game's architecture! What if Concentration goes away, or gets changed? Your fix will break! Or why didn't you just add a base requirement to any skill that doesn't have one?  
+
+Funnily enough, I agree with both of those qualms. One skill without a requirement is Novel Knowledge, and that is purely because having a requirement was causing me issues in the table rendering process. The game's architecture had a built-in assumption that the first skill in any category would both have a requirement, but unlock immediately. My workaround at the time was to simply not have a requirement for Novel Knowledge, allowing the table section to render nicely. So today's bug is loosely rooted in my previous deviation from some built-in assumptions that were undocumented and non-obvious to a relative newbie like myself.  
+
+As for the assumptions regarding Concentration's continuing status in the game being a core assumption for this fix, my answer for today is: document. I have documented this as a "FRAGILE FIX" in both code comments inside the related source code, and now here in this dev diary. Is it perfect? Heck no. But if someone forks this project or takes over, there is a route to discover the issue with a few more breadcrumbs than I had to work with. For now, I am satisfied with this interim solution.  
+
 6/20/2021  
 
 Shop requirements are, in their current state, a little confusing. Today I'll begin the process of cleaning up and clarifying which item is being displayed in the required row, what  
-all the requirements are, and clarifying item tooltips to describe specific effects. 
+all the requirements are, and clarifying item tooltips to describe specific effects.  
 
 Changelog:  
--renamed Basic Hand Tools to become Basic Farm Tools
+-renamed Basic Hand Tools to become Basic Farm Tools  
 -reduced first-level job item requirements from job level 20 to job level 10, so that they now unlock at the same time as the higher-tier job and present a choice for the player  
     of whether to promote or continue investing in the current career  
--added Farmer job items
--removed Concentration requirement for Unusual Insight to fix the header row height issue
+-added Farmer job items  
+-removed Concentration requirement for Unusual Insight to fix the header row height issue  
+  
 6/17/2021  
 -add Flow skill to Mind  
 
