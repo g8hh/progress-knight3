@@ -412,13 +412,22 @@ function setCustomEffects() {
         return multiplier;
     };
 
+    //          ***    HISTORICAL NOTES    ***
     // All gamespeed modifying effects are currently combined into this single Time warping multiplier
     // for simplicity's sake. As of this writing, the two relevant skills are Time warping and Flow.
+    // As of June 23rd 2021, gameSpeed effects are broken out into their respective effects and functions
+    // to increase clarity for players. The old method of combining effects into Time Warping caused Flow
+    // to change the Time Warping skill description, which led to confusion. 
     var timeWarping = gameData.taskData["Time warping"];
     var flow = gameData.taskData["Flow"];
     // This re-defined getEffect() function is called in the getGameSpeed() function.
     timeWarping.getEffect = function() {
-        var multiplier = 1 + getBaseLog(13, timeWarping.level + 1) + flow.getEffect();
+        var multiplier = 1 + getBaseLog(13, timeWarping.level + 1);
+        return multiplier;
+    }
+
+    flow.getEffect = function () {
+        var multiplier = 1 + getBaseLog(100, flow.level + 1) / 1.3;
         return multiplier;
     }
 
@@ -462,11 +471,19 @@ function getEvilGain() {
     return evil
 }
 
+function getAllTimeMultipliers() {
+    var timeWarping = gameData.taskData["Time warping"];
+    var flow = gameData.taskData["Flow"];
+    var flowSpeed = flow.getEffect();
+    var timeWarpingSpeed = gameData.timeWarpingEnabled ? timeWarping.getEffect() : 1;
+    var totalTimeMultiplier = flowSpeed * timeWarpingSpeed;
+    return totalTimeMultiplier;
+    
+}
+
 function getGameSpeed() {
-    var timeWarping = gameData.taskData["Time warping"]
-    var timeWarpingSpeed = gameData.timeWarpingEnabled ? timeWarping.getEffect() : 1
-    var gameSpeed = baseGameSpeed * +!gameData.paused * +isAlive() * timeWarpingSpeed
-    return gameSpeed
+    var gameSpeed = baseGameSpeed * +!gameData.paused * +isAlive() * getAllTimeMultipliers();
+    return gameSpeed;
 }
 
 function applyExpenses() {
@@ -751,24 +768,24 @@ function updateHeaderRows(categories) {
 
 function updateText() {
     //Sidebar
-    document.getElementById("ageDisplay").textContent = daysToYears(gameData.days)
-    document.getElementById("dayDisplay").textContent = getDay()
-    document.getElementById("lifespanDisplay").textContent = daysToYears(getLifespan())
-    document.getElementById("pauseButton").textContent = gameData.paused ? "Play" : "Pause"
+    document.getElementById("ageDisplay").textContent = daysToYears(gameData.days);
+    document.getElementById("dayDisplay").textContent = getDay();
+    document.getElementById("lifespanDisplay").textContent = daysToYears(getLifespan());
+    document.getElementById("pauseButton").textContent = gameData.paused ? "Play" : "Pause";
 
-    formatCoins(gameData.coins, document.getElementById("coinDisplay"))
-    setSignDisplay()
-    formatCoins(getNet(), document.getElementById("netDisplay"))
-    formatCoins(getIncome(), document.getElementById("incomeDisplay"))
-    formatCoins(getExpense(), document.getElementById("expenseDisplay"))
+    formatCoins(gameData.coins, document.getElementById("coinDisplay"));
+    setSignDisplay();
+    formatCoins(getNet(), document.getElementById("netDisplay"));
+    formatCoins(getIncome(), document.getElementById("incomeDisplay"));
+    formatCoins(getExpense(), document.getElementById("expenseDisplay"));
 
-    document.getElementById("happinessDisplay").textContent = getHappiness().toFixed(1)
+    document.getElementById("happinessDisplay").textContent = getHappiness().toFixed(1);
 
-    document.getElementById("evilDisplay").textContent = gameData.evil.toFixed(1)
-    document.getElementById("evilGainDisplay").textContent = getEvilGain().toFixed(1)
+    document.getElementById("evilDisplay").textContent = gameData.evil.toFixed(1);
+    document.getElementById("evilGainDisplay").textContent = getEvilGain().toFixed(1);
 
-    document.getElementById("timeWarpingDisplay").textContent = "x" + gameData.taskData["Time warping"].getEffect().toFixed(2)
-    document.getElementById("timeWarpingButton").textContent = gameData.timeWarpingEnabled ? "Disable warp" : "Enable warp"
+    document.getElementById("timeWarpingDisplay").textContent = "x" + getAllTimeMultipliers().toFixed(2);
+    document.getElementById("timeWarpingButton").textContent = gameData.timeWarpingEnabled ? "Disable warp" : "Enable warp";
 }
 
 function setSignDisplay() {

@@ -2,8 +2,15 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
-6/21/2021  
+6/23/2021  
+-Uncoupled Time Warping and Flow effects. Flow will no longer influence the display value of Time Warp under its skill description  
+-Uncoupled game architecture element assumptions regarding game speed's influencers and display logic. Should enable easier time manipulation in the future  
+    by having to modify fewer functions  
+-Refactored getGameSpeed() function into two separate functions, getAllTimeMultipliers() and getGameSpeed().  
+-Continued work on town and civilization features on local repo  
 
+6/21/2021  
+  
 Bug squashing was today's game. The bug in question was making a little bug nest inside the Auto Learn feature, rendering it completely useless and non-functional.  
 I'll talk a little bit about my thought process as I hunted down this bug, what I ultimately did to fix it and the tradeoffs considered and lessons learned.  
 
