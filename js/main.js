@@ -132,8 +132,9 @@ const itemBaseData = {
     "Cottage": {name: "Cottage", expense: 750, effect: 3.5},
     "House": {name: "House", expense: 3000, effect: 6},
     "Large house": {name: "Large house", expense: 25000, effect: 12},
-    "Small palace": {name: "Small palace", expense: 300000, effect: 25},
-    "Grand palace": {name: "Grand palace", expense: 5000000, effect: 60},
+    "Small Manor": {name: "Small Manor", expense: 300000, effect: 25},
+    "Small palace": {name: "Small palace", expense: 5000000, effect: 60},
+    "Grand palace": {name: "Grand palace", expense: 100000000, effect: 135},
 
     //Cameron's first addition: rag clothing. Woohoo!
     "Rag Clothing": {name: "Rag Clothing", expense: 3, effect: 1.5, description: "Skill xp"},
@@ -147,6 +148,8 @@ const itemBaseData = {
     "Study desk": {name: "Study desk", expense: 1000000, effect: 2, description: "Skill xp"},
     "Library": {name: "Library", expense: 10000000, effect: 1.5, description: "Skill xp"},
     "Small Field": {name: "Small Field", expense: 130, effect: 5.0, description: "Farm upgrade"},
+    "Ox-driven Plow": {name: "Ox-driven Plow", expense: 200, effect: 2.4, description: "Farm upgrade"},
+    "Livestock-derived Fertilizer": {name: "Livestock-derived Fertilizer", expense: 20, effect: 1.2, description: "Farm upgrade"},
     "Cheap Fishing Rod": {name: "Cheap Fishing Rod", expense: 20, effect: 2.0, description: "Fishing upgrade"},
     "Miner's Lantern": {name: "Miner's Lantern", expense: 35, effect: 1.5, description: "Mining upgrade"},
     "Crappy Anvil": {name: "Crappy Anvil", expense: 50, effect: 1.5, description: "Blacksmith upgrade"},
@@ -173,10 +176,10 @@ const skillCategories = {
 }
 
 const itemCategories = {
-    "Properties": ["Homeless", "Tent", "Wooden hut", "Cottage", "House", "Large house", "Small palace", "Grand palace"],
-    "Misc": ["Rag Clothing", "Book", "Basic Farm Tools", "Cheap Fishing Rod", "Dumbbells", "Miner's Lantern", "Crappy Anvil", "Pack Horse", "Small Shop",
+    "Properties": ["Homeless", "Tent", "Wooden hut", "Cottage", "House", "Large house", "Small Manor", "Small palace", "Grand palace"],
+    "Misc": ["Rag Clothing", "Book", "Basic Farm Tools", "Small Field", "Ox-driven Plow", "Livestock-derived Fertilizer", "Cheap Fishing Rod", "Dumbbells", "Miner's Lantern", "Crappy Anvil", "Pack Horse", "Small Shop",
     "Weapon Outlet", "Personal squire", 
-                "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library", "Small Field"]
+                "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library"]
 }
 
 const headerRowColors = {
@@ -277,6 +280,7 @@ const tooltips = {
     "Cottage": "Structured with a timber frame and a thatched roof. Provides decent living conditions for a fair price.",
     "House": "A building formed from stone bricks and sturdy timber, which contains a few rooms. Although quite expensive, it is a comfortable abode.",
     "Large house": "Much larger than a regular house, which boasts even more rooms and multiple floors. The building is quite spacious but comes with a hefty price tag.",
+    "Small Manor": "Your rising status has granted you access to a small countryside manor. With the manor comes two hundred acres of farmland and the associated serfs, grain mill, and a small river for irrigation. The attendant tells you of a beautiful hollow in some nearby woods where you can relax and meditate.",
     "Small palace": "A very rich and meticulously built structure rimmed with fine metals such as silver. Extremely high expenses to maintain for a lavish lifestyle.",
     "Grand palace": "A grand residence completely composed of gold and silver. Provides the utmost luxurious and comfortable living conditions possible for a ludicrous price.",
 
@@ -298,6 +302,8 @@ const tooltips = {
     "Study desk": "A dedicated area which provides many fine stationary and equipment designed for furthering your progress in research.",
     "Library": "Stores a collection of books, each containing vast amounts of information from basic life skills to complex magic spells.",
     "Small Field": "After a pitched battle between bickering barons, your fellow farmer lost his leg and two eldest sons. With a wife and small children to take care of, he says he'll entrust his land to you in exchange for using the proceeds to take care of his family.",
+    "Ox-driven Plow": "With your newfound land and tools, you've become relatively wealthy. For a peasant farmer, at least. Tale of your achievements has reached the ears of the local lord, who has granted permission for you to rent one of his oxen plow teams and associated gear.",
+    "Livestock-derived Fertilizer": "It's poo.",
 }
 
 const units = ["", "k", "M", "B", "T", "q", "Q", "Sx", "Sp", "Oc"];
@@ -354,6 +360,9 @@ function addMultipliers() {
             task.incomeMultipliers.push(getBindedItemEffect("Basic Farm Tools"));
             task.xpMultipliers.push(getBindedItemEffect("Small Field"));
             task.incomeMultipliers.push(getBindedItemEffect("Small Field"));
+            task.incomeMultipliers.push(getBindedItemEffect("Ox-driven Plow"));
+            task.xpMultipliers.push(getBindedItemEffect("Ox-driven Plow"));
+            task.incomeMultipliers.push(getBindedItemEffect("Livestock-derived Fertilizer"));
         } else if (task.name == "Fisherman") { // Fishing rod boosts both income and fishing xp (bigger fish baby!)
             task.incomeMultipliers.push(getBindedItemEffect("Cheap Fishing Rod"));
             task.xpMultipliers.push(getBindedItemEffect("Cheap Fishing Rod"));
@@ -439,29 +448,29 @@ function setCustomEffects() {
 }
 
 function getHappiness() {
-    var meditationEffect = getBindedTaskEffect("Meditation")
-    var butlerEffect = getBindedItemEffect("Butler")
-    var happiness = meditationEffect() * butlerEffect() * gameData.currentProperty.getEffect()
-    return happiness
+    var meditationEffect = getBindedTaskEffect("Meditation");
+    var butlerEffect = getBindedItemEffect("Butler");
+    var happiness = meditationEffect() * butlerEffect() * gameData.currentProperty.getEffect();
+    return happiness;
 }
 
 function getEvil() {
-    return gameData.evil
+    return gameData.evil;
 }
 
 function applyMultipliers(value, multipliers) {
-    var finalMultiplier = 1
+    var finalMultiplier = 1;
     multipliers.forEach(function(multiplierFunction) {
-        var multiplier = multiplierFunction()
-        finalMultiplier *= multiplier
-    })
-    var finalValue = Math.round(value * finalMultiplier)
-    return finalValue
+        var multiplier = multiplierFunction();
+        finalMultiplier *= multiplier;
+    });
+    var finalValue = Math.round(value * finalMultiplier);
+    return finalValue;
 }
 
 function applySpeed(value) {
-    finalValue = value * getGameSpeed() / updateSpeed
-    return finalValue
+    finalValue = value * getGameSpeed() / updateSpeed;
+    return finalValue;
 }
 
 function getEvilGain() {
@@ -641,58 +650,129 @@ function updateQuickTaskDisplay(taskType) {
 *   ******* REFACTOR SORELY NEEDED *******
 *   ******* DOCUMENTATION SORELY NEEDED *******
 */
+
+/*
+*   This function gets called three times. Once with jobs, once with skills, and once for items.
+*   Execution: this function first gathers a list of all possible required rows.
+*   It then parses through each and every possible required row.
+*   
+*/
 function updateRequiredRows(data, categoryType) {
     var requiredRows = document.getElementsByClassName("requiredRow")
     for (requiredRow of requiredRows) {
         var nextEntity = null
-        var category = categoryType[requiredRow.id] 
+        var category = categoryType[requiredRow.id] //requiredRow.id is simple the category name. For items, it's either the array Property or Misc
         if (category == null) {continue}
-        for (i = 0; i < category.length; i++) {
-            var entityName = category[i]
-            if (i >= category.length - 1) break
-            var requirements = gameData.requirements[entityName]
-            if (requirements && i == 0) {
-                if (!requirements.isCompleted()) {
-                    nextEntity = data[entityName]
+
+        // Once we have the array of items, skills or jobs through the category variable, we iterate through each item within the array
+        // with the goal of finding the next entity within the array that has not met it's requirements. 
+        // So this for loop is responsible for choosing the row we use as the required row, and is a good target for changing the logic of 
+        // required row display.
+        if(categoryType.Misc == undefined) {
+            for (i = 0; i < category.length; i++) {
+                var entityName = category[i] //first we grab the name, like "Beggar" or "Rag Clothing"
+                if (i >= category.length - 1) break
+                var requirements = gameData.requirements[entityName] //grab any requirements
+                if (requirements && i == 0) { //if the thing has requirements, its the first in the array, and they aren't completed, set this thing as the nextEntity
+                    if (!requirements.isCompleted()) {
+                        nextEntity = data[entityName]
+                        break
+                    }
+                }
+
+                var nextIndex = i + 1
+                if (nextIndex >= category.length) {break}
+                var nextEntityName = category[nextIndex]
+                nextEntityRequirements = gameData.requirements[nextEntityName]
+
+                if (!nextEntityRequirements.isCompleted()) {
+                    nextEntity = data[nextEntityName]
                     break
+                }       
+            }
+    }
+    //separate decision logic for nextEntity within the Shop
+    // Step one: 
+    // Step two: then we'll 
+    else if (categoryType.Misc != undefined) {
+        for (i = 0; i < category.length; i++) {
+            var entityName = category[i]; //first we grab the name, like "Beggar" or "Rag Clothing"
+            if (i >= category.length - 1) break;
+            var requirements = gameData.requirements[entityName]; //grab any requirements
+            if (requirements && i == 0) { //if the thing has requirements, its the first in the array, and they aren't completed, set this thing as the nextEntity
+                if (!requirements.isCompleted()) {
+                    nextEntity = data[entityName];
+                        break;
+                    
                 }
             }
 
-            var nextIndex = i + 1
-            if (nextIndex >= category.length) {break}
-            var nextEntityName = category[nextIndex]
-            nextEntityRequirements = gameData.requirements[nextEntityName]
+            var nextIndex = i + 1;
+            if (nextIndex >= category.length) {break;}
+            var nextEntityName = category[nextIndex];
+            nextEntityRequirements = gameData.requirements[nextEntityName];
 
             if (!nextEntityRequirements.isCompleted()) {
                 nextEntity = data[nextEntityName]
                 break
-            }       
-        }
+            }    
 
+
+            //decision logic for setting the item to be up next, and therefore used for the required row
+            //if the current job doesn't match the job in the entity's TaskRequirement, continue to the next loop iteration
+            //if the current job matches the item, display that item in the required rows
+
+            /* var requirementObject = nextEntityRequirements; //grab the containing requirement object, like TaskRequirement or CoinRequirement
+            if( (requirementObject instanceof TaskRequirement) && gameData.currentJob == requirementObject.requirements[0].task && !requirementObject.isCompleted()) {
+                //i++;
+                nextEntity = data[nextEntityName];
+                break;
+            } else if( (requirementObject instanceof TaskRequirement) && gameData.currentJob != requirementObject.requirements[0].task) {
+                continue;
+            }  else if(requirementObject instanceof CoinRequirement && !nextEntityRequirements.isCompleted()) {
+                nextEntity = data[nextEntityName];
+                break;
+            } */ 
+            
+                  
+        }
+    }
+
+        //If we didn't find an object within the array that has requirements left to fulfill, we don't display any
+        //required row. We do this by setting the required row to hiddenTask so it doesn't display.
         if (nextEntity == null) {
-            requiredRow.classList.add("hiddenTask")           
+            requiredRow.classList.add("hiddenTask")      
+        
+        //Otherwise, we do have an object to display a required row for. This following code is the code
+        //that decides what exactly gets displayed into the requiredRow template.
         } else {
             requiredRow.classList.remove("hiddenTask")
-            var requirementObject = gameData.requirements[nextEntity.name]
-            var requirements = requirementObject.requirements
+            var requirementObject = gameData.requirements[nextEntity.name] //grab the containing requirement object, like TaskRequirement or CoinRequirement
+            var requirements = requirementObject.requirements //get the inner object, like {task: Concentration, requirement: 85}
 
+            //grab references to <span> elements within the template
             var coinElement = requiredRow.getElementsByClassName("coins")[0]
             var levelElement = requiredRow.getElementsByClassName("levels")[0]
             var evilElement = requiredRow.getElementsByClassName("evil")[0]
 
+            //start by setting all spans to hidden
             coinElement.classList.add("hiddenTask")
             levelElement.classList.add("hiddenTask")
             evilElement.classList.add("hiddenTask")
 
             var finalText = ""
             if (data == gameData.taskData) {
+                //display logic for a Job or Skill required row
                 if (requirementObject instanceof EvilRequirement) {
                     evilElement.classList.remove("hiddenTask")
                     evilElement.textContent = format(requirements[0].requirement) + " evil"
                 } else {
                     levelElement.classList.remove("hiddenTask")
+
+                    //for each mini-object, like {task: Concentration, requirement: 10} inside the containing object like TaskRequirement
                     for (requirement of requirements) {
                         var task = gameData.taskData[requirement.task]
+                        //why not just use the already-built requirement.isCompleted check?
                         if (task.level >= requirement.requirement) continue
                         var text = " " + requirement.task + " level " + format(task.level) + "/" + format(requirement.requirement) + ","
                         finalText += text
@@ -701,10 +781,36 @@ function updateRequiredRows(data, categoryType) {
                     levelElement.textContent = finalText
                 }
                 //Item requirement row display logic
+                
+            /*
+            *   So once we're here, there are two cases.
+            *   The first case is a simple item with only a CoinRequirement. In this case, we use the original display logic.
+            *   Second case, the item has a TaskRequirement and no CoinRequirement. So as-is, the display logic somehow displays
+            *   the item's expense even though it isn't accessed through a CoinRequirement. Weird as hell. No idea how it's doing that for the
+            *   items that only have TaskRequirements, unless this whole time it's actually been displaying the Task level requirement as the coin cost.
+            *   I think that is what has been happening. Lmao. Oops.
+            *  
+            */
             } else if (data == gameData.itemData) {
-                coinElement.classList.remove("hiddenTask");
-                levelElement.classList.remove("hiddenTask");
-                formatCoins(requirements[0].requirement, coinElement);
+                if(requirementObject instanceof CoinRequirement) {
+                    coinElement.classList.remove("hiddenTask");
+                    levelElement.classList.remove("hiddenTask");
+                    formatCoins(requirements[0].requirement, coinElement);
+                }
+                else if(requirementObject instanceof TaskRequirement) {
+                    levelElement.classList.remove("hiddenTask");
+                    for (requirement of requirements) {
+                        var task = gameData.taskData[requirement.task];
+                        //why not just use the already-built requirement.isCompleted check?
+                        if (task.level >= requirement.requirement) continue;
+                        var text = " " + requirement.task + " level " + format(task.level) + "/" + format(requirement.requirement) + ",";
+                        finalText += text;
+                    }
+                    finalText = finalText.substring(0, finalText.length - 1);
+                    levelElement.textContent = finalText;
+                    
+                }
+
             }
         }   
     }
@@ -1341,6 +1447,7 @@ gameData.requirements = {
     "Cottage": new CoinRequirement([getItemElement("Cottage")], [{requirement: gameData.itemData["Cottage"].getExpense() * 100}]),
     "House": new CoinRequirement([getItemElement("House")], [{requirement: gameData.itemData["House"].getExpense() * 100}]),
     "Large house": new CoinRequirement([getItemElement("Large house")], [{requirement: gameData.itemData["Large house"].getExpense() * 100}]),
+    "Small Manor": new CoinRequirement([getItemElement("Small Manor")], [{requirement: gameData.itemData["Small Manor"].getExpense() * 100}]),
     "Small palace": new CoinRequirement([getItemElement("Small palace")], [{requirement: gameData.itemData["Small palace"].getExpense() * 100}]),
     "Grand palace": new CoinRequirement([getItemElement("Grand palace")], [{requirement: gameData.itemData["Grand palace"].getExpense() * 100}]),
 
@@ -1362,6 +1469,8 @@ gameData.requirements = {
     "Pack Horse": new TaskRequirement([getItemElement("Pack Horse")], [{task: "Merchant", requirement: 10}]),
     "Small Shop": new TaskRequirement([getItemElement("Small Shop")], [{task: "Merchant", requirement: 75}]),
     "Weapon Outlet": new TaskRequirement([getItemElement("Weapon Outlet")], [{task: "Merchant", requirement: 200}]),
+    "Ox-driven Plow": new TaskRequirement([getItemElement("Ox-driven Plow")], [{task: "Farmer", requirement: 75}]),
+    "Livestock-derived Fertilizer": new TaskRequirement([getItemElement("Livestock-derived Fertilizer")], [{task: "Farmer", requirement: 85}]),
 }
 
 tempData["requirements"] = {}

@@ -21,3 +21,7 @@
     background-color: rgb(82, 82, 82) !important;
     color: white !important
 }
+
+.item-button {
+    height: auto;
+}

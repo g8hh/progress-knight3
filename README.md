@@ -2,6 +2,13 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
+7/2/2021  
+Work progresses on Town features. But in the mean time, I added a few goodies to v0.3.  
+
+-added new items to the Farmer job track  
+-added new Small Manor property  
+-fix for Shop table button heights  
+
 6/23/2021  
 -Uncoupled Time Warping and Flow effects. Flow will no longer influence the display value of Time Warp under its skill description  
 -Uncoupled game architecture element assumptions regarding game speed's influencers and display logic. Should enable easier time manipulation in the future  
