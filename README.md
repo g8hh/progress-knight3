@@ -9,6 +9,11 @@ Work progresses on Town features. But in the mean time, I added a few goodies to
 -added new Small Manor property  
 -fix for Shop table button heights  
 
+Future:  
+-add a new item category "Job aids" or some similar name
+-add all job boost items to the new category
+-change the updateRequiredRow logic to display these separately from the main generic line of items so that they are uncoupled
+
 6/23/2021  
 -Uncoupled Time Warping and Flow effects. Flow will no longer influence the display value of Time Warp under its skill description  
 -Uncoupled game architecture element assumptions regarding game speed's influencers and display logic. Should enable easier time manipulation in the future  
