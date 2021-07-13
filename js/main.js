@@ -65,6 +65,7 @@ const jobBaseData = {
     "Wizard": {name: "Wizard", maxXp: 100000000, income: 50000},
     "Master wizard": {name: "Master wizard", maxXp: 10000000000, income: 250000},
     "Chairman": {name: "Chairman", maxXp: 1000000000000, income: 1000000},
+    "Illustrious Chairman": {name: "Illustrious Chairman", maxXp: 7000000000000, income: 1500000},
 
     "Junior Caretaker": {name: "Junior Caretaker", maxXp: 100000, income: 15},
     "Lead Caretaker": {name: "Lead Caretaker", maxXp: 1000000, income: 115}, 
@@ -113,6 +114,9 @@ const skillBaseData = {
     "Unusual Insight": {name: "Unusual Insight", maxXp: 100, effect: 0.005, description: "Magical xp"},
     "Trade Psychology": {name: "Trade Psychology", maxXp: 100, effect: 0.80, description: "Merchant pay"},
     "Flow": {name: "Flow", maxXp: 800, effect: 0.001, description: "Gamespeed"},
+    "Magical Engineering": {name: "Magical Engineering", maxXp: 1000, effect: 0.01, description: "Chairman xp"},
+    "Scales Of Thought": {name: "Scales Of Thought", maxXp: 1100, effect: 0.003, description: "Magical xp"},
+    "Magical Biology": {name: "Magical Biology", maxXp: 1500, effect: 0.005, description: "Chairman xp"},
 
 
     "Dark influence": {name: "Dark influence", maxXp: 100, effect: 0.01, description: "All xp"},
@@ -134,7 +138,7 @@ const itemBaseData = {
     "Large house": {name: "Large house", expense: 25000, effect: 12},
     "Small Manor": {name: "Small Manor", expense: 300000, effect: 25},
     "Small palace": {name: "Small palace", expense: 5000000, effect: 60},
-    "Grand palace": {name: "Grand palace", expense: 100000000, effect: 135},
+    "Grand palace": {name: "Grand palace", expense: 190000000, effect: 135},
 
     //Cameron's first addition: rag clothing. Woohoo!
     "Rag Clothing": {name: "Rag Clothing", expense: 3, effect: 1.5, description: "Skill xp"},
@@ -146,7 +150,7 @@ const itemBaseData = {
     "Butler": {name: "Butler", expense: 7500, effect: 1.5, description: "Happiness"},
     "Sapphire charm": {name: "Sapphire charm", expense: 50000, effect: 3, description: "Magic xp"},
     "Study desk": {name: "Study desk", expense: 1000000, effect: 2, description: "Skill xp"},
-    "Library": {name: "Library", expense: 10000000, effect: 1.5, description: "Skill xp"},
+    "Library": {name: "Library", expense: 12000000, effect: 1.5, description: "Skill xp"},
     "Small Field": {name: "Small Field", expense: 130, effect: 5.0, description: "Farm upgrade"},
     "Ox-driven Plow": {name: "Ox-driven Plow", expense: 200, effect: 2.4, description: "Farm upgrade"},
     "Livestock-derived Fertilizer": {name: "Livestock-derived Fertilizer", expense: 20, effect: 1.2, description: "Farm upgrade"},
@@ -161,7 +165,7 @@ const itemBaseData = {
 const jobCategories = {
     "Common work"            :    ["Beggar", "Farmer", "Fisherman", "Miner", "Blacksmith", "Merchant"],
     "Military"               :    ["Squire", "Footman", "Veteran footman", "Knight", "Veteran knight", "Elite knight", "Holy knight", "Legendary knight"],
-    "The Arcane Association" :    ["Student", "Apprentice mage", "Mage", "Wizard", "Master wizard", "Chairman"],
+    "The Arcane Association" :    ["Student", "Apprentice mage", "Mage", "Wizard", "Master wizard", "Chairman", "Illustrious Chairman"],
     "The Order of Discovery" :    ["Junior Caretaker", "Lead Caretaker", "Freshman", "Sophomore", "Junior", "Senior", "Probation"],
     "Nobility"               :    ["Baronet", "Baron", "Vice Count", "Count", "Duke", "Grand Duke", "Arch Duke", "Lord", "High Lord", "King", "High King", "Emperor of Mankind"]
 }
@@ -170,7 +174,7 @@ const skillCategories = {
     "Fundamentals"           :    ["Concentration", "Productivity", "Bargaining", "Meditation"],
     "Combat"                 :    ["Strength", "Battle tactics", "Muscle memory"],
     "Magic"                  :    ["Mana control", "Immortality", "Time warping", "Super immortality"],
-    "Mind"                   :    ["Novel Knowledge", "Unusual Insight", "Trade Psychology", "Flow"],
+    "Mind"                   :    ["Novel Knowledge", "Unusual Insight", "Trade Psychology", "Flow", "Magical Engineering", "Scales Of Thought", "Magical Biology"],
     "Dark magic"             :    ["Dark influence", "Evil control", "Intimidation", "Demon training", "Blood meditation", "Demon's wealth"],
     
 }
@@ -220,6 +224,7 @@ const tooltips = {
     "Wizard": "Utilise advanced spells to ravage and destroy entire legions of enemy soldiers. Only a small percentage of mages deserve to attain this role and are rewarded with an insanely high pay.",
     "Master wizard": "Blessed with unparalleled talent, perform unbelievable feats with magic at will. It is said that a master wizard has enough destructive power to wipe an empire off the map.",
     "Chairman": "Spend your days administrating The Arcane Association and investigate the concepts of true immortality. The chairman receives ludicrous amounts of pay daily.",
+    "Illustrious Chairman": "Master of life and war. Renowned throughout the magical and non-magical worlds alike, an Illustrious Chairman is completely free to follow their own path of discovery and ambition. On the other hand, there is that curious note to investigate...",
 
     //The Order of Discovery
     "Junior Caretaker": "A low-level administrator of the ancient Order of Discovery has offered you a job. Cleaning shit-stained chamber pots and mopping kitchen floors isn't glamorous work, but it gives you the rare chance to peruse the Order's world-class library of exotic books. Who cares if touching the books is an offense worthy of expulsion?",
@@ -264,6 +269,16 @@ const tooltips = {
     "Unusual Insight": "Your training in the more mundane affairs of the non-magical world have developed your critical analysis skills. As you gain knowledge, magical concepts which seemed inscrutable and mysterious are becoming more relatable to the physical world around you.",
     "Trade Psychology": "Writers pour their souls into the written word. Your extensive reading combined with your countless years spent interacting with people have lent you unparalleled insight into the way mankind views the positive and the negative events of this world. An ethical scholar would refrain from abusing this knowledge for financial gain.",
     "Flow": "Intense bouts of concentration warp your perception of time",
+    "Magical Engineering": "The potential routes of experimentation are infinite. The questions, limitless. What should a budding Chairman focus on in order to enhance their" 
+      + " knowledge of both life and magic? In medieval times, biology is limited by the tools of the time. Without microscopes and advanced chemistry, it is almost impossible" 
+      + " to fully grasp the concept of cellular life and the underlying mechanisms governing DNA, metabolism, and degradation of biological structures. Magical Engineering is a worthy pursuit for a Chairman looking to use Magic to build the tools of future scientific inquiry.",
+    "Scales Of Thought": "Up to this point, a Chairman's experience with Magic is almost entirely on the human scale. A budding apprentice learns to extend the life of a flower."
+      +  " A mage learns to incinerate man, horse, and siege engine. Master Wizards learn to shake the earth and obscure the vision of their human opponents with natural phenomena"
+      + " and magic alike. A Chairman must learn to shift their focus from the scale of humanity to both higher highs and lower lows. A Chairman seeking immortality must investigate"
+      + " the smallest structures of existence, must continue probing deeper and uncovering astounding knowledge and even more astounding questions. Scales of Thought will enhance"
+      + " Mana Control and Chairman experience gain rates by a substantial rate. By probing nature on a deeper level, a Chairman gains unparalleled understanding which influences every magical action pursuit.",
+      "Magical Biology": "Through Magical Biology, a Chairman seeks to leverage their new inventions and new frames of thought to directly probe, change, experiment and observe the effects of magic on various cellular structures to enhance their vitality and vigor. Magical Biology is the final step towards immortality.",
+
 
     // Dark Magic
     "Dark influence": "Encompass yourself with formidable power bestowed upon you by evil, allowing you to pick up and absorb any job or skill with ease.",
@@ -313,7 +328,8 @@ const jobTabButton = document.getElementById("jobTabButton")
 function getBaseLog(x, y) {
     return Math.log(y) / Math.log(x);
 }
-  
+
+
 function getBindedTaskEffect(taskName) {
     var task = gameData.taskData[taskName]
     return task.getEffect.bind(task)
@@ -380,6 +396,16 @@ function addMultipliers() {
             task.xpMultipliers.push(getBindedItemEffect("Small Shop"));
             task.incomeMultipliers.push(getBindedItemEffect("Weapon Outlet"));
             task.xpMultipliers.push(getBindedItemEffect("Weapon Outlet"));
+        } else if (task.name == "Chairman") {
+            task.incomeMultipliers.push(getBindedTaskEffect("Magical Engineering"));
+            task.xpMultipliers.push(getBindedTaskEffect("Magical Engineering"));
+            task.xpMultipliers.push(getBindedTaskEffect("Scales Of Thought"));
+            task.xpMultipliers.push(getBindedTaskEffect("Magical Biology"));
+        } else if (task.name == "Illustrious Chairman") {
+            task.incomeMultipliers.push(getBindedTaskEffect("Magical Engineering"));
+            task.xpMultipliers.push(getBindedTaskEffect("Magical Engineering"));
+            task.xpMultipliers.push(getBindedTaskEffect("Scales Of Thought"));
+            task.xpMultipliers.push(getBindedTaskEffect("Magical Biology"));
         } else if (task.name == "Strength") {
             task.xpMultipliers.push(getBindedTaskEffect("Muscle memory"))
             task.xpMultipliers.push(getBindedItemEffect("Dumbbells"))
@@ -387,6 +413,7 @@ function addMultipliers() {
             task.xpMultipliers.push(getBindedItemEffect("Sapphire charm"));
             task.xpMultipliers.push(getBindedTaskEffect("Novel Knowledge"));
             task.xpMultipliers.push(getBindedTaskEffect("Unusual Insight"));
+            task.xpMultipliers.push(getBindedTaskEffect("Scales Of Thought"));
         } else if (jobCategories["The Arcane Association"].includes(task.name)) {
             task.xpMultipliers.push(getBindedTaskEffect("Mana control"));
             task.xpMultipliers.push(getBindedTaskEffect("Novel Knowledge"));
@@ -461,6 +488,7 @@ function getEvil() {
 function applyMultipliers(value, multipliers) {
     var finalMultiplier = 1;
     multipliers.forEach(function(multiplierFunction) {
+        //wtf is multiplier function? It's called like a function, but we have no function definition ANYWHERE. Mrrrrr...
         var multiplier = multiplierFunction();
         finalMultiplier *= multiplier;
     });
@@ -1383,6 +1411,7 @@ gameData.requirements = {
     "Wizard": new TaskRequirement([getTaskElement("Wizard")], [{task: "Mana control", requirement: 1000}, {task: "Mage", requirement: 10}]),
     "Master wizard": new TaskRequirement([getTaskElement("Master wizard")], [{task: "Mana control", requirement: 1500}, {task: "Wizard", requirement: 10}]),
     "Chairman": new TaskRequirement([getTaskElement("Chairman")], [{task: "Mana control", requirement: 2000}, {task: "Master wizard", requirement: 10}]),
+    "Illustrious Chairman": new TaskRequirement([getTaskElement("Illustrious Chairman")], [{task: "Mana control", requirement: 3000}, {task: "Chairman", requirement: 1000}]),
 
     //The Order of Discovery
     "Junior Caretaker": new TaskRequirement([getTaskElement("Junior Caretaker")], 
@@ -1430,6 +1459,9 @@ gameData.requirements = {
     "Unusual Insight": new TaskRequirement([getTaskElement("Unusual Insight")], [{task: "Meditation", requirement: 900}, {task: "Novel Knowledge", requirement: 900}]),
     "Trade Psychology": new TaskRequirement([getTaskElement("Trade Psychology")], [{task: "Unusual Insight", requirement: 900}, {task: "Probation", requirement: 40}]),
     "Flow": new TaskRequirement([getTaskElement("Flow")], [{task: "Unusual Insight", requirement: 1500}, {task: "Probation", requirement: 40}]),
+    "Magical Engineering": new TaskRequirement([getTaskElement("Magical Engineering")], [{task: "Chairman", requirement: 1}]),
+    "Scales Of Thought": new TaskRequirement([getTaskElement("Scales Of Thought")], [{task: "Chairman", requirement: 15}]),
+    "Magical Biology": new TaskRequirement([getTaskElement("Magical Biology")], [{task: "Chairman", requirement: 150}]),
 
     //Dark magic
     "Dark influence": new EvilRequirement([getTaskElement("Dark influence")], [{requirement: 1}]),
