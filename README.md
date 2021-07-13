@@ -30,6 +30,7 @@ Shifting from lore to code, how do we implement this? Simply add the three skill
 And a new Job:  
 -Illustrious Chairman
 
+
 *** Changelog ***  
 -added three new skills to Mind
 -Added one new job to The Arcane Association  
