@@ -1053,7 +1053,7 @@ function setSkillWithLowestMaxXp() {
         return
     }
 	
-	enabledSkills.sort((lhs, rhs) => { return lhs.getXpLeft() / lhs.getXpGain() - rhs.getXpLeft() / rhs.getXpGain() })
+	enabledSkills.sort((lhs, rhs) => { return lhs.getMaxXp() / lhs.getXpGain() - rhs.getMaxXp() / rhs.getXpGain() })
 
     var skillName = enabledSkills[0].name
     skillWithLowestMaxXp = gameData.taskData[skillName]
