@@ -1018,7 +1018,7 @@ function checkSkillSkipped(skill) {
 }
 
 function setSkillWithLowestMaxXp() {
-    var xpDict = {}
+    var enabledSkills = []
 
     for (skillName in gameData.taskData) {
         var skill = gameData.taskData[skillName]
@@ -1043,17 +1043,19 @@ function setSkillWithLowestMaxXp() {
                 requirement = gameData.requirements["Concentration"];
             }
             if (requirement.isCompleted() && !checkSkillSkipped(skill)) {
-                xpDict[skill.name] = skill.level //skill.getMaxXp() / skill.getXpGain()
+                enabledSkills.push(skill)
             }
         }
     }
 
-    if (xpDict == {}) {
+    if (enabledSkills.length == 0) {
         skillWithLowestMaxXp = gameData.taskData["Concentration"]
         return
     }
+	
+	enabledSkills.sort((lhs, rhs) => { return lhs.getXpLeft() / lhs.getXpGain() - rhs.getXpLeft() / rhs.getXpGain() })
 
-    var skillName = getKeyOfLowestValueFromDict(xpDict)
+    var skillName = enabledSkills[0].name
     skillWithLowestMaxXp = gameData.taskData[skillName]
 }
 
