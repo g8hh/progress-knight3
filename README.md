@@ -2,6 +2,18 @@
 An incremental game developed by ihtasham42 and extended by Cameron Gott. Link to the game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
+7/27/2021  
+
+Changelog:  
+-add Projects button to main navigation bar  
+-Placeholder Project tab content for testing purposes
+-Create first-iteration project base data and project category objects
+-Fixed a logic bug inside of the addMultipliers() function. If the current task was equal to Chairman, the general Magic bonuses were getting  
+    skipped due to the if - elseif - elseif structure. Fixed this by pulling out the magic bonuses into an if-statement at the end of the code block.  
+    Of course, all of the Chairman skills were balanced with this buggy progression in mind. Some playtesting is in order to rebalance anything, if necessary.  
+    Alternatively, I did intend for those skills to make Chairman reachable, so it would make perfect sense to leave the faster progress in place and just make more content.  
+
+
 7/12/2021  
 It's time to move the story forward. It's time to learn how to be a Chairman so skilled, so wise, that that Chairman is worthy of level 1000.  
 
