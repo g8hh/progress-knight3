@@ -129,6 +129,18 @@ const skillBaseData = {
     
 }
 
+const projectBaseData = {
+    "Labratorium Arcaenus": {
+        name: "Labratorium Arcaenus", 
+        jobAffected: "Chairman", 
+        jobCategoriesAffected: "The Arcane Association",
+        xpMultiplier: 1.05,
+        baseCost: 1000000000000000, //One million platinum
+        persistsThroughRebirthOne: true,
+        rebirthTwoDestructionPenalty: 0.9,  // embracing evil destroys 90 percent of the project's value
+    },
+}
+
 const itemBaseData = {
     "Homeless": {name: "Homeless", expense: 0, effect: 1},
     "Tent": {name: "Tent", expense: 15, effect: 1.4},
@@ -186,6 +198,10 @@ const itemCategories = {
                 "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library"]
 }
 
+const projectCategories = {
+    "Chairman Projects": ["Labratorium Arcaenus"]
+}
+
 const headerRowColors = {
     "Common work": "#55a630",
     "Military": "#e63946",
@@ -229,11 +245,11 @@ const tooltips = {
     //The Order of Discovery
     "Junior Caretaker": "A low-level administrator of the ancient Order of Discovery has offered you a job. Cleaning shit-stained chamber pots and mopping kitchen floors isn't glamorous work, but it gives you the rare chance to peruse the Order's world-class library of exotic books. Who cares if touching the books is an offense worthy of expulsion?",
     "Lead Caretaker": "Witty placeholder, my name is.",
-    "Freshman": "I tip the tools, and inform the fools.",
+    "Freshman": "Your leadership of the caretaking team has proven you have a modicum of brain cells. A teacher you frequently see has vouched for your potential. Your studies are long and often boring, but you can sense there are great secrets within these halls waiting to be discovered.",
     "Sophomore": "Rhyming is crime-ing, and feature delay is not the way.",
     "Junior": "Try as I do, these temporary tooltips are poo.",
     "Senior": "Forget me not, for this author shall not.",
-    "Probation": "A tooltip a day, keeps the passionate fan at bay.",
+    "Probation": "Having completed your basic studies, the Order grants you a bottom-of-the-barrel position as research associate to an old member of little renown. Any major misstep will probably result in your banishment from the halls of knowledge.",
 
     //Nobility
     "Baronet": "A tooltip, a thought. Helpful, I am not.",
@@ -414,12 +430,13 @@ function addMultipliers() {
             task.xpMultipliers.push(getBindedTaskEffect("Novel Knowledge"));
             task.xpMultipliers.push(getBindedTaskEffect("Unusual Insight"));
             task.xpMultipliers.push(getBindedTaskEffect("Scales Of Thought"));
-        } else if (jobCategories["The Arcane Association"].includes(task.name)) {
+        } else if (skillCategories["Dark magic"].includes(task.name)) {
+            task.xpMultipliers.push(getEvil)
+        }
+        if (jobCategories["The Arcane Association"].includes(task.name)) {
             task.xpMultipliers.push(getBindedTaskEffect("Mana control"));
             task.xpMultipliers.push(getBindedTaskEffect("Novel Knowledge"));
             task.xpMultipliers.push(getBindedTaskEffect("Unusual Insight"));
-        } else if (skillCategories["Dark magic"].includes(task.name)) {
-            task.xpMultipliers.push(getEvil)
         }
     }
 
