@@ -239,7 +239,7 @@ const tooltips = {
     "Mage": "Turn the tides of battle through casting intermediate spells and mentor other apprentices. The pay for this particular job is extremely high.",
     "Wizard": "Utilise advanced spells to ravage and destroy entire legions of enemy soldiers. Only a small percentage of mages deserve to attain this role and are rewarded with an insanely high pay.",
     "Master wizard": "Blessed with unparalleled talent, perform unbelievable feats with magic at will. It is said that a master wizard has enough destructive power to wipe an empire off the map.",
-    "Chairman": "Spend your days administrating The Arcane Association and investigate the concepts of true immortality. The chairman receives ludicrous amounts of pay daily.",
+    "Chairman": "As you walk amongst your fellow Master Wizards, who in recognition of your vast power have just elected you Chairman of the Arcane Association, you receive this anonymous note: \"We have followed your progress with great interest. Many have walked this path, but few have used the amulet you now wear to its full potential. But you are not the first to make it this far. Strive on. We will contact you, when the time is right.\"",
     "Illustrious Chairman": "Master of life and war. Renowned throughout the magical and non-magical worlds alike, an Illustrious Chairman is completely free to follow their own path of discovery and ambition. On the other hand, there is that curious note to investigate...",
 
     //The Order of Discovery
