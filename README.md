@@ -5,6 +5,9 @@ An incremental game developed by ihtasham42 and extended by Cameron Gott. https:
 Link to the original game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
+7/29/2021  
+-prototype town button layout  
+-wrap page layout in W3 Responsive class
 7/27/2021  
 
 Changelog:  
