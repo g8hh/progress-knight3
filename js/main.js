@@ -439,6 +439,9 @@ function addMultipliers() {
             task.xpMultipliers.push(getBindedTaskEffect("Novel Knowledge"));
             task.xpMultipliers.push(getBindedTaskEffect("Unusual Insight"));
         }
+        if(jobCategories["Nobility"].includes(task.name)) {
+            task.xp
+        }
     }
 
     for (itemName in gameData.itemData) {
@@ -938,6 +941,15 @@ function updateText() {
 
     document.getElementById("timeWarpingDisplay").textContent = "x" + getAllTimeMultipliers().toFixed(2);
     document.getElementById("timeWarpingButton").textContent = gameData.timeWarpingEnabled ? "Disable warp" : "Enable warp";
+
+    function updateBuildingBadges() {
+        var woodenHutButton = document.getElementById("woodenHut");
+        woodenHutButton.children[0].innerHTML = o_woodenHut.count;
+
+        var farmButton = document.getElementById("farm");
+        farmButton.children[0].innerHTML = o_farm.count;
+    }
+    updateBuildingBadges();
 }
 
 function setSignDisplay() {
@@ -1375,6 +1387,24 @@ function exportGameData() {
     importExportBox.value = window.btoa(JSON.stringify(gameData))
 }
 
+function registerEventListeners() {
+    var woodenHutButton = document.getElementById("woodenHut");
+    woodenHutButton.addEventListener("click", o_woodenHut.handleClick);
+
+    var farmButton = document.getElementById("farm");
+    farmButton.addEventListener("click", o_farm.handleClick);
+}
+
+/*
+*   Note: this gets called before we register event listeners, otherwise we register
+*   the old functions with improper 'this' context.
+*/
+function bindObjectFunctionContexts() {
+    
+    o_woodenHut.handleClick = o_woodenHut.handleClick.bind(o_woodenHut);
+    o_farm.handleClick = o_farm.handleClick.bind(o_farm);
+}
+
 //Init
 
 createAllRows(jobCategories, "jobTable")
@@ -1525,20 +1555,21 @@ gameData.requirements = {
     "Livestock-derived Fertilizer": new TaskRequirement([getItemElement("Livestock-derived Fertilizer")], [{task: "Farmer", requirement: 85}]),
 }
 
-tempData["requirements"] = {}
+tempData["requirements"] = {};
 for (key in gameData.requirements) {
-    var requirement = gameData.requirements[key]
-    tempData["requirements"][key] = requirement
+    var requirement = gameData.requirements[key];
+    tempData["requirements"][key] = requirement;
 }
 
-loadGameData()
+loadGameData();
+bindObjectFunctionContexts();
+registerEventListeners();
+setCustomEffects();
+addMultipliers();
 
-setCustomEffects()
-addMultipliers()
+setTab(jobTabButton, "jobs");
 
-setTab(jobTabButton, "jobs")
-
-update()
-setInterval(update, 1000 / updateSpeed)
-setInterval(saveGameData, 3000)
-setInterval(setSkillWithLowestMaxXp, 1000)
+update();
+setInterval(update, 1000 / updateSpeed);
+setInterval(saveGameData, 3000);
+setInterval(setSkillWithLowestMaxXp, 1000);

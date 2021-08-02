@@ -5,9 +5,50 @@ An incremental game developed by ihtasham42 and extended by Cameron Gott. https:
 Link to the original game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
+8/2/2021  
+-wrote object prototype for town building data  
+-include town building definitions file in index.html script loading section  
+-wrote the setup function registerEventListeners  
+-wrote the setup functin for binding object contexts  
+-wrote the handleClick function for wooden huts  
+-wrote updateText() sub-function updateBuildingBadges() to update badges for building counts  
+-built the Farm object  
+
+TODO
+-write a function to push new xp multiplier to a nobility task on object purchase
+
+Notes: calling a Function object's bind() method returns a new Function with the indicated context of this. I was having issues  
+with function binding because I was failing to set the buliding object's function to the returned function. 
+
+***** Recipe: adding a building *****  
+-Step one: add object definition to townBuildings.js
+-Step two: write the HTML in the Town tab
+-Step three: add code to updateText() -> updateBuildingBadges()  
+-Step four: registerEventListeners()  
+-Step five: bindObjectFunctionContexts()  
+-Step six: addMultipliers(), if necessary  
+
 7/29/2021  
--prototype town button layout  
--wrap page layout in W3 Responsive class
+-prototype town button layout with inner badge to track building count  
+-wrap town building buttons in responsive container to allow graceful reorganization for these wild mobile and 
+    tablet players  
+-wrap page layout in W3 Responsive class at some point because fixed pixel widths are so 2005 xD  
+
+Rearchitecting my ideas around Town features. I have a little bit more experience and wisdom now.
+I want to have a separation of Town state and Town behavior / control. So that means building definitions in this rework  
+will no longer track any state properties like number-purchased, only things like base cost and base population per building.  
+Then I'll build a separate town controller function / set of functions that get called on updates to make decisions and update town state.  
+
+I'm debating whether or not the separation of money between personal and town accounts is a fun mechanic. It seems fun at first, but could easily become  
+one more boring thing to micromanage across rebirths and actions. So I think if I do like this mechanic enough to keep it, it'll be essential to have some buttons or toggles  
+to enable automatic management policies like "Always invest enough to prevent bankruptcy" or "Match town expenses" to prevent town bankruptcy and death / decay. I don't know.  
+One huge downside of linking the finances of both is that I'd have to account for balance. Right now the player makes so much money as a Chairman that it's relatively easy to  
+just throw money at a town. Some of this can be negated by the organic nature of a town's growth, but still. Would be quite the challenge to balance in a way that feels sane  
+to the player and is still fun for all levels of progression. 
+
+Part of me thinks it will be fun to build independent town behavior. AKA, you the player gets to make broad decisions but certain town factors like population, wealth, health,  
+satisfaction, etc are somewhat randomized and dynamic. Players can guide and influence their towns, but towns are their own organic system just like in real life. This would also  
+provide an intuitive upgrade mechanism where higher Nobility ranks grant increased control of a towns state through various skills and abilities and governing policies. 
 7/27/2021  
 
 Changelog:  
