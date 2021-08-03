@@ -27,8 +27,8 @@ Plan for the day:
  - [x] gameData subobject to store building references  
  - [x] gameData field to store current income from town buildings (so we don't have to constantly recalculate unchanging values)  
  - [x] global function within townBuildings.js to calculate and return the amount of income from entire town  
- - [ ] code to link income calculation to the main.js income calculation that applies gameSpeed to our income  
- - [ ] code inside handleClick functions to update town income  
+ - [x] code to link income calculation to the main.js income calculation that applies gameSpeed to our income  
+ - [x] code inside handleClick functions to update town income  
  - [ ] code inside handleClick functions to update or add xp multipliers (this needs to be broken down into smaller chunks)  
 
  Debug:  
@@ -38,6 +38,14 @@ Plan for the day:
 
  gameData references reverted back to o_townBuildingsContainer refs.  
  Testing of updateRawTownIncome() function successfully completed.  
+ Function getIncome() is responsible for adding up all raw income values from jobs and now buildings.  
+ getIncome() is then called within increaseCoins() as:  
+
+```
+var coins = applySpeed(getIncome());
+gameData.coins += coins;
+
+```
  
 ### 8/2/2021  
 -wrote object prototype for town building data  

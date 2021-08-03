@@ -1001,14 +1001,15 @@ function doCurrentTask(task) {
 }
 
 function getIncome() {
-    var income = 0
-    income += gameData.currentJob.getIncome()
-    return income
+    var income = 0;
+    income += gameData.currentJob.getIncome();
+    income += gameData.rawTownIncome;
+    return income;
 }
 
 function increaseCoins() {
-    var coins = applySpeed(getIncome())
-    gameData.coins += coins
+    var coins = applySpeed(getIncome());
+    gameData.coins += coins;
 }
 
 function daysToYears(days) {
@@ -1100,31 +1101,31 @@ function getKeyOfLowestValueFromDict(dict) {
     values.sort(function(a, b){return a - b})
 
     for (key in dict) {
-        var value = dict[key]
+        var value = dict[key];
         if (value == values[0]) {
-            return key
+            return key;
         }
     }
 }
 
 function autoLearn() {
-    if (!autoLearnElement.checked || !skillWithLowestMaxXp) return
-    gameData.currentSkill = skillWithLowestMaxXp
+    if (!autoLearnElement.checked || !skillWithLowestMaxXp) return;
+    gameData.currentSkill = skillWithLowestMaxXp;
 }
 
 function yearsToDays(years) {
-    var days = years * 365
-    return days
+    var days = years * 365;
+    return days;
 }
  
 function getDay() {
-    var day = Math.floor(gameData.days - daysToYears(gameData.days) * 365)
-    return day
+    var day = Math.floor(gameData.days - daysToYears(gameData.days) * 365);
+    return day;
 }
 
 function increaseDays() {
-    var increase = applySpeed(1)
-    gameData.days += increase
+    var increase = applySpeed(1);
+    gameData.days += increase;
 }
 
 function format(number) {
@@ -1574,6 +1575,3 @@ update();
 setInterval(update, 1000 / updateSpeed);
 setInterval(saveGameData, 3000);
 setInterval(setSkillWithLowestMaxXp, 1000);
-
-//Testing
-setInterval(updateRawTownIncome, 5000);

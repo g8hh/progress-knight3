@@ -37,6 +37,9 @@ o_farm: {
             this.count++;
             this.costOfNextBuilding *= this.costGrowthFactor;
         }
+
+        //global function, lives in townFunctions.js
+        gameData.rawTownIncome = updateRawTownIncome();
     },
 
     getExperienceMultiplier: function() {

@@ -19,7 +19,7 @@ function updateRawTownIncome() {
         console.log("value: " + o_building);
         if('income' in o_building) {
             console.log("Income is detected in " + o_building.name + " building.");
-            totalIncome += (o_building.income * o_building.count);
+            totalIncome += (o_building.getIncome());
             console.log("Income from " + o_building.name + " added to total. New total income: " + totalIncome);
         }
     }
