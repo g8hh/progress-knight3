@@ -1,11 +1,35 @@
-# progress-knight
+## progress-knight
 An incremental game developed by ihtasham42 and extended by Cameron Gott. https://camerongott.github.io/progress-knight/
 
 
-Link to the original game: https://ihtasham42.github.io/progress-knight/
+Link to the base game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
-8/2/2021  
+
+### 8/3/2021  
+  
+Plan for the day:  
+ 1. Finish hooking up Farm xp and income bonuses. Income will fit into one of the existing income calculation  
+ functions. XP will be a little trickier. Normally for a new skill or item, I'd  simply add an entry or two into  
+ addMultipliers(). The problem with using that approach for Town buildings is that addMultipliers is a setup function  
+ in that it only gets called one time, before the main game loop begins. If I used addMultipliers(), you'd only ever update  
+ your Town bonuses every time you refreshed the page! But what we actually expect to happen is every time we buy a new building with  
+ our hard earned cash we get some nice rewards immediately.  
+   
+ Solution: handle income and xp bonuses within each building's handleClick function. Use the global gameData object to store ~~a subset of  
+ the town's state that we need for calculating bonuses and progress~~ town building object references. A nested object within gameData can  
+ store ~~the name and count of each building~~ references to our building objects. Because we've been using gameData for most  
+ everything, this will allow intuitive access and will take advantage of the already-built save mechanisms that are based off of the gameData object.  
+
+ Code required:  
+ -gameData subobject to store building references  
+ -gameData field to store current income from town buildings (so we don't have to constantly recalculate unchanging values)  
+ -global function within townBuildings.js to calculate and return the amount of income  
+ -code to link income calculation to the main.js income calculation that applies gameSpeed to our income  
+ -code inside handleClick functions to update town income  
+ -code inside handleClick functions to update or add xp multipliers (this needs to be broken down into smaller chunks)  
+ 
+### 8/2/2021  
 -wrote object prototype for town building data  
 -include town building definitions file in index.html script loading section  
 -wrote the setup function registerEventListeners  
@@ -28,7 +52,7 @@ with function binding because I was failing to set the buliding object's functio
 -Step five: bindObjectFunctionContexts()  
 -Step six: addMultipliers(), if necessary  
 
-7/29/2021  
+### 7/29/2021  
 -prototype town button layout with inner badge to track building count  
 -wrap town building buttons in responsive container to allow graceful reorganization for these wild mobile and 
     tablet players  
@@ -51,20 +75,20 @@ satisfaction, etc are somewhat randomized and dynamic. Players can guide and inf
 provide an intuitive upgrade mechanism where higher Nobility ranks grant increased control of a towns state through various skills and abilities and governing policies. 
 7/27/2021  
 
-Changelog:  
+#### Changelog:  
 -add Projects button to main navigation bar  
--Placeholder Project tab content for testing purposes
--Create first-iteration project base data and project category objects
+-Placeholder Project tab content for testing purposes  
+-Create first-iteration project base data and project category objects  
 -Fixed a logic bug inside of the addMultipliers() function. If the current task was equal to Chairman, the general Magic bonuses were getting  
     skipped due to the if - elseif - elseif structure. Fixed this by pulling out the magic bonuses into an if-statement at the end of the code block.  
     Of course, all of the Chairman skills were balanced with this buggy progression in mind. Some playtesting is in order to rebalance anything, if necessary.  
     Alternatively, I did intend for those skills to make Chairman reachable, so it would make perfect sense to leave the faster progress in place and just make more content.  
-
-
-7/12/2021  
+  
+  
+### 7/12/2021  
 It's time to move the story forward. It's time to learn how to be a Chairman so skilled, so wise, that that Chairman is worthy of level 1000.  
 
-The Chairman tooltip alludes to the sole pursuit of immortality. Once a character reaches Chairman, their willpower and focus is dedicated towards discovering the mysteries of both magic and biology in order to find, if there is one, a way to enhance one's lifespan.  
+The Chairman tooltip alludes to the sole pursuit of immortality. Once a character reaches Chairman, their willpower and focus is dedicated towards discovering the mysteries of both  magic and biology in order to find, if there is one, a way to enhance one's lifespan.  
 
 The natural course forward is to learn new ways of thinking. Novel pursuits of knowledge that combine existing techniques in creative ways to peel back the layers of the unknown.  
 Thus, the way forward to Chairman level 1000, and immortality, is through the Mind. The Mind controls and conducts both Magic and Knowledge, and synthesizes them into entirely new ways of thinking and being.  
@@ -94,7 +118,7 @@ And a new Job:
 -added three new skills to Mind
 -Added one new job to The Arcane Association  
 
-7/2/2021  
+### 7/2/2021  
 Work progresses on Town features. But in the mean time, I added a few goodies to v0.3.  
 
 -added new items to the Farmer job track  
@@ -106,14 +130,14 @@ Future:
 -add all job boost items to the new category
 -change the updateRequiredRow logic to display these separately from the main generic line of items so that they are uncoupled
 
-6/23/2021  
+### 6/23/2021  
 -Uncoupled Time Warping and Flow effects. Flow will no longer influence the display value of Time Warp under its skill description  
 -Uncoupled game architecture element assumptions regarding game speed's influencers and display logic. Should enable easier time manipulation in the future  
     by having to modify fewer functions  
 -Refactored getGameSpeed() function into two separate functions, getAllTimeMultipliers() and getGameSpeed().  
 -Continued work on town and civilization features on local repo  
 
-6/21/2021  
+### 6/21/2021  
   
 Bug squashing was today's game. The bug in question was making a little bug nest inside the Auto Learn feature, rendering it completely useless and non-functional.  
 I'll talk a little bit about my thought process as I hunted down this bug, what I ultimately did to fix it and the tradeoffs considered and lessons learned.  
@@ -141,7 +165,7 @@ Funnily enough, I agree with both of those qualms. One skill without a requireme
 
 As for the assumptions regarding Concentration's continuing status in the game being a core assumption for this fix, my answer for today is: document. I have documented this as a "FRAGILE FIX" in both code comments inside the related source code, and now here in this dev diary. Is it perfect? Heck no. But if someone forks this project or takes over, there is a route to discover the issue with a few more breadcrumbs than I had to work with. For now, I am satisfied with this interim solution.  
 
-6/20/2021  
+### 6/20/2021  
 
 Shop requirements are, in their current state, a little confusing. Today I'll begin the process of cleaning up and clarifying which item is being displayed in the required row, what  
 all the requirements are, and clarifying item tooltips to describe specific effects.  
@@ -153,10 +177,10 @@ Changelog:
 -added Farmer job items  
 -removed Concentration requirement for Unusual Insight to fix the header row height issue  
   
-6/17/2021  
+### 6/17/2021  
 -add Flow skill to Mind  
 
-6/16/2021  
+### 6/16/2021  
 Initial github.io release.  
 
 *** Changelog ***  
@@ -175,7 +199,7 @@ Add header row color
 Fix a million bugs I forgot to document in the midst of release hype  
 
 
-6/14/2021  
+### 6/14/2021  
 ******* Change log *******  
 -Added The Order of Discovery
 -Added Nobility  
@@ -214,7 +238,7 @@ All function restored.
 F-ing typos, man. 
 
 
-6/11/2021  
+### 6/11/2021  
 
 I'm satisfied with my mastery of adding items. While I do enjoy thinking up new tooltips and new story directions to explain new items, it's getting a bit tedious.  
 A new feature is badly needed, and the empty navbar space is calling my name. Right now, there are two main features I'm fairly certain I want to add.
@@ -230,7 +254,7 @@ War. Hard to read the military career tooltips without imagining massive battles
 -Rewrote Pack Horse tooltip to add detail and improve sentence flow  
 -Added Weapon Outlet to Merchant item unlock sequence  
 -
-6/10/2021  
+### 6/10/2021  
 
 Requirements are important to learn for a few reasons. Requirements help pace the game's unlocks. Requirements help manage UI clutter by hiding
 items, skills, and jobs until they are achievable. 
@@ -251,7 +275,7 @@ All other job items now unlock at job levels instead of savings level.
 Added Pack Horse to Merchant item sequence.  
 
 
-6/8/2021  
+### 6/8/2021  
 The shop expansion initiative continues with today's new item: Miner's Lantern!  
 Mining in a dark, dank cave is scary, dangerous, and slow. Lanterns provide useful light to guide a miner's search  
 for precious metals, but beware of carrying a flame into any potential gas pockets!  
@@ -262,32 +286,34 @@ will result in the item row not displaying in the shop. Probably fixable by goin
 that relies on the descriptions to decide where to render each row. I could add a separate parameter to designate an item as needing to render  
 into the shop tab. Something to ponder for now.  
 
-Otherwise, the Miner's Lantern is functional. 
-6/7/2021
+Otherwise, the Miner's Lantern is functional.  
+
+### 6/7/2021  
 
 Added Cheap Fishing Rod to the shop. Will likely need further balance testing.   
-Thought: create a chain of better job specific items linked to job level. Eg. Miner level 100 gets access to some sweet income-boosting gear.
+Thought: create a chain of better job specific items linked to job level. Eg. Miner level 100 gets access to some sweet income-boosting gear.  
 
-6/4/2021  
-Entry one:  
+### 6/4/2021  
+##### Entry one:  
 
 Adding an item today.  
 Step one: add the item data to const itemBaseData.   
 Step two: Add Rag Clothing to the Misc itemCategories object.  
 Step three: Add placeholder tooltip text.  
 Step four: add item requirement.  
-Step five: add code to addMultipliers() to apply effect
-Testing time! 
+Step five: add code to addMultipliers() to apply effect  
+
+Testing time!  
 Holy shit, it worked on the first try. I feel somewhat...competent. (That's gonna bite me in the ass later.)  
-Knew it. Item displays properly, but doesn't update the xp / day.
-Fix: needed to add a line of code to the addMultipliers() function. Seems obvious in retrospect haha. Luckily it took four minutes to fix. Yay!
+Knew it. Item displays properly, but doesn't update the xp / day.  
+Fix: needed to add a line of code to the addMultipliers() function. Seems obvious in retrospect haha. Luckily it took four minutes to fix. Yay!  
 Also rearranged the display order of items for Rag Clothing to pop up before Book.  
 
-First item added. First mod complete. Feels good mayne. 
-PS. Also added a dev mode to the code with a single-variable trigger to influence a few skill modifiers and the game speed. 
-Should help test long runs. 
+First item added. First mod complete. Feels good mayne.  
+PS. Also added a dev mode to the code with a single-variable trigger to influence a few skill modifiers and the game speed.  
+Should help test long runs.  
 
-Entry two:
+##### Entry two:  
 
 After playing around with the added rag clothing, I feel like there is an impending balance issue. The more items I add, the more expense. But if items don't
 directly affect income, the scaling of income is such that most items will be unaffordable in their current tier (eg beggar items can't all be purchased like a real beggar would
@@ -296,24 +322,26 @@ while they are climbing out of poverty.) There are a few ways to address this. F
 One hour later...  
 Nevermind, I found a workaround to make items directly affect job income. Basic Hand Tools are the template to follow (just apply the effect as a task.incomeMultiplier in addMultipliers()).  
 
-6/3/2021  
-I want to flesh out the beggar job by adding interesting items and story content. Being a beggar is tough work,
-and the more the player feels the hardship of begging the more they will appreciate the achievement of moving up in society.
-My first step is to add an item. This is simple enough to not be daunting on Day Two of this project, but complex enough to touch most
-major game systems and get me acquainted with the layout and architecture of the game logic. Story-wise, I'm playing around with the idea of 
-item series. To progress as a beggar, one may strive for better clothing, better food, better physical appearance, etc. Perhaps the first few items could be
+### 6/3/2021  
+I want to flesh out the beggar job by adding interesting items and story content. Being a beggar is tough work,  
+and the more the player feels the hardship of begging the more they will appreciate the achievement of moving up in society.  
+My first step is to add an item. This is simple enough to not be daunting on Day Two of this project, but complex enough to touch most  
+major game systems and get me acquainted with the layout and architecture of the game logic. Story-wise, I'm playing around with the idea of  
+item series. To progress as a beggar, one may strive for better clothing, better food, better physical appearance, etc. Perhaps the first few items could be  
 basic neccessities, like rag clothing, a source of drinking water, or other crucial things most idle players take for granted!   
 
-Item One: Tattered Clothes
+Item One: Tattered Clothes  
 Where do items present themselves throughout the codebase?  
-Around line 214 we see:
+Around line 214 we see:  
+```
     <div class="tab" id="shop">
         <table id="itemTable" class="w3-table w3-bordered">
         </table>
     </div>
-so using the HTML templates that live just above the itemTable, it looks like the table is built within main.js and injected 
-into this containing div with id="shop". Kinda reminds me of React, but ihtasham did it himself. Sidenote, porting this to React would probably
-be a good future task. Lots of render calls would be reduced as well. Anyways, back to items...  
+```
+so using the HTML templates that live just above the itemTable, it looks like the table is built within main.js and injected  
+into this containing div with id="shop". Kinda reminds me of React, but ihtasham did it himself. Sidenote, porting this to React would probably  
+be a good future task. Lots of render calls would be reduced as well. Anyways, back to items...   
 I see where items will end up on the HTML side of things, so now it's time to dive into classes.js and take a look at the class hierarchy.  
 Item is a single-level class. Item objects have three basic methods: getEffect, getEffectDescription, and getExpense. getEffect  
 refers to the item's numerical power level (1, 1.5, 2.221, etc). getEffectDescription builds a string to display the effect data for the UI.  
@@ -322,7 +350,7 @@ Now let's take a look at how items are used in main.js
 
 Item base stats are contained in the constant object itemBaseData defined near the top of main.js  
 Items are defined as a key:value pair string:{object} where object holds item properties name, expense, and effect.  
-A little further down we have another constant object itemCategories. This splits all items into two categories, living spaces and actual items (defined as "Properties" and "Misc" respectively. Using "Properties" as a name confused me for a second, and "misc" seems like a subcategory of item rather than a good descriptor of all items. Will need to think of clearer names down the road.). I'm assuming this is used for the different treatment of items further down the file. Wonder why ihtasham didn't split the concepts into their own classes and extend a base class with much of the core functionality. Might be something to look into if I'm hunting for things to refactor. Anyways, back to items...  
+A little further down we have another constant object itemCategories. This splits all items into two categories, living spaces and actual items (defined as "Properties" and "Misc"  respectively. Using "Properties" as a name confused me for a second, and "misc" seems like a subcategory of item rather than a good descriptor of all items. Will need to think of  clearer names down the road.). I'm assuming this is used for the different treatment of items further down the file. Wonder why ihtasham didn't split the concepts into their own  classes and extend a base class with much of the core functionality. Might be something to look into if I'm hunting for things to refactor. Anyways, back to items...  
 
 Item tooltips are also stored in a const object named tooltips.  
 addMultipliers is used to apply all item and job multipliers.
@@ -333,12 +361,12 @@ happiness will likely require a rewrite of this function.
 
 
 
-6/2/2021  
-Cloned repo, configured Git, got a copy of the game running on my local machine. Woo!
-One hour later...
-Doh! For some reason, the sidebar's progress bars are not displaying.
-I have made zero code changes so far. Time to investigate...
-Using Chrome's Devtools, I see that the span containing the progress bars (quickTaskDisplay) has a class of "hidden".
-Oh weird. So I went to ihtasham42's github.io version, and the quick dislay is indeed intended to be hidden. Literally never noticed this behavior before.
-Not sure how I feel about this. May modify in later versions to display immediately, as it's pretty convenient. Design-wise, idle games always benefit from
-visible progress bars on startup. (this may be a rare opinion. Who knows.)
+### 6/2/2021  
+Cloned repo, configured Git, got a copy of the game running on my local machine. Woo!  
+One hour later...  
+Doh! For some reason, the sidebar's progress bars are not displaying.  
+I have made zero code changes so far. Time to investigate...  
+Using Chrome's Devtools, I see that the span containing the progress bars (quickTaskDisplay) has a class of "hidden".  
+Oh weird. So I went to ihtasham42's github.io version, and the quick dislay is indeed intended to be hidden. Literally never noticed this behavior before.  
+Not sure how I feel about this. May modify in later versions to display immediately, as it's pretty convenient. Design-wise, idle games always benefit from  
+visible progress bars on startup. (this may be a rare opinion. Who knows.)  
