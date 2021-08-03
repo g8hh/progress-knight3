@@ -1,4 +1,12 @@
-var o_woodenHut = {
+/*
+* Contains object definitions for Town Buildings. 
+* Provides container object to allow easy tracking of new buildings
+* and automates some linking of new buildings to game logic. 
+*/
+
+var o_townBuildingsContainer = {
+
+o_woodenHut: {
     name: "Wooden Hut",
     count: 0,
     costOfNextBuilding: 100000000001,
@@ -12,9 +20,9 @@ var o_woodenHut = {
             this.costOfNextBuilding *= this.costGrowthFactor;
         }
     },
-};
+},
 
-var o_farm = {
+o_farm: {
     name: "Farm",
     count: 0,
     costOfNextBuilding: 1000000000001,
@@ -38,4 +46,6 @@ var o_farm = {
     getIncome: function() {
         return this.income * this.count;
     },
-};
+},
+
+} // container

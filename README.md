@@ -22,6 +22,8 @@ Plan for the day:
  everything, this will allow intuitive access and will take advantage of the already-built save mechanisms that are based off of the gameData object.  
 
  Code required:  
+ - [x] wrap town building objects in containing object  
+ - [ ] refactor existing town object calls to reflect new access pattern using container object  
  - [ ] gameData subobject to store building references  
  - [ ] gameData field to store current income from town buildings (so we don't have to constantly recalculate unchanging values)  
  - [ ] global function within townBuildings.js to calculate and return the amount of income  
@@ -72,8 +74,9 @@ to the player and is still fun for all levels of progression.
 
 Part of me thinks it will be fun to build independent town behavior. AKA, you the player gets to make broad decisions but certain town factors like population, wealth, health,  
 satisfaction, etc are somewhat randomized and dynamic. Players can guide and influence their towns, but towns are their own organic system just like in real life. This would also  
-provide an intuitive upgrade mechanism where higher Nobility ranks grant increased control of a towns state through various skills and abilities and governing policies. 
-7/27/2021  
+provide an intuitive upgrade mechanism where higher Nobility ranks grant increased control of a towns state through various skills and abilities and governing policies.  
+
+### 7/27/2021  
 
 #### Changelog:  
 -add Projects button to main navigation bar  

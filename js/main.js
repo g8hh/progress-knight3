@@ -944,10 +944,10 @@ function updateText() {
 
     function updateBuildingBadges() {
         var woodenHutButton = document.getElementById("woodenHut");
-        woodenHutButton.children[0].innerHTML = o_woodenHut.count;
+        woodenHutButton.children[0].innerHTML = o_townBuildingsContainer.o_woodenHut.count;
 
         var farmButton = document.getElementById("farm");
-        farmButton.children[0].innerHTML = o_farm.count;
+        farmButton.children[0].innerHTML = o_townBuildingsContainer.o_farm.count;
     }
     updateBuildingBadges();
 }
@@ -1389,10 +1389,10 @@ function exportGameData() {
 
 function registerEventListeners() {
     var woodenHutButton = document.getElementById("woodenHut");
-    woodenHutButton.addEventListener("click", o_woodenHut.handleClick);
+    woodenHutButton.addEventListener("click", o_townBuildingsContainer.o_woodenHut.handleClick);
 
     var farmButton = document.getElementById("farm");
-    farmButton.addEventListener("click", o_farm.handleClick);
+    farmButton.addEventListener("click", o_townBuildingsContainer.o_farm.handleClick);
 }
 
 /*
@@ -1401,8 +1401,8 @@ function registerEventListeners() {
 */
 function bindObjectFunctionContexts() {
     
-    o_woodenHut.handleClick = o_woodenHut.handleClick.bind(o_woodenHut);
-    o_farm.handleClick = o_farm.handleClick.bind(o_farm);
+    o_townBuildingsContainer.o_woodenHut.handleClick = o_townBuildingsContainer.o_woodenHut.handleClick.bind(o_townBuildingsContainer.o_woodenHut);
+    o_townBuildingsContainer.o_farm.handleClick = o_townBuildingsContainer.o_farm.handleClick.bind(o_townBuildingsContainer.o_farm);
 }
 
 //Init
