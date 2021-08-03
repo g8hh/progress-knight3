@@ -951,6 +951,8 @@ function updateText() {
         farmButton.children[0].innerHTML = o_townBuildingsContainer.o_farm.count;
     }
     updateBuildingBadges();
+
+    formatCoins(gameData.rawTownIncome, document.getElementById("townIncomeDisplay"));
 }
 
 function setSignDisplay() {

@@ -29,7 +29,8 @@ Plan for the day:
  - [x] global function within townBuildings.js to calculate and return the amount of income from entire town  
  - [x] code to link income calculation to the main.js income calculation that applies gameSpeed to our income  
  - [x] code inside handleClick functions to update town income  
- - [ ] code inside handleClick functions to update or add xp multipliers (this needs to be broken down into smaller chunks)  
+ - [ ] code inside handleClick functions to update or add xp multipliers (this needs to be broken down into smaller chunks)
+ - [x] code to display town income per day in the Town tab
 
  Debug:  
  Running into an issue with the new gameData references. I'm wondering if when I set gameData.townData = o_townBuildingsContainer if Javascript makes  
@@ -46,6 +47,9 @@ var coins = applySpeed(getIncome());
 gameData.coins += coins;
 
 ```
+
+TODO:  
+-save town state between rebirths and page refreshes  
  
 ### 8/2/2021  
 -wrote object prototype for town building data  
