@@ -23,13 +23,21 @@ Plan for the day:
 
  Code required:  
  - [x] wrap town building objects in containing object  
- - [ ] refactor existing town object calls to reflect new access pattern using container object  
- - [ ] gameData subobject to store building references  
- - [ ] gameData field to store current income from town buildings (so we don't have to constantly recalculate unchanging values)  
- - [ ] global function within townBuildings.js to calculate and return the amount of income  
+ - [x] refactor existing town object calls to reflect new access pattern using container object  
+ - [x] gameData subobject to store building references  
+ - [x] gameData field to store current income from town buildings (so we don't have to constantly recalculate unchanging values)  
+ - [x] global function within townBuildings.js to calculate and return the amount of income from entire town  
  - [ ] code to link income calculation to the main.js income calculation that applies gameSpeed to our income  
  - [ ] code inside handleClick functions to update town income  
  - [ ] code inside handleClick functions to update or add xp multipliers (this needs to be broken down into smaller chunks)  
+
+ Debug:  
+ Running into an issue with the new gameData references. I'm wondering if when I set gameData.townData = o_townBuildingsContainer if Javascript makes  
+ a copy of the object rather than a reference to the existing object in townBuildings.js. According to some posts on Stack Overflow, I should indeed have a  
+ reference, not a copy. I'll revert to using the o_container for now until I can get some in-depth reading done on the subject.  
+
+ gameData references reverted back to o_townBuildingsContainer refs.  
+ Testing of updateRawTownIncome() function successfully completed.  
  
 ### 8/2/2021  
 -wrote object prototype for town building data  

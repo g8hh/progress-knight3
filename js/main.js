@@ -1,7 +1,8 @@
 var gameData = {
     taskData: {},
     itemData: {},
-
+    townData: o_townBuildingsContainer,
+    rawTownIncome: 0,
     coins: 0,
     days: 365 * 14,
     evil: 0,
@@ -1327,46 +1328,46 @@ function replaceSaveDict(dict, saveDict) {
 }
 
 function saveGameData() {
-    localStorage.setItem("gameDataSave", JSON.stringify(gameData))
+    localStorage.setItem("gameDataSave", JSON.stringify(gameData));
 }
 
 function loadGameData() {
-    var gameDataSave = JSON.parse(localStorage.getItem("gameDataSave"))
+    var gameDataSave = JSON.parse(localStorage.getItem("gameDataSave"));
 
     if (gameDataSave !== null) {
-        replaceSaveDict(gameData, gameDataSave)
-        replaceSaveDict(gameData.requirements, gameDataSave.requirements)
-        replaceSaveDict(gameData.taskData, gameDataSave.taskData)
-        replaceSaveDict(gameData.itemData, gameDataSave.itemData)
+        replaceSaveDict(gameData, gameDataSave);
+        replaceSaveDict(gameData.requirements, gameDataSave.requirements);
+        replaceSaveDict(gameData.taskData, gameDataSave.taskData);
+        replaceSaveDict(gameData.itemData, gameDataSave.itemData);
 
-        gameData = gameDataSave
+        gameData = gameDataSave;
     }
 
-    assignMethods()
+    assignMethods();
 }
 
 function updateUI() {
-    updateTaskRows()
-    updateItemRows()
-    updateRequiredRows(gameData.taskData, jobCategories)
-    updateRequiredRows(gameData.taskData, skillCategories)
-    updateRequiredRows(gameData.itemData, itemCategories)
-    updateHeaderRows(jobCategories)
-    updateHeaderRows(skillCategories)
-    updateQuickTaskDisplay("job")
-    updateQuickTaskDisplay("skill")
-    hideEntities()
-    updateText()
+    updateTaskRows();
+    updateItemRows();
+    updateRequiredRows(gameData.taskData, jobCategories);
+    updateRequiredRows(gameData.taskData, skillCategories);
+    updateRequiredRows(gameData.itemData, itemCategories);
+    updateHeaderRows(jobCategories);
+    updateHeaderRows(skillCategories);
+    updateQuickTaskDisplay("job");
+    updateQuickTaskDisplay("skill");
+    hideEntities();
+    updateText();
 }
 
 function update() {
-    increaseDays()
-    autoPromote()
-    autoLearn()
-    doCurrentTask(gameData.currentJob)
-    doCurrentTask(gameData.currentSkill)
-    applyExpenses()
-    updateUI()
+    increaseDays();
+    autoPromote();
+    autoLearn();
+    doCurrentTask(gameData.currentJob);
+    doCurrentTask(gameData.currentSkill);
+    applyExpenses();
+    updateUI();
 }
 
 function resetGameData() {
@@ -1573,3 +1574,6 @@ update();
 setInterval(update, 1000 / updateSpeed);
 setInterval(saveGameData, 3000);
 setInterval(setSkillWithLowestMaxXp, 1000);
+
+//Testing
+setInterval(updateRawTownIncome, 5000);
