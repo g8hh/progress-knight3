@@ -22,12 +22,12 @@ Plan for the day:
  everything, this will allow intuitive access and will take advantage of the already-built save mechanisms that are based off of the gameData object.  
 
  Code required:  
- -gameData subobject to store building references  
- -gameData field to store current income from town buildings (so we don't have to constantly recalculate unchanging values)  
- -global function within townBuildings.js to calculate and return the amount of income  
- -code to link income calculation to the main.js income calculation that applies gameSpeed to our income  
- -code inside handleClick functions to update town income  
- -code inside handleClick functions to update or add xp multipliers (this needs to be broken down into smaller chunks)  
+ - [ ] gameData subobject to store building references  
+ - [ ] gameData field to store current income from town buildings (so we don't have to constantly recalculate unchanging values)  
+ - [ ] global function within townBuildings.js to calculate and return the amount of income  
+ - [ ] code to link income calculation to the main.js income calculation that applies gameSpeed to our income  
+ - [ ] code inside handleClick functions to update town income  
+ - [ ] code inside handleClick functions to update or add xp multipliers (this needs to be broken down into smaller chunks)  
  
 ### 8/2/2021  
 -wrote object prototype for town building data  
