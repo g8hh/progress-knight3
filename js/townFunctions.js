@@ -26,3 +26,37 @@ function updateRawTownIncome() {
     console.log("For loop complete. totalIncome = " + totalIncome);
     return totalIncome;
 }
+
+/*
+*   Description: saves select building object properties into a saveObject
+*       and writes that saveObject into gameData.townData. This function is
+*       called right before gameData is saved to localStorage.
+*/
+function saveTownState() {
+    console.log("saving town state...");
+    for(building in o_townBuildingsContainer) {
+        console.log("key: " + building);
+        var o_building = o_townBuildingsContainer[building];
+        console.log("value: " + o_building);
+        var saveObject = {
+            name: o_building.name,
+            count: o_building.count,
+            costOfNextBuilding: o_building.costOfNextBuilding,
+        };
+        if(saveObject !== undefined) {
+            console.log("This is the save object we created: " + saveObject);
+            gameData.townData[saveObject.name] = saveObject;
+        }
+    }
+}
+
+function loadTownState() {
+    for(building in o_townBuildingsContainer) {
+        var o_building = o_townBuildingsContainer[building];
+        if(o_building.name in gameData.townData) {
+            var savedBuilding = gameData.townData[o_building.name];
+            o_building.count = savedBuilding.count;
+            o_building.costOfNextBuilding = savedBuilding.costOfNextBuilding;
+        }
+    }
+}

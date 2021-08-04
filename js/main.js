@@ -1,7 +1,7 @@
 var gameData = {
     taskData: {},
     itemData: {},
-    townData: o_townBuildingsContainer,
+    townData: {},
     rawTownIncome: 0,
     coins: 0,
     days: 365 * 14,
@@ -1331,6 +1331,7 @@ function replaceSaveDict(dict, saveDict) {
 }
 
 function saveGameData() {
+    saveTownState();
     localStorage.setItem("gameDataSave", JSON.stringify(gameData));
 }
 
@@ -1342,10 +1343,13 @@ function loadGameData() {
         replaceSaveDict(gameData.requirements, gameDataSave.requirements);
         replaceSaveDict(gameData.taskData, gameDataSave.taskData);
         replaceSaveDict(gameData.itemData, gameDataSave.itemData);
+        //replaceSaveDict(gameData.townData, gameDataSave.townData);
 
         gameData = gameDataSave;
     }
 
+    loadTownState();
+    gameData.rawTownIncome = updateRawTownIncome();
     assignMethods();
 }
 
@@ -1379,16 +1383,16 @@ function resetGameData() {
 }
 
 function importGameData() {
-    var importExportBox = document.getElementById("importExportBox")
-    var data = JSON.parse(window.atob(importExportBox.value))
-    gameData = data
-    saveGameData()
-    location.reload()
+    var importExportBox = document.getElementById("importExportBox");
+    var data = JSON.parse(window.atob(importExportBox.value));
+    gameData = data;
+    saveGameData();
+    location.reload();
 }
 
 function exportGameData() {
-    var importExportBox = document.getElementById("importExportBox")
-    importExportBox.value = window.btoa(JSON.stringify(gameData))
+    var importExportBox = document.getElementById("importExportBox");
+    importExportBox.value = window.btoa(JSON.stringify(gameData));
 }
 
 function registerEventListeners() {

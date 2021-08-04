@@ -6,6 +6,19 @@ Link to the base game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
 
+### 8/4/2021  
+Today I'd like to save and load building progress. I'll add a simple state-tracking object  
+to gameData that tracks each building's count and cost of next purchase. Then when the game calls  
+the existing saveGameData function, this object will be included. To load building progress, I'll add a function  
+to the loadGameData function that iterates through the saveData building object and sets the values in o_townBuildingsContainer  
+to the saved values. This should work in theory. townBuildings.js is loaded into the page before main.js, so the building container  
+is available to be written into. 
+
+- [x] add state-tracking object to gameData (townData)   
+- [x] add function to saveGameData that writes key-value pairs into townData object  
+- [x] call save function within saveGameData and confirm state is saved to localStorage  
+- [x] write loadTownState() function to set o_container building properties to their saved data equivalents  
+- [x] call loadTownState() in loadGameData after gameData has been replaced with gameDataSave  
 ### 8/3/2021  
   
 Plan for the day:  
