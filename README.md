@@ -19,6 +19,9 @@ is available to be written into.
 - [x] call save function within saveGameData and confirm state is saved to localStorage  
 - [x] write loadTownState() function to set o_container building properties to their saved data equivalents  
 - [x] call loadTownState() in loadGameData after gameData has been replaced with gameDataSave  
+
+Save functionality is complete.  
+TODO: dynamic tooltips for town building buttons  
 ### 8/3/2021  
   
 Plan for the day:  
@@ -85,7 +88,7 @@ with function binding because I was failing to set the buliding object's functio
 -Step three: add code to updateText() -> updateBuildingBadges()  
 -Step four: registerEventListeners()  
 -Step five: bindObjectFunctionContexts()  
--Step six: addMultipliers(), if necessary  
+-Step six: addMultipliers(), or other custom behavior implementation  
 
 ### 7/29/2021  
 -prototype town button layout with inner badge to track building count  

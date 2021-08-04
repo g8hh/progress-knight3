@@ -949,6 +949,9 @@ function updateText() {
 
         var farmButton = document.getElementById("farm");
         farmButton.children[0].innerHTML = o_townBuildingsContainer.o_farm.count;
+
+        var grainShedButton = document.getElementById("grainShed");
+        grainShedButton.children[0].innerHTML = o_townBuildingsContainer.o_grainShed.count;
     }
     updateBuildingBadges();
 
@@ -1401,6 +1404,9 @@ function registerEventListeners() {
 
     var farmButton = document.getElementById("farm");
     farmButton.addEventListener("click", o_townBuildingsContainer.o_farm.handleClick);
+
+    var grainShedButton = document.getElementById("grainShed");
+    grainShedButton.addEventListener("click", o_townBuildingsContainer.o_grainShed.handleClick);
 }
 
 /*
@@ -1411,6 +1417,8 @@ function bindObjectFunctionContexts() {
     
     o_townBuildingsContainer.o_woodenHut.handleClick = o_townBuildingsContainer.o_woodenHut.handleClick.bind(o_townBuildingsContainer.o_woodenHut);
     o_townBuildingsContainer.o_farm.handleClick = o_townBuildingsContainer.o_farm.handleClick.bind(o_townBuildingsContainer.o_farm);
+    o_townBuildingsContainer.o_grainShed.handleClick = o_townBuildingsContainer.o_grainShed.handleClick.bind(o_townBuildingsContainer.o_grainShed);
+    o_townBuildingsContainer.o_grainShed.calculateMultiplier = o_townBuildingsContainer.o_grainShed.calculateMultiplier.bind(o_townBuildingsContainer.o_grainShed);
 }
 
 //Init

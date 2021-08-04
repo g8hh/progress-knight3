@@ -51,4 +51,29 @@ o_farm: {
     },
 },
 
+o_grainShed: {
+    name: "Grain Shed",
+    count: 0,
+    costOfNextBuilding: 100000000001,
+    costGrowthFactor: 1.01,
+    role: ["Food", "Income Boost"],
+    targets: ["Farm"],
+    incomeMultiplier: 1.3,
+
+    handleClick: function() {
+        if(gameData.coins >= this.costOfNextBuilding) {
+            gameData.coins -= this.costOfNextBuilding;
+            this.count++;
+            this.costOfNextBuilding *= this.costGrowthFactor;
+        }
+
+        //global function, lives in townFunctions.js
+        gameData.rawTownIncome = updateRawTownIncome();
+    },
+
+    calculateMultiplier: function() {
+        return Math.pow(this.incomeMultiplier, this.count);
+    }
+},
+
 } // container
