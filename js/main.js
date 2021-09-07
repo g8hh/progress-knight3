@@ -1340,8 +1340,13 @@ function update() {
 }
 
 function resetGameData() {
-    localStorage.clear()
-    location.reload()
+    //author: theSpuu
+    var result = confirm("Are you sure you want to reset your game?");
+    if (result) {
+        localStorage.clear();
+        location.reload();
+    }
+    
 }
 
 function importGameData() {
