@@ -8,6 +8,11 @@ Link to the base game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
 
+### 9/7/2021
+After a long job search and new-job chaos, the development hiatus is slowly ending.
+Merged WIP Town features with v0.3, pushed to live branch.
+Added a blacksmith item.
+
 ### 8/4/2021  
 Today I'd like to save and load building progress. I'll add a simple state-tracking object  
 to gameData that tracks each building's count and cost of next purchase. Then when the game calls  

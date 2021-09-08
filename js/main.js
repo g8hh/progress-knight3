@@ -170,6 +170,7 @@ const itemBaseData = {
     "Cheap Fishing Rod": {name: "Cheap Fishing Rod", expense: 20, effect: 2.0, description: "Fishing upgrade"},
     "Miner's Lantern": {name: "Miner's Lantern", expense: 35, effect: 1.5, description: "Mining upgrade"},
     "Crappy Anvil": {name: "Crappy Anvil", expense: 50, effect: 1.5, description: "Blacksmith upgrade"},
+    "Breech Bellows": {name: "Breech Bellows", expense: 130, effect: 1.8, description: "Blacksmith upgrade"},
     "Pack Horse": {name: "Pack Horse", expense: 80, effect: 3.0, description: "Merchant upgrade"},
     "Small Shop": {name: "Small Shop", expense: 600, effect: 1.5, description: "Merchant upgrade"},
     "Weapon Outlet": {name: "Weapon Outlet", expense: 3000, effect: 3.0, description: "Merchant upgrade"},
@@ -194,7 +195,7 @@ const skillCategories = {
 
 const itemCategories = {
     "Properties": ["Homeless", "Tent", "Wooden hut", "Cottage", "House", "Large house", "Small Manor", "Small palace", "Grand palace"],
-    "Misc": ["Rag Clothing", "Book", "Basic Farm Tools", "Small Field", "Ox-driven Plow", "Livestock-derived Fertilizer", "Cheap Fishing Rod", "Dumbbells", "Miner's Lantern", "Crappy Anvil", "Pack Horse", "Small Shop",
+    "Misc": ["Rag Clothing", "Book", "Basic Farm Tools", "Small Field", "Ox-driven Plow", "Livestock-derived Fertilizer", "Cheap Fishing Rod", "Dumbbells", "Miner's Lantern", "Crappy Anvil", "Breech Bellows", "Pack Horse", "Small Shop",
     "Weapon Outlet", "Personal squire", 
                 "Steel longsword", "Butler", "Sapphire charm", "Study desk", "Library"]
 }
@@ -325,6 +326,7 @@ const tooltips = {
     "Dumbbells": "Heavy tools used in strenuous exercise to toughen up and accumulate strength even faster than before. ",
     "Miner's Lantern": "After weeks of feeling your way through pitch black tunnels, bandaging scraped hands, and getting smacked in the face by your fellow miner's pickaxes, you have the bright idea to purchase a lantern. Hopefully some light will help illuminate additional mineral deposits and geological phenomena.",
     "Crappy Anvil": "You're pretty sure this lumpy hunk of iron used to be someone's chamber pot.",
+    "Breech Bellows": "Cobbled together with two sticks and a pair of old trousers, this tool boosts the heat and efficiency of your forge.",
     "Pack Horse": "This sweet chestnut horse will haul you and your trade goods to distant cities where your novel fabrics and knick knacks will fetch a tidy profit.",
     "Small Shop": "Your first shop. This cozy storefront lies on the main street of a medium-sized walled town. Commoners, nobles, and military patrols all pass along this street, so at the very least people will know your store exists.",
     "Weapon Outlet": "A busy military means a busy weapons store. One of the liuetenants who frequents your small shop recently let slip that a long military campaign is imminent. Naturally, a savy merchant such as yourself sees the business opportunity provided by war.",
@@ -406,6 +408,8 @@ function addMultipliers() {
         } else if (task.name == "Blacksmith") { //crappy anvil boosts income and xp of blacksmith by 1.5x
             task.incomeMultipliers.push(getBindedItemEffect("Crappy Anvil"));
             task.xpMultipliers.push(getBindedItemEffect("Crappy Anvil"));
+            task.incomeMultipliers.push(getBindedItemEffect("Breech Bellows"));
+            task.xpMultipliers.push(getBindedItemEffect("Breech Bellows"));
         } else if (task.name == "Merchant") {
             task.incomeMultipliers.push(getBindedItemEffect("Pack Horse"));
             task.incomeMultipliers.push(getBindedTaskEffect("Trade Psychology"));
@@ -1569,6 +1573,7 @@ gameData.requirements = {
     "Cheap Fishing Rod": new TaskRequirement([getItemElement("Cheap Fishing Rod")], [{task: "Fisherman", requirement: 10}]),
     "Miner's Lantern": new TaskRequirement([getItemElement("Miner's Lantern")], [{task: "Miner", requirement: 10}]),
     "Crappy Anvil": new TaskRequirement([getItemElement("Crappy Anvil")], [{task: "Blacksmith", requirement: 10}]),
+    "Breech Bellows": new TaskRequirement([getItemElement("Breech Bellows")], [{task: "Blacksmith", requirement: 25}]),
     "Pack Horse": new TaskRequirement([getItemElement("Pack Horse")], [{task: "Merchant", requirement: 10}]),
     "Small Shop": new TaskRequirement([getItemElement("Small Shop")], [{task: "Merchant", requirement: 75}]),
     "Weapon Outlet": new TaskRequirement([getItemElement("Weapon Outlet")], [{task: "Merchant", requirement: 200}]),
