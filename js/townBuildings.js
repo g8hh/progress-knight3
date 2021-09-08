@@ -58,7 +58,7 @@ o_grainShed: {
     costGrowthFactor: 1.01,
     role: ["Food", "Income Boost"],
     targets: ["Farm"],
-    incomeMultiplier: 1.3,
+    incomeMultiplier: 1.06,
 
     handleClick: function() {
         if(gameData.coins >= this.costOfNextBuilding) {
