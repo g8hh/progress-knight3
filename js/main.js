@@ -1410,13 +1410,14 @@ function exportGameData() {
 }
 
 function registerEventListeners() {
-    var woodenHutButton = document.getElementById("woodenHut");
+    let woodenHutButton = document.getElementById("woodenHut");
     woodenHutButton.addEventListener("click", o_townBuildingsContainer.o_woodenHut.handleClick);
+    woodenHutButton.addEventListener("mouseenter", updateTooltip("woodenHut"));
 
-    var farmButton = document.getElementById("farm");
+    let farmButton = document.getElementById("farm");
     farmButton.addEventListener("click", o_townBuildingsContainer.o_farm.handleClick);
 
-    var grainShedButton = document.getElementById("grainShed");
+    let grainShedButton = document.getElementById("grainShed");
     grainShedButton.addEventListener("click", o_townBuildingsContainer.o_grainShed.handleClick);
 }
 
