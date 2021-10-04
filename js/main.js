@@ -18,8 +18,10 @@ var gameData = {
     currentMisc: null,
 }
 
+//tempData is used during initial game setup. 
 var tempData = {}
 
+//used for Auto Learn skill switching logic
 var skillWithLowestMaxXp = null
 
 const autoPromoteElement = document.getElementById("autoPromote")
@@ -29,7 +31,7 @@ const updateSpeed = 20
 
 const baseLifespan = 365 * 70
 
-//Turn on devmode: 1
+//Turn on devmode:  1
 //Turn off devmode: 0
 var devModeFastProgress = 0;
 // ******* DEV MODE SPEED INCREASES ******* //

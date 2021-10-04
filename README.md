@@ -8,6 +8,29 @@ Link to the base game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
 
+### 10/3/2021
+Whew, long time no see!  
+
+The last two months have seen a lot of life progress, but very little
+Progress Knight progress (see what I did there). I've settled in to my first post-college job as a software engineer, jumped back into my pre-Covid physical training, and just generally got my shit back together. Now it's time to forge ahead!  
+
+But enough about me, let's get to work on Progress Knight! 
+
+It's always an interesting feeling coming back to an old project. Much of it feels familiar, but every code location
+and variable name feels a little fuzzy. It takes longer to remember what a function does, and why it exists. Remembering where to find a certain code snippet takes more conscious effort. The frame of thought has been morphed, as we all morph throughout this journey called life. The closest relatable feeling I can compare it to is returning to an old sport.  
+  
+One part of you knows exactly how to kick the ball, swing the bat, or move your body just so. But your body just doesn't obey. Your mind is calibrated to your old sharp reflexes, your old expectations. But for the first couple of weeks, your body doesn't seem capable of following instructions. Oh, it will do what you tell it to do, but not exactly how you intend it. Maybe there's a shake in your arms, a dip in your wrists at just the wrong moment, a little twitch that throws off your game.  
+
+So with that said, my intent for the next two weeks is to simply get back in the groove of Progress Knight.  
+What does that look like?  
+
+Re-reading the entire code base.  
+Re-reading my dev diary.  
+Making notes as I go through the code.  
+Answering old questions I never sought clarity on (tooltip architecture, implementing event-based architecture, etc).   
+
+
+
 ### 9/7/2021
 After a long job search and new-job chaos, the development hiatus is slowly ending.
 Merged WIP Town features with v0.3, pushed to live branch.
