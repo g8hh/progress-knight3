@@ -75,7 +75,7 @@ button:focus {
 }
   
 .tooltip .tooltipText {
-    visibility: hidden;
+    visibility: hidden; 
     width: 240px;
     background-color: black;
     color: #fff;
@@ -85,7 +85,7 @@ button:focus {
 
     /* Position the tooltip */
     position: absolute;
-    z-index: 1;
+    z-index: 100;
     top: -5px;
     left: 105%;
 

@@ -8,6 +8,37 @@ Link to the base game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
 
+### 10/5/2021  
+
+Preparation for dynamic tootip generation.  
+
+[] - static tooltip for Wooden Hut
+
+Added prototype tooltip to Wooden Hut button. Tooltip displays as intended, but the button
+positioning gets thrown off. I suspect the CSS of the div that wraps the hut button is interfering with 
+the formatting, so the next step is to lazily play with div positioning and see if there is an easy fix.
+
+Wrapping the whole row of buttons fixes the button display issues, but results in undesired tooltip behavior.
+
+Try targetting .tooltip class within the button CSS rules to apply the styles in the nested div. Maybe the CSS
+isn't applied when the div wraps the button. 
+
+I feel like w3-row is interfering with tooltip text display. 
+
+Nah, ruled out w3-row as the culprit. I next tried removing all button classes except for tooltip.
+And whaddya know, the tooltip appears. So one of the button classes is interfering somehow.
+Lets re-add all the classes, then remove 'em one by one.
+
+w3-button is confirmed to be the culprit. 
+
+Fix: replace w3-button class with "button item-button" classes. Buttons look about the same and support
+desired tooltip behavior.
+
+### 10/4/2021  
+
+Began preliminary work on dynamic tooltip generation for Town building buttons.
+Reviewed codebase.
+
 ### 10/3/2021
 Whew, long time no see!  
 
