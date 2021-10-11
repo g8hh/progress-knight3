@@ -43,6 +43,8 @@ if(devModeFastProgress == 1) {
     baseEffect = 100;
 }
 
+const enableVerboseLogging = 0;
+
 const permanentUnlocks = ["Scheduling", "Shop", "Automation", "Quick task display"]
 
 const jobBaseData = {
@@ -447,7 +449,7 @@ function addMultipliers() {
             task.xpMultipliers.push(getBindedTaskEffect("Unusual Insight"));
         }
         if(jobCategories["Nobility"].includes(task.name)) {
-            task.xp
+            //todo
         }
     }
 
@@ -1412,7 +1414,7 @@ function exportGameData() {
 function registerEventListeners() {
     let woodenHutButton = document.getElementById("woodenHut");
     woodenHutButton.addEventListener("click", o_townBuildingsContainer.o_woodenHut.handleClick);
-    woodenHutButton.addEventListener("mouseenter", updateTooltip("woodenHut"));
+    woodenHutButton.addEventListener("mouseenter", updateTooltip("tooltip-woodenHut"));
 
     let farmButton = document.getElementById("farm");
     farmButton.addEventListener("click", o_townBuildingsContainer.o_farm.handleClick);

@@ -8,11 +8,17 @@ Link to the base game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
 
+### 10/11/2021
+
+Updated tooltip style for better visual separation and ease of reading.
+Wrote tooltips for town buildings.
+Began work on dynamic tooltip updates.
+
 ### 10/5/2021  
 
 Preparation for dynamic tootip generation.  
 
-[] - static tooltip for Wooden Hut
+[x] - static tooltip for Wooden Hut
 
 Added prototype tooltip to Wooden Hut button. Tooltip displays as intended, but the button
 positioning gets thrown off. I suspect the CSS of the div that wraps the hut button is interfering with 

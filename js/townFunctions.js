@@ -57,18 +57,19 @@ function updateRawTownIncome() {
 *       called right before gameData is saved to localStorage.
 */
 function saveTownState() {
-    console.log("saving town state...");
+    if(enableVerboseLogging == 1) console.log("saving town state...");
+    
     for(building in o_townBuildingsContainer) {
-        console.log("key: " + building);
+        if(enableVerboseLogging == 1) console.log("key: " + building);
         var o_building = o_townBuildingsContainer[building];
-        console.log("value: " + o_building);
+        if(enableVerboseLogging == 1) console.log("value: " + o_building);
         var saveObject = {
             name: o_building.name,
             count: o_building.count,
             costOfNextBuilding: o_building.costOfNextBuilding,
         };
         if(saveObject !== undefined) {
-            console.log("This is the save object we created: " + saveObject);
+            if(enableVerboseLogging == 1) console.log("This is the save object we created: " + saveObject);
             gameData.townData[saveObject.name] = saveObject;
         }
     }
