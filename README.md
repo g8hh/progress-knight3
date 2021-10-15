@@ -8,6 +8,23 @@ Link to the base game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
 
+### 10/15/2021  
+# Updates! October 3rd - October 15th, 2021  
+-restyled tooltips for easier readability, reduced eye strain  
+-dynamic tooltips for Town buildings  
+-first-pass rebalancing of Grain Shed's exponential income growth. Now nerfed to a more reasonable level.  
+  
+### 10/15/2021
+Digging into the "building count stuck at 0" bug.  
+    -what is the evaluated typoeof count? Evaluated as type: number. Ok.  
+    -verify increment within handleClick() is functioning as expected (this should be unit test lol)  
+        -townContainer object is indeed getting the correct increments.
+
+Conclusion: I was resetting the saved and working counts to 0, and then logging the values to check them. Oops.   
+            Of course they're going to display as 0.  
+-"bug" squashed. 
+-wrapped log writes to only occur following the enableDebugging toggle variable
+
 ### 10/14/2021
 -wrap Wooden Hut prototype tooltip cost in a dedicated span with ID format: coins-{buildingID} example: coins-woodenHut  
 -updateTooltip(): search child elements of tooltip element to locate the new coin span - wanted to use childNode type function but was nudged back towards  
@@ -60,7 +77,7 @@ Implement town destruction when embracing Evil.
 -reset object values to their bases in o_townBuildingContainer  
 -reset object values to their bases in gameData.townData, if present  
   
-Future TODO: decouple the base definitions in townBuildings.js from the current working set of town data
+[x] Future TODO: decouple the base definitions in townBuildings.js from the current working set of town data
 Bug: Town building counts aren't getting saved, but costOfNextBuilding is getting saved.
 
 ### 10/11/2021

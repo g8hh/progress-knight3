@@ -107,11 +107,15 @@ function testSuccessOfTownDestruction() {
         var o_building = o_townBuildingsContainer[building];
         if(o_building.name in gameData.townData) {
             var savedBuilding = gameData.townData[o_building.name];
+            if(enableVerboseLogging == 1) {
+                console.log(`Type of Saved Count: ${typeof savedBuilding.count}`);
+                console.log(`${o_building.name} Saved count: ${savedBuilding.count}`);
+                console.log(`${o_building.name} Saved cost: ${savedBuilding.costOfNextBuilding}`);
+                console.log(`${o_building.name} Working count: ${o_building.count}`);
+                console.log(`${o_building.name} Working cost: ${o_building.costOfNextBuilding}`);
+            }
             savedBuilding.count = o_building.count = 0;
-            console.log(`${o_building.name} Saved count: ${savedBuilding.count}`);
-            console.log(`${o_building.name} Saved cost: ${savedBuilding.costOfNextBuilding}`);
-            console.log(`${o_building.name} Working count: ${o_building.count}`);
-            console.log(`${o_building.name} Working cost: ${o_building.costOfNextBuilding}`);
+
         }
     }
 }

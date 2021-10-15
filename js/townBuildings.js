@@ -18,7 +18,9 @@ o_woodenHut: {
     handleClick: function(eventObject) {
         if(gameData.coins >= this.costOfNextBuilding) {
             gameData.coins -= this.costOfNextBuilding;
-            this.count++;
+            console.log(`Inside handleClick(). This.count: ${this.count}`);
+            this.count += 1;
+            console.log(`Post-increment. This.count: ${this.count}`);
             this.costOfNextBuilding *= this.costGrowthFactor;
         }
 
