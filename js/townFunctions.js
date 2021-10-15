@@ -85,3 +85,42 @@ function loadTownState() {
         }
     }
 }
+
+function destroyTownWhileEmbracingEvil() {
+    //reset values in o_townBuildingContainer to their base values
+    //reset values in gameData.townData, if it is not null, to their base values
+    if(gameData.townData) {
+        for(building in o_townBuildingsContainer) {
+            var o_building = o_townBuildingsContainer[building];
+            if(o_building.name in gameData.townData) {
+                var savedBuilding = gameData.townData[o_building.name];
+                savedBuilding.count = o_building.count = 0;
+                o_building.costOfNextBuilding = savedBuilding.costOfNextBuilding = o_building.baseCost;
+            }
+        }
+        gameData.rawTownIncome = 0;
+    }
+}
+
+function testSuccessOfTownDestruction() {
+    for(building in o_townBuildingsContainer) {
+        var o_building = o_townBuildingsContainer[building];
+        if(o_building.name in gameData.townData) {
+            var savedBuilding = gameData.townData[o_building.name];
+            savedBuilding.count = o_building.count = 0;
+            console.log(`${o_building.name} Saved count: ${savedBuilding.count}`);
+            console.log(`${o_building.name} Saved cost: ${savedBuilding.costOfNextBuilding}`);
+            console.log(`${o_building.name} Working count: ${o_building.count}`);
+            console.log(`${o_building.name} Working cost: ${o_building.costOfNextBuilding}`);
+        }
+    }
+}
+
+// temporary brute-force function to limit Town income until it is modulated by future feature interaction.
+// the kingdom has spoken.
+function regulateGrainMarkets() {
+    if(gameData.rawTownIncome > 1000000000) { //1000 platinum
+        gameData.rawTownIncome = 1000000000;
+    } 
+}
+setInterval(regulateGrainMarkets, 15000);

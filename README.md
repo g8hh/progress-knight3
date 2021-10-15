@@ -8,11 +8,66 @@ Link to the base game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
 
+### 10/14/2021
+-wrap Wooden Hut prototype tooltip cost in a dedicated span with ID format: coins-{buildingID} example: coins-woodenHut  
+-updateTooltip(): search child elements of tooltip element to locate the new coin span - wanted to use childNode type function but was nudged back towards  
+    element.querySelector by StackOverflow. I blame future performance issues on them (lol jk)  
+-use built-in formatCoins function to display inner span coin value by formatCoins(newBuildingCost, coinSpan)  
+-rework dedicated coin span to contain 4 empty span elements, as required by formatCoins function  
+  
+Prototype dynamic tooltip complete!  
+Testing...  
+Testing reveals updateTooltip is only getting called once. Which means I did a dumb.  
+  
+Cause: when adding the event listener for mouseenter, I invoked the updateTooltip function instead of passing the function object.  
+Solution: Re-organize updateTooltip parameter to be the event object, grab the button ID from the event object attribute 'currentTarget'  
+  
+Step 1: rewrite updateTooltip signature to accept event parameter  
+Step 2: inside updateTooltip, first use event attribute currentTarget.id to determine the base of the tooltip ID  
+    (using same variable name for tooltip to reuse existing function code)  
+Step 3: update addEventListener to reflect changes.  
+  
+Sparkle: this rework has the added benefit of making the updateTooltip work for all Town buttons.  
+  
+Note: currentTarget always refers to the HTML element that the event listener was attached to, per Mozilla docs. Use this to grab the base ID.  
+  
+Success!  
+  
+Next: I want the tooltip to update when a user buys a building. Currently, the tooltip doesn't update until the user's  
+mouse leaves and then reenters the div.  
+  
+Solution: add a call to updateTooltip() at the end of the click handler function.  
+Expected: tooltip will update automatically after a building purchase.  
+  
+Step 1: add eventObject parameter to handleClick function inside woodenHut object.  
+Step 2: confirm the eventObject.currentTarget is the woodenHut building HTML button element  
+Step 3: simply pass the eventObject as a parameter to the updateTooltip call at the bottom of handleClick  
+    Note: the event objects are of different types, but the currentTarget will hopefully be unchanged.  
+
+SUCCESS! LET'S GOOOO!  
+  
+Lastly, port the changes to woodenHut to the other town buildings.  
+-[x] Farm  
+-[x] Grain Shed  
+Oops, forgot I hard-coded the building cost to check wooden hut.  
+In building object, add an attribute for id (to aid in using the button id when looking up the corresponding building object).  
+  
+I love the fact that I can look up object properties using array-like syntax with the index / key being a template string.  
+Fuck yeah. I just leveled up.  
+  
+Implement town destruction when embracing Evil.  
+-add attribute: baseCost to townBuilding objects (this value will never be modified)  
+-reset object values to their bases in o_townBuildingContainer  
+-reset object values to their bases in gameData.townData, if present  
+  
+Future TODO: decouple the base definitions in townBuildings.js from the current working set of town data
+Bug: Town building counts aren't getting saved, but costOfNextBuilding is getting saved.
+
 ### 10/11/2021
 
-Updated tooltip style for better visual separation and ease of reading.
-Wrote tooltips for town buildings.
-Began work on dynamic tooltip updates.
+Updated tooltip style for better visual separation and ease of reading.  
+Wrote tooltips for town buildings.  
+Began work on dynamic tooltip updates.  
 
 ### 10/5/2021  
 

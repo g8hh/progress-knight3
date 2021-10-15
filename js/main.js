@@ -1160,6 +1160,13 @@ function format(number) {
     return scaled.toFixed(1) + suffix;
 }
 
+/*
+* Input:  coins   = 'number' type, representing money in raw copper coins format
+*         element = any HTML element containing four <span> elements. 
+* Output: Coin values are placed into their respective <span> elements. 
+*         Span styles are set to represent coin colors. (e.g. gold color for gold coins)
+*
+*/
 function formatCoins(coins, element) {
     var tiers = ["p", "g", "s"]
     var colors = {
@@ -1218,15 +1225,18 @@ function rebirthOne() {
 }
 
 function rebirthTwo() {
-    gameData.rebirthTwoCount += 1
-    gameData.evil += getEvilGain()
+    testSuccessOfTownDestruction();
+    gameData.rebirthTwoCount += 1;
+    gameData.evil += getEvilGain();
 
-    rebirthReset()
+    rebirthReset();
 
     for (taskName in gameData.taskData) {
-        var task = gameData.taskData[taskName]
-        task.maxLevel = 0
+        var task = gameData.taskData[taskName];
+        task.maxLevel = 0;
     }    
+    destroyTownWhileEmbracingEvil();
+    testSuccessOfTownDestruction();
 }
 
 function rebirthReset() {
@@ -1414,13 +1424,15 @@ function exportGameData() {
 function registerEventListeners() {
     let woodenHutButton = document.getElementById("woodenHut");
     woodenHutButton.addEventListener("click", o_townBuildingsContainer.o_woodenHut.handleClick);
-    woodenHutButton.addEventListener("mouseenter", updateTooltip("tooltip-woodenHut"));
+    woodenHutButton.addEventListener("mouseenter", updateTooltip);
 
     let farmButton = document.getElementById("farm");
     farmButton.addEventListener("click", o_townBuildingsContainer.o_farm.handleClick);
+    farmButton.addEventListener("mouseenter", updateTooltip);
 
     let grainShedButton = document.getElementById("grainShed");
     grainShedButton.addEventListener("click", o_townBuildingsContainer.o_grainShed.handleClick);
+    grainShedButton.addEventListener("mouseenter", updateTooltip);
 }
 
 /*
