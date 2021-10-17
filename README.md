@@ -8,6 +8,18 @@ Link to the base game: https://ihtasham42.github.io/progress-knight/
 
 # dev-diary  
 
+### 10/17/2021  
+Goal for today:  squash that Shop bug!  
+
+What's that shop bug? Someone in Discord said there's a known (to them) bug where if you have a shop item active,  
+there's a case where you cannot deactivate that item if you're too poor.  
+
+So where tf is the code that handles shop button clicks?  
+  
+Found it in updateItemRows(). Upon inspection, found the suspect line of code.  
+And honestly, looks like an innocent logic error. Commenting out the line gives us the desired behavior  
+of full control over item purchasing once initially unlocked.  
+
 ### 10/15/2021  
 # Updates! October 3rd - October 15th, 2021  
 -restyled tooltips for easier readability, reduced eye strain  
