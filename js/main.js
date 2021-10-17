@@ -907,26 +907,26 @@ function updateTaskRows() {
 
 function updateItemRows() {
     for (key in gameData.itemData) {
-        var item = gameData.itemData[key]
-        var row = document.getElementById("row " + item.name)
-        var button = row.getElementsByClassName("button")[0]
-        button.disabled = gameData.coins < item.getExpense()
-        var active = row.getElementsByClassName("active")[0]
-        var color = itemCategories["Properties"].includes(item.name) ? headerRowColors["Properties"] : headerRowColors["Misc"]
-        active.style.backgroundColor = gameData.currentMisc.includes(item) || item == gameData.currentProperty ? color : "white"
-        row.getElementsByClassName("effect")[0].textContent = item.getEffectDescription()
-        formatCoins(item.getExpense(), row.getElementsByClassName("expense")[0])
+        var item = gameData.itemData[key];
+        var row = document.getElementById("row " + item.name);
+        var button = row.getElementsByClassName("button")[0];
+        //button.disabled = gameData.coins < item.getExpense();
+        var active = row.getElementsByClassName("active")[0];
+        var color = itemCategories["Properties"].includes(item.name) ? headerRowColors["Properties"] : headerRowColors["Misc"];
+        active.style.backgroundColor = gameData.currentMisc.includes(item) || item == gameData.currentProperty ? color : "white";
+        row.getElementsByClassName("effect")[0].textContent = item.getEffectDescription();
+        formatCoins(item.getExpense(), row.getElementsByClassName("expense")[0]);
     }
 }
 
 function updateHeaderRows(categories) {
     for (categoryName in categories) {
-        var className = removeSpaces(categoryName)
-        var headerRow = document.getElementsByClassName(className)[0]
-        var maxLevelElement = headerRow.getElementsByClassName("maxLevel")[0]
-        gameData.rebirthOneCount > 0 ? maxLevelElement.classList.remove("hidden") : maxLevelElement.classList.add("hidden")
-        var skipSkillElement = headerRow.getElementsByClassName("skipSkill")[0]
-        skipSkillElement.style.display = categories == skillCategories && autoLearnElement.checked ? "block" : "none"
+        var className = removeSpaces(categoryName);
+        var headerRow = document.getElementsByClassName(className)[0];
+        var maxLevelElement = headerRow.getElementsByClassName("maxLevel")[0];
+        gameData.rebirthOneCount > 0 ? maxLevelElement.classList.remove("hidden") : maxLevelElement.classList.add("hidden");
+        var skipSkillElement = headerRow.getElementsByClassName("skipSkill")[0];
+        skipSkillElement.style.display = categories == skillCategories && autoLearnElement.checked ? "block" : "none";
     }
 }
 
