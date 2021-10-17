@@ -157,3 +157,7 @@ button:focus {
 .small-margin  {
     margin-bottom: 2px;
 }
+
+.townTab h4 {
+    text-align: center;
+}
