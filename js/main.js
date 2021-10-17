@@ -832,7 +832,7 @@ function updateRequiredRows(data, categoryType) {
                         var task = gameData.taskData[requirement.task]
                         //why not just use the already-built requirement.isCompleted check?
                         if (task.level >= requirement.requirement) continue
-                        var text = " " + requirement.task + " level " + format(task.level) + "/" + format(requirement.requirement) + ","
+                        var text = " " + requirement.task + " level " + task.level + "/" + format(requirement.requirement) + ","
                         finalText += text
                     }
                     finalText = finalText.substring(0, finalText.length - 1)
