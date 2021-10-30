@@ -1614,5 +1614,5 @@ setTab(jobTabButton, "jobs");
 
 update();
 setInterval(update, 1000 / updateSpeed);
-setInterval(saveGameData, 3000);
+setInterval(saveGameData, 6000);
 setInterval(setSkillWithLowestMaxXp, 1000);
