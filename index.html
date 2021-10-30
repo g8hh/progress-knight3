@@ -314,6 +314,7 @@
                     </div>
                 </div> <!-- End Town Tab -->
 
+                <!-- Projects -->
                 <div class="tab townTab" id="projects">
                     <!--******* Nav-bar with tabbed content navigation buttons *******-->
                     <div class="panel w3-margin-left" style="width: 840px; height: 40px; float: left">
@@ -321,7 +322,11 @@
                         <div class="w3-button w3-bar-item tabButton" onClick="setTab(this, 'projects')">Projects</div>
                         <div class="w3-button w3-bar-item tabButton" id="shopTabButton" onClick="setTab(this, 'research')">Research</div>
                     </div> <!-- End nav-bar -->
+
                     <h4>Projects</h4>
+                    <div id="project-container">
+
+                    </div>
 
                 </div>
 
@@ -412,6 +417,22 @@
         </div>
     </div>
 </body>
+
+<template id="project-card-template">
+    <div class="project-card">
+        <h4>Project Name</h4>
+        <h5>Not started</h5>
+        <!-- Inner progress bar text will show numerical progress, e.g. 101.3/534-->
+        <div class="progress-bar progressBar tooltip">
+            <div class="progress-fill progressFill"></div>
+            <div class="progress-text name">Task</div>
+            <span class="tooltipText">Tooltip, mutha fucka!</span>
+        </div>
+        <div class="assigned-workers">
+            <p>Assigned Workers: <span class="number-assigned-workers">0</span></p>
+        </div>
+    </div>
+</template>
 
 <script type="text/javascript" src="js/HackTimer.js"></script>
 <script type="text/javascript" src="js/classes.js"></script>
