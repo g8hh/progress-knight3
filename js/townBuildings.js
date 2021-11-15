@@ -14,6 +14,7 @@ o_woodenHut: {
     costOfNextBuilding: 100000000001,
     costGrowthFactor: 1.01,
     role: ["Housing"],
+    citizenCapacity: 2,
 
     handleClick: function(eventObject) {
         if(gameData.coins >= this.costOfNextBuilding) {
@@ -22,7 +23,11 @@ o_woodenHut: {
             this.count += 1;
             console.log(`Post-increment. This.count: ${this.count}`);
             this.costOfNextBuilding *= this.costGrowthFactor;
+        } else {
+            return;
         }
+        gameData.totalCitizens += this.citizenCapacity;
+        updateIdleCitizens();
 
         updateTooltip(eventObject);
     },

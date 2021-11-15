@@ -128,3 +128,20 @@ function regulateGrainMarkets() {
     } 
 }
 setInterval(regulateGrainMarkets, 15000);
+
+//Updates the Town page "Idle Citizens" label with the new number of idle citizens
+function updateIdleCitizens() {
+    elementToUpdate = document.querySelector("#idleCitizensCounter");
+    console.log(elementToUpdate);
+    console.log(`Current number of idle citizens: ${gameData.idleCitizens}`);
+    console.log(`Current number of total citizens: ${gameData.totalCitizens}`);
+    console.log(`Current number of assigned citizens: ${gameData.assignedCitizens}`);
+
+    gameData.idleCitizens = gameData.totalCitizens - gameData.assignedCitizens;
+
+    console.log(`New number of idle citizens: ${gameData.idleCitizens}`);
+    console.log(`New number of total citizens: ${gameData.totalCitizens}`);
+    console.log(`New number of assigned citizens: ${gameData.assignedCitizens}`);
+
+    elementToUpdate.textContent = `Idle citizens: ${gameData.idleCitizens}`;
+}

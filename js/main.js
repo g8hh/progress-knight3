@@ -2,6 +2,7 @@ var gameData = {
     taskData: {},
     itemData: {},
     townData: {},
+
     rawTownIncome: 0,
     coins: 0,
     days: 365 * 14,
@@ -16,6 +17,10 @@ var gameData = {
     currentSkill: null,
     currentProperty: null,
     currentMisc: null,
+
+    totalCitizens: 0,
+    assignedCitizens: 0,
+    idleCitizens: 0,
 }
 
 //tempData is used during initial game setup. 
