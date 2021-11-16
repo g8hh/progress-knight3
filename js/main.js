@@ -604,7 +604,8 @@ function setTab(element, selectedTab) {
 }
 
 function setPause() {
-    gameData.paused = !gameData.paused
+  gameData.paused = !gameData.paused
+  updateUI();
 }
 
 function setTimeWarping() {
@@ -1401,6 +1402,7 @@ function updateUI() {
 }
 
 function update() {
+  if (!gameData.paused) {
     increaseDays();
     autoPromote();
     autoLearn();
@@ -1408,6 +1410,7 @@ function update() {
     doCurrentTask(gameData.currentSkill);
     applyExpenses();
     updateUI();
+  }
 }
 
 function resetGameData() {
