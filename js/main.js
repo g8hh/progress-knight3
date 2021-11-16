@@ -1438,6 +1438,10 @@ function exportGameData() {
 
 function uploadGameData() {
     var input = document.getElementById("uploadSaveInput");
+    if (input.files.length === 0) {
+        alert("Please select a file to upload");
+        return;
+    }
     var file = input.files[0];
     var reader = new FileReader();
     reader.readAsText(file);
