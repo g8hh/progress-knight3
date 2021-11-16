@@ -1436,6 +1436,36 @@ function exportGameData() {
     importExportBox.value = window.btoa(JSON.stringify(gameData));
 }
 
+function uploadGameData() {
+    var input = document.getElementById("uploadSaveInput");
+    var file = input.files[0];
+    var reader = new FileReader();
+    reader.readAsText(file);
+
+    reader.onload = function () {
+        var data = JSON.parse(window.atob(reader.result));
+        gameData = data;
+        saveGameData();
+        location.reload();
+    };
+}
+
+function downloadGameData() {
+    var filename = "progressKnightReborn.sav";
+    var data = window.btoa(JSON.stringify(gameData));
+    var file = new Blob([data], { type: "text/plain" });
+
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else {
+        let saveFile = document.createElement("a");
+        saveFile.download = filename;
+        saveFile.href = URL.createObjectURL(file);
+        saveFile.click();
+        URL.revokeObjectURL(saveFile.href);
+    }
+}
+
 function registerEventListeners() {
     let woodenHutButton = document.getElementById("woodenHut");
     woodenHutButton.addEventListener("click", o_townBuildingsContainer.o_woodenHut.handleClick);
