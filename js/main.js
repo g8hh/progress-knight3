@@ -524,8 +524,15 @@ function applyMultipliers(value, multipliers) {
     var finalMultiplier = 1;
     multipliers.forEach(function(multiplierFunction) {
         //wtf is multiplier function? It's called like a function, but we have no function definition ANYWHERE. Mrrrrr...
-        var multiplier = multiplierFunction();
-        finalMultiplier *= multiplier;
+      if (multiplierFunction !== null) {
+        try {
+          var multiplier = multiplierFunction();
+          finalMultiplier *= multiplier;
+        } catch (e) {
+          console.log(multiplierFunction);
+          console.trace();
+        }
+      }
     });
     var finalValue = Math.round(value * finalMultiplier);
     return finalValue;
