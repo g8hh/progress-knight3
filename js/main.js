@@ -524,8 +524,15 @@ function applyMultipliers(value, multipliers) {
     var finalMultiplier = 1;
     multipliers.forEach(function(multiplierFunction) {
         //wtf is multiplier function? It's called like a function, but we have no function definition ANYWHERE. Mrrrrr...
-        var multiplier = multiplierFunction();
-        finalMultiplier *= multiplier;
+      if (multiplierFunction !== null) {
+        try {
+          var multiplier = multiplierFunction();
+          finalMultiplier *= multiplier;
+        } catch (e) {
+          console.log(multiplierFunction);
+          console.trace();
+        }
+      }
     });
     var finalValue = Math.round(value * finalMultiplier);
     return finalValue;
@@ -597,7 +604,8 @@ function setTab(element, selectedTab) {
 }
 
 function setPause() {
-    gameData.paused = !gameData.paused
+  gameData.paused = !gameData.paused
+  updateUI();
 }
 
 function setTimeWarping() {
@@ -1394,6 +1402,7 @@ function updateUI() {
 }
 
 function update() {
+  if (!gameData.paused) {
     increaseDays();
     autoPromote();
     autoLearn();
@@ -1401,6 +1410,7 @@ function update() {
     doCurrentTask(gameData.currentSkill);
     applyExpenses();
     updateUI();
+  }
 }
 
 function resetGameData() {
@@ -1424,6 +1434,40 @@ function importGameData() {
 function exportGameData() {
     var importExportBox = document.getElementById("importExportBox");
     importExportBox.value = window.btoa(JSON.stringify(gameData));
+}
+
+function uploadGameData() {
+    var input = document.getElementById("uploadSaveInput");
+    if (input.files.length === 0) {
+        alert("Please select a file to upload");
+        return;
+    }
+    var file = input.files[0];
+    var reader = new FileReader();
+    reader.readAsText(file);
+
+    reader.onload = function () {
+        var data = JSON.parse(window.atob(reader.result));
+        gameData = data;
+        saveGameData();
+        location.reload();
+    };
+}
+
+function downloadGameData() {
+    var filename = "progressKnightReborn.sav";
+    var data = window.btoa(JSON.stringify(gameData));
+    var file = new Blob([data], { type: "text/plain" });
+
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else {
+        let saveFile = document.createElement("a");
+        saveFile.download = filename;
+        saveFile.href = URL.createObjectURL(file);
+        saveFile.click();
+        URL.revokeObjectURL(saveFile.href);
+    }
 }
 
 function registerEventListeners() {
