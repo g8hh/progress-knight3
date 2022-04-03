@@ -1415,7 +1415,7 @@ function update() {
 
 function resetGameData() {
     //author: theSpuu
-    var result = confirm("Are you sure you want to reset your game?");
+    var result = confirm("您确定要重置游戏吗?");
     if (result) {
         localStorage.clear();
         location.reload();
